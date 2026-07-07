@@ -5,14 +5,22 @@
   "type": "module",
   "scripts": {
     "dev": "vp dev",
-    "build": "tsc && vp build",
+    "build": "tsc -b && vp build",
     "preview": "vp preview",
-    "prepare": "vp config"
+    "prepare": "vp config",
+    "cf-typegen": "wrangler types",
+    "deploy": "vp build && wrangler deploy"
+  },
+  "dependencies": {
+    "hono": "^4.12.27"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.43.0",
+    "@cloudflare/workers-types": "^5.20260706.1",
     "typescript": "~6.0.2",
     "vite": "catalog:",
-    "vite-plus": "catalog:"
+    "vite-plus": "catalog:",
+    "wrangler": "^4.107.0"
   },
   "devEngines": {
     "packageManager": {
