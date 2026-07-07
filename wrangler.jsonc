@@ -2,12 +2,11 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "web",
   "compatibility_date": "2026-07-06",
-  "main": "./worker/index.ts",
-  "assets": {
-    "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/*"],
-  },
+  "main": "./worker/index.tsx",
   "observability": {
     "enabled": true,
+  },
+  "vars": {
+    "APP_BASE_URL": "http://localhost:5173",
   },
 }
