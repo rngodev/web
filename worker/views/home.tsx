@@ -36,14 +36,6 @@ export default function Home() {
               <span class="text-2xl font-bold">rngo</span>
             </a>
           </div>
-          <div class="flex justify-end">
-            <a
-              href={`${context.appBaseUrl}/sign-in`}
-              class="text-sm text-stone-900/50 transition-colors hover:text-stone-900 dark:text-stone-200/50 dark:hover:text-stone-200"
-            >
-              Sign In →
-            </a>
-          </div>
         </div>
       </header>
 

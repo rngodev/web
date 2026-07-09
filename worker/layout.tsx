@@ -1,5 +1,5 @@
 import { createContext } from "hono/jsx";
-import type { PropsWithChildren } from "hono/jsx";
+import { jsxRenderer, useRequestContext } from "hono/jsx-renderer";
 import { Link, ViteClient } from "vite-ssr-components/hono";
 
 export interface LayoutContextValue {
@@ -10,18 +10,26 @@ export const LayoutContext = createContext<LayoutContextValue>({
   appBaseUrl: "",
 });
 
-export function Layout({ children }: PropsWithChildren) {
+const layout = jsxRenderer(({ children }) => {
+  const c = useRequestContext<{
+    Bindings: Env;
+  }>();
+
   return (
-    <html lang="en">
+    <html class="h-full bg-white dark:bg-gray-900">
       <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>rngo</title>
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <Link href="/src/style.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <ViteClient />
+        <Link href="/src/style.css" rel="stylesheet" />
       </head>
-      <body>{children}</body>
+      <body class="h-full">
+        <LayoutContext.Provider value={{ appBaseUrl: c.env.APP_BASE_URL }}>
+          {children}
+        </LayoutContext.Provider>
+      </body>
     </html>
   );
-}
+});
+
+export default layout;
