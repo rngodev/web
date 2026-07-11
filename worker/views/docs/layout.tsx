@@ -187,6 +187,7 @@ function PlatformSidebar({ active }: { active: string }) {
       </SidebarGroup>
       <SidebarGroup title="Guides">
         <SidebarLink href="/docs/guides/quick-start" active={active} text="Quick Start" />
+        <SidebarLink href="/docs/guides/initialize" active={active} text="Initialize" />
       </SidebarGroup>
       <SidebarGroup title="Concepts">
         <SidebarLink href="/docs/concepts/simulation" active={active} text="Simulation" />
@@ -226,6 +227,7 @@ function CliSidebar({ active }: { active: string }) {
         <SidebarLink href="/docs/cli" active={active} text="Overview" />
       </SidebarGroup>
       <SidebarGroup title="Commands">
+        <SidebarLink href="/docs/cli/init" active={active} text="init" />
         <SidebarLink href="/docs/cli/run" active={active} text="run" />
       </SidebarGroup>
     </>

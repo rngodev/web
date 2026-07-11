@@ -60,8 +60,8 @@ export default function Home() {
             does.
           </h1>
           <p class="text-xl max-w-xl text-stone-900/55 dark:text-stone-200/55">
-            The rngo CLI simulates usage, <br />
-            records responses, logs and other telemetry <br />
+            rngo is a tool that simulates usage, <br />
+            records responses / logs / telemetry, <br />
             and surfaces patterns
           </p>
           <div class="mt-10 flex items-center gap-x-6">

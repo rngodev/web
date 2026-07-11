@@ -5,6 +5,7 @@ import PlatformOverview from "./views/docs/platform/overview";
 import SchemaOverview from "./views/docs/schema/overview";
 import CliOverview from "./views/docs/cli/overview";
 import QuickStart from "./views/docs/platform/guides/quick-start";
+import Initialize from "./views/docs/platform/guides/initialize";
 import Simulation from "./views/docs/platform/concepts/simulation";
 import System from "./views/docs/platform/concepts/system";
 import Effect from "./views/docs/platform/concepts/effect";
@@ -19,6 +20,7 @@ import Reference from "./views/docs/schema/reference";
 import Select from "./views/docs/schema/select";
 import String from "./views/docs/schema/string";
 import Run from "./views/docs/cli/run";
+import Init from "./views/docs/cli/init";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -27,6 +29,7 @@ app.use(Layout);
 app.get("/", (c) => c.render(<Home />));
 app.get("/docs", (c) => c.render(<PlatformOverview />));
 app.get("/docs/guides/quick-start", (c) => c.render(<QuickStart />));
+app.get("/docs/guides/initialize", (c) => c.render(<Initialize />));
 app.get("/docs/concepts/simulation", (c) => c.render(<Simulation />));
 app.get("/docs/concepts/system", (c) => c.render(<System />));
 app.get("/docs/concepts/effect", (c) => c.render(<Effect />));
@@ -42,6 +45,7 @@ app.get("/docs/schema/reference", (c) => c.render(<Reference />));
 app.get("/docs/schema/select", (c) => c.render(<Select />));
 app.get("/docs/schema/string", (c) => c.render(<String />));
 app.get("/docs/cli", (c) => c.render(<CliOverview />));
+app.get("/docs/cli/init", (c) => c.render(<Init />));
 app.get("/docs/cli/run", (c) => c.render(<Run />));
 
 export default app;
