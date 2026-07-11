@@ -18,7 +18,7 @@ import Object from "./views/docs/schema/object";
 import Reference from "./views/docs/schema/reference";
 import Select from "./views/docs/schema/select";
 import String from "./views/docs/schema/string";
-import SimRun from "./views/docs/cli/sim/run";
+import Run from "./views/docs/cli/run";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -42,6 +42,6 @@ app.get("/docs/schema/reference", (c) => c.render(<Reference />));
 app.get("/docs/schema/select", (c) => c.render(<Select />));
 app.get("/docs/schema/string", (c) => c.render(<String />));
 app.get("/docs/cli", (c) => c.render(<CliOverview />));
-app.get("/docs/cli/sim/run", (c) => c.render(<SimRun />));
+app.get("/docs/cli/run", (c) => c.render(<Run />));
 
 export default app;

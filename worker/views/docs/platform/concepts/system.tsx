@@ -66,7 +66,7 @@ effects:
         </li>
         <li>
           We've specified <InlineCode>import.command</InlineCode>. When you run the simulation via{" "}
-          <InlineCode>rngo sim</InlineCode>, the CLI will execute the command locally and pipe{" "}
+          <InlineCode>rngo run</InlineCode>, the CLI will execute the command locally and pipe{" "}
           <InlineCode>users</InlineCode> data to stdin.
         </li>
       </ol>

@@ -44,8 +44,8 @@ effects:
 
       <P>
         You can run a spec using the{" "}
-        <A href="/docs/cli/sim/run">
-          <InlineCode>rngo sim run</InlineCode>
+        <A href="/docs/cli/run">
+          <InlineCode>rngo run</InlineCode>
         </A>{" "}
         CLI command.
       </P>

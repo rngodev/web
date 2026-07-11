@@ -226,7 +226,7 @@ function CliSidebar({ active }: { active: string }) {
         <SidebarLink href="/docs/cli" active={active} text="Overview" />
       </SidebarGroup>
       <SidebarGroup title="Commands">
-        <SidebarLink href="/docs/cli/sim/run" active={active} text="sim run" />
+        <SidebarLink href="/docs/cli/run" active={active} text="run" />
       </SidebarGroup>
     </>
   );

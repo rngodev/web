@@ -1,10 +1,10 @@
-import { A, CodeBlock, DocsLayout, H1, H2, InlineCode, P } from "../../layout";
+import { A, CodeBlock, DocsLayout, H1, H2, InlineCode, P } from "../layout";
 
-export default function SimRun() {
+export default function Run() {
   return (
-    <DocsLayout section="CLI" active="sim run">
+    <DocsLayout section="CLI" active="run">
       <H1>
-        <code class="text-3xl font-medium tracking-tight">rngo sim run</code>
+        <code class="text-3xl font-medium tracking-tight">rngo run</code>
       </H1>
 
       <P>Runs a simulation. By default, it:</P>
@@ -27,7 +27,7 @@ export default function SimRun() {
       <H2>Building a Simulation</H2>
 
       <P>
-        <InlineCode>rngo sim</InlineCode> builds a simulation based upon the contents of the local
+        <InlineCode>rngo run</InlineCode> builds a simulation based upon the contents of the local
         <InlineCode>.rngo</InlineCode> directory.
       </P>
 
@@ -77,8 +77,8 @@ entities:
       <H2>Applying Effects</H2>
 
       <P>
-        <InlineCode>rngo sim run</InlineCode> will run the simulation and routes the stream of
-        events to the appropriate <A href="/docs/concepts/system">system</A>.
+        <InlineCode>rngo run</InlineCode> will run the simulation and routes the stream of events to
+        the appropriate <A href="/docs/concepts/system">system</A>.
       </P>
 
       <P>Consider the following excerpt from a simulation:</P>
@@ -116,7 +116,7 @@ effects:
       </CodeBlock>
 
       <P>
-        <InlineCode>rngo sim run</InlineCode> will route to a default system — in this case, it is
+        <InlineCode>rngo run</InlineCode> will route to a default system — in this case, it is
         effectively something like:
       </P>
 
@@ -131,7 +131,7 @@ import:
         You can set the <InlineCode>--stdout</InlineCode> boolean flag, e.g.:
       </P>
 
-      <CodeBlock>rngo sim run --stdout</CodeBlock>
+      <CodeBlock>rngo run --stdout</CodeBlock>
 
       <P>This will skip system routing and write all event values to stdout.</P>
     </DocsLayout>
