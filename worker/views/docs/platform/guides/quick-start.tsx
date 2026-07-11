@@ -88,7 +88,7 @@ effects:
 
       <P>Now run the simulation like this:</P>
 
-      <CodeBlock>rngo sim run --spec rngo.yml --stdout</CodeBlock>
+      <CodeBlock>rngo run --spec rngo.yml --stdout</CodeBlock>
 
       <P>This will output data that looks something like this:</P>
 

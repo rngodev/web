@@ -92,7 +92,7 @@ effects:
 
       <P>You can run this simulation like this:</P>
 
-      <CodeBlock>rngo sim run</CodeBlock>
+      <CodeBlock>rngo run</CodeBlock>
 
       <P>
         The CLI will generate effects, apply them to the database and capture responses in the local
