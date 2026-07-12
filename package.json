@@ -12,6 +12,7 @@
     "deploy": "vp build && wrangler deploy"
   },
   "dependencies": {
+    "@tailwindplus/elements": "^1.0.22",
     "hono": "^4.12.27"
   },
   "devDependencies": {
