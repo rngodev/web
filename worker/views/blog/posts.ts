@@ -1,4 +1,4 @@
-export type PostType = "release" | "example";
+export type PostType = "release-friday";
 
 export interface PostMeta {
   slug: string;
@@ -10,19 +10,10 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
-    slug: "simulating-a-payments-api",
-    title: "Simulating a Payments API",
-    excerpt:
-      "A walkthrough of modeling charges and refunds with rngo, from system config to a running simulation.",
-    date: "2026-06-18",
-    type: "example",
-  },
-  {
-    slug: "shorter-cli-commands",
-    title: "Shorter CLI Commands, Plus rngo init",
-    excerpt:
-      "Every CLI command got shorter to type, and a new rngo init command gets a new project running in one step.",
-    date: "2026-05-04",
-    type: "release",
+    slug: "rngo-init",
+    title: "rngo init",
+    excerpt: "Added a new `rngo init` command that sets up your project in one step.",
+    date: "2026-07-10",
+    type: "release-friday",
   },
 ];

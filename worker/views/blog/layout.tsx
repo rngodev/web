@@ -12,13 +12,11 @@ export function formatDate(iso: string) {
 }
 
 const postTypeLabels: Record<PostType, string> = {
-  release: "Release",
-  example: "Example",
+  "release-friday": "Release Friday",
 };
 
 const postTypeStyles: Record<PostType, string> = {
-  release: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  example: "bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-400",
+  "release-friday": "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 };
 
 export function PostTypeBadge({ type }: { type: PostType }) {
@@ -37,7 +35,7 @@ function RecentPosts({ current }: { current?: string }) {
         {posts.slice(0, 5).map((post) => (
           <li>
             <a
-              href={`/blog/${post.slug}`}
+              href={`/blog/${post.type}/${post.slug}`}
               aria-current={current === post.slug ? "page" : undefined}
               class={`block px-2 py-1.5 text-sm rounded-sm transition-colors ${
                 current === post.slug
