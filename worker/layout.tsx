@@ -1,6 +1,6 @@
 import { createContext } from "hono/jsx";
 import { jsxRenderer, useRequestContext } from "hono/jsx-renderer";
-import { Link, ViteClient } from "vite-ssr-components/hono";
+import { Link, Script, ViteClient } from "vite-ssr-components/hono";
 
 export interface LayoutContextValue {
   appBaseUrl: string;
@@ -22,6 +22,7 @@ const layout = jsxRenderer(({ children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <ViteClient />
         <Link href="/src/style.css" rel="stylesheet" />
+        <Script src="/src/main.ts" type="module" />
       </head>
       <body class="h-full">
         <LayoutContext.Provider value={{ appBaseUrl: c.env.APP_BASE_URL }}>

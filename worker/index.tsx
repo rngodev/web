@@ -1,6 +1,8 @@
 import { Hono } from "hono";
 import Layout from "./layout";
 import Home from "./views/home";
+import Blog from "./views/blog";
+import RngoInit from "./views/blog/posts/release-friday/rngo-init";
 import PlatformOverview from "./views/docs/platform/overview";
 import SchemaOverview from "./views/docs/schema/overview";
 import CliOverview from "./views/docs/cli/overview";
@@ -27,6 +29,8 @@ const app = new Hono<{ Bindings: Env }>();
 app.use(Layout);
 
 app.get("/", (c) => c.render(<Home />));
+app.get("/blog", (c) => c.render(<Blog />));
+app.get("/blog/release-friday/rngo-init", (c) => c.render(<RngoInit />));
 app.get("/docs", (c) => c.render(<PlatformOverview />));
 app.get("/docs/guides/quick-start", (c) => c.render(<QuickStart />));
 app.get("/docs/guides/initialize", (c) => c.render(<Initialize />));
