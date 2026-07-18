@@ -7,8 +7,29 @@ export function H1({ children }: { children: any }) {
   return <h1 class="text-3xl font-medium tracking-tight mb-4">{children}</h1>;
 }
 
-export function H2({ children }: { children: any }) {
-  return <h2 class="text-xl font-medium tracking-tight mt-10 mb-3">{children}</h2>;
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+export function H2({ children }: { children: string }) {
+  const id = slugify(children);
+  return (
+    <h2 id={id} class="group relative scroll-mt-20 text-xl font-medium tracking-tight mt-10 mb-3">
+      <a
+        href={`#${id}`}
+        class="absolute -left-4 opacity-0 text-amber-600 dark:text-amber-400 transition-opacity group-hover:opacity-100"
+        aria-hidden="true"
+        tabindex={-1}
+      >
+        #
+      </a>
+      {children}
+    </h2>
+  );
 }
 
 export function H3({ children }: { children: any }) {
@@ -31,7 +52,7 @@ export function A({ href, children }: { href: string; children: any }) {
 
 export function CodeBlock({ children }: { children: string }) {
   return (
-    <pre class="bg-stone-900 dark:bg-stone-800 text-stone-200 text-xs leading-relaxed p-5 overflow-x-auto mb-6 rounded-sm">
+    <pre class="bg-stone-900 dark:bg-stone-800 text-stone-200 text-xs leading-relaxed p-5 overflow-x-auto mb-6 rounded-sm border border-stone-900/10 dark:border-stone-200/10">
       <code>{children}</code>
     </pre>
   );
@@ -189,15 +210,15 @@ function SchemaSidebar({ active }: { active: string }) {
         <SidebarLink href="/docs/schema" active={active} text="Overview" />
       </SidebarGroup>
       <SidebarGroup title="primitive">
-        <SidebarLink href="/docs/schema/array" active={active} text="array" />
-        <SidebarLink href="/docs/schema/constant" active={active} text="constant" />
-        <SidebarLink href="/docs/schema/context" active={active} text="context" />
-        <SidebarLink href="/docs/schema/function" active={active} text="function" />
-        <SidebarLink href="/docs/schema/number" active={active} text="number" />
-        <SidebarLink href="/docs/schema/object" active={active} text="object" />
-        <SidebarLink href="/docs/schema/reference" active={active} text="reference" />
-        <SidebarLink href="/docs/schema/select" active={active} text="select" />
-        <SidebarLink href="/docs/schema/string" active={active} text="string" />
+        <SidebarLink href="/docs/schema/primitive/array" active={active} text="array" />
+        <SidebarLink href="/docs/schema/primitive/constant" active={active} text="constant" />
+        <SidebarLink href="/docs/schema/primitive/context" active={active} text="context" />
+        <SidebarLink href="/docs/schema/primitive/function" active={active} text="function" />
+        <SidebarLink href="/docs/schema/primitive/number" active={active} text="number" />
+        <SidebarLink href="/docs/schema/primitive/object" active={active} text="object" />
+        <SidebarLink href="/docs/schema/primitive/reference" active={active} text="reference" />
+        <SidebarLink href="/docs/schema/primitive/select" active={active} text="select" />
+        <SidebarLink href="/docs/schema/primitive/string" active={active} text="string" />
       </SidebarGroup>
     </>
   );

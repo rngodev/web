@@ -114,7 +114,8 @@ end: now + hours(12)
 
       <P>
         Systems and effects each get their own configuration files under{" "}
-        <InlineCode>.rngo/systems/</InlineCode> and <InlineCode>.rngo/effects/</InlineCode>, e.g.:
+        <InlineCode>.rngo/systems/</InlineCode>, <InlineCode>.rngo/effects/</InlineCode> and{" "}
+        <InlineCode>.rngo/schemas/</InlineCode>, e.g.:
       </P>
 
       <CodeBlock>
@@ -124,12 +125,14 @@ end: now + hours(12)
 .rngo/effects/user.create.yml
 .rngo/effects/post.create.yml
 .rngo/effects/comment.create.yml
+.rngo/schemas/email.yml
 `}
       </CodeBlock>
 
       <P>
-        See the <A href="/docs/concepts/system">System</A> and{" "}
-        <A href="/docs/concepts/effect">Effect</A> references for how to customize.
+        See the <A href="/docs/concepts/system">System</A>,{" "}
+        <A href="/docs/concepts/effect">Effect</A>, and <A href="/docs/concepts/schema">Schema</A>{" "}
+        references for how to customize.
       </P>
     </DocsLayout>
   );

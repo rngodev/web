@@ -1,4 +1,12 @@
-import { CodeBlock, DocsLayout, H1, H2, InlineCode, OptionalAttributeHeader, P } from "../layout";
+import {
+  CodeBlock,
+  DocsLayout,
+  H1,
+  H2,
+  InlineCode,
+  OptionalAttributeHeader,
+  P,
+} from "../../layout";
 
 export default function Number() {
   return (

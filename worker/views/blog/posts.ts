@@ -10,6 +10,13 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "custom-schema-types",
+    title: "Custom Schema Types",
+    excerpt: "An initial step towards user-defined schema types.",
+    date: "2026-07-17",
+    type: "release-friday",
+  },
+  {
     slug: "rngo-init",
     title: "rngo init",
     excerpt: "Added a new `rngo init` command that sets up your project in one step.",

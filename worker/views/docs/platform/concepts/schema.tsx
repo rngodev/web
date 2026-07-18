@@ -81,7 +81,7 @@ properties:
       <P>
         Ultimately, an <A href="/docs/concepts/effect">effect's</A> schema must be a composition of{" "}
         <A href="/docs/schema">primitive schema types</A>, but a spec may define custom schema types
-        under the <InlineCode>schemas</InlineCode> field that can be shared across effects.
+        under the <InlineCode>schemas</InlineCode> field that can be shared <i>across</i> effects.
       </P>
 
       <P>
@@ -115,13 +115,36 @@ effects:
       </CodeBlock>
 
       <P>
-        Note how each effect's <InlineCode>id</InlineCode> property is referencing the custom{" "}
-        <InlineCode>uuid</InlineCode> schema type
+        This is effectively identical to the following spec, where the <InlineCode>uuid</InlineCode>{" "}
+        schema has been inserted into the <InlineCode>id</InlineCode> properties:
       </P>
 
+      <CodeBlock>
+        {`effects:
+  users.create:
+    schema:
+      type: object
+      properties:
+        id:
+          type: string
+          format: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+        name:
+          type: string
+  posts.create:
+    schema:
+      type: object
+      properties:
+        id:
+          type: string
+          format: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+        authorId:
+          type: reference
+          effect: users.create`}
+      </CodeBlock>
+
       <P>
-        A custom schema type must specify a <InlineCode>schema</InlineCode> field, which should have
-        a literal schema spec.
+        The only thing you need to define a custom schema type is a <InlineCode>schema</InlineCode>{" "}
+        field, which defines the literal schema spec.
       </P>
     </DocsLayout>
   );

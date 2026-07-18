@@ -71,7 +71,8 @@ entities:
         If the path already exists in <InlineCode>.rngo/config.yml</InlineCode>, the{" "}
         <InlineCode>.rngo/effects</InlineCode> file will be ignored. An analogous process happens
         for the files in the
-        <InlineCode>.rngo/systems</InlineCode> directory.
+        <InlineCode>.rngo/systems</InlineCode> and <InlineCode>.rngo/schemas</InlineCode>{" "}
+        directories.
       </P>
 
       <H2>Applying Effects</H2>
