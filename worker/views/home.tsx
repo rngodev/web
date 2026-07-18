@@ -22,8 +22,7 @@ export default function Home() {
           </h1>
           <p class="text-xl max-w-xl text-stone-900/55 dark:text-stone-200/55">
             rngo is a tool that simulates usage, <br />
-            records responses / logs / telemetry, <br />
-            and surfaces patterns
+            records metrics and surfaces patterns
           </p>
           <div class="mt-10 flex items-center gap-x-6">
             <a
@@ -45,19 +44,19 @@ export default function Home() {
               href="/docs"
               class="transition-colors hover:text-stone-900/60 dark:hover:text-stone-200/60"
             >
-              docs
+              Docs
             </a>
             <a
               href="/blog"
               class="transition-colors hover:text-stone-900/60 dark:hover:text-stone-200/60"
             >
-              blog
+              Blog
             </a>
             <a
               href="https://github.com/rngodev"
               class="transition-colors hover:text-stone-900/60 dark:hover:text-stone-200/60"
             >
-              github
+              Code
             </a>
           </nav>
         </div>
