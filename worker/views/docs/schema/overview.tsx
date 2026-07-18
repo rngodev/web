@@ -1,4 +1,4 @@
-import { A, DocsLayout, H1, P } from "../layout";
+import { A, DocsLayout, H1, H2, P } from "../layout";
 
 export default function SchemaOverview() {
   return (
@@ -14,6 +14,8 @@ export default function SchemaOverview() {
         This reference contains every schema that rngo provides out-of-the-box. You can use them in
         your simulation as-is, or combine them to create custom schemas.
       </P>
+
+      <H2>Primitive</H2>
 
       <ul class="text-sm leading-relaxed text-stone-900/70 dark:text-stone-200/70 list-disc list-outside ml-4 mb-4 space-y-1">
         <li>

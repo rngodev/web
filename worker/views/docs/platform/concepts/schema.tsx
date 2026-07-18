@@ -1,4 +1,4 @@
-import { A, CodeBlock, DocsLayout, H1, InlineCode, P } from "../../layout";
+import { A, CodeBlock, DocsLayout, H1, H2, InlineCode, P } from "../../layout";
 
 export default function Schema() {
   return (
@@ -7,8 +7,7 @@ export default function Schema() {
 
       <P>
         A <b>schema</b> defines the structure and content of an{" "}
-        <A href="/docs/simulation#effects">effect's</A> events. Consider the following schema
-        definition:
+        <A href="/docs/simulation#effects">effect's</A> events. Consider the following schema spec:
       </P>
 
       <CodeBlock>
@@ -34,8 +33,8 @@ properties:
   age:
     type: number
     scale: 0
-    min: 0
-    max: 120`}
+    minimum: 0
+    maximum: 120`}
       </CodeBlock>
 
       <P>It will endlessly produce values that look like this:</P>
@@ -46,35 +45,83 @@ properties:
 { "email": "111//??@example.org", "age": 58 }`}
       </CodeBlock>
 
+      <H2>Discriminator</H2>
+
       <P>
-        The first thing to note is that every schema definition must specify a{" "}
-        <InlineCode>type</InlineCode> field, which acts as a discriminant — i.e., it determines the
-        other fields that may be specified in the definition.
+        The <InlineCode>type</InlineCode> field of a schema spec acts as the discriminator - i.e. it
+        determines the other fields that you may (or must) specify in the spec.
       </P>
 
       <P>
-        In the above example, the top-level definition has type <InlineCode>object</InlineCode>,
-        which requires a <InlineCode>properties</InlineCode> parameter, while the{" "}
-        <InlineCode>age</InlineCode> property has type
+        In the above example, the top-level spec has type <InlineCode>object</InlineCode>, which
+        requires a <InlineCode>properties</InlineCode> field, while its <InlineCode>age</InlineCode>{" "}
+        property has type
         <InlineCode>number</InlineCode>, which accepts optional
-        <InlineCode>min</InlineCode> and
-        <InlineCode>max</InlineCode> parameters.
+        <InlineCode>minimum</InlineCode> and
+        <InlineCode>maximum</InlineCode> fields.
       </P>
 
-      <P>
-        The second thing to note is that schema types are composable — some "higher level" schema
-        types accept other schema definitions as parameters.
-      </P>
+      <H2>Composition</H2>
+
+      <P>Schemas compose in that some schemas types expect other schemas as inputs.</P>
 
       <P>
-        In the above example, we specify schemas in the <InlineCode>variables</InlineCode> parameter
-        of the <InlineCode>function</InlineCode> schema definition which is itself specified as part
-        of the <InlineCode>properties</InlineCode> parameter of the top-level{" "}
-        <InlineCode>object</InlineCode> schema definition.
+        In the above example, we specify schemas in the <InlineCode>variables</InlineCode> field of
+        the <InlineCode>function</InlineCode> schema spec which is itself specified as part of the{" "}
+        <InlineCode>properties</InlineCode> field of the top-level <InlineCode>object</InlineCode>{" "}
+        schema spec.
       </P>
 
       <P>
         See the <A href="/docs/schema">schema reference</A> for all available schemas.
+      </P>
+
+      <H2>Custom Schema Types</H2>
+
+      <P>
+        Ultimately, an <A href="/docs/concepts/effect">effect's</A> schema must be a composition of{" "}
+        <A href="/docs/schema">primitive schema types</A>, but a spec may define custom schema types
+        under the <InlineCode>schemas</InlineCode> field that can be shared across effects.
+      </P>
+
+      <P>
+        Here's how you'd define and use a custom <InlineCode>uuid</InlineCode> schema type:
+      </P>
+
+      <CodeBlock>
+        {`schemas:
+  uuid:
+    schema:
+      type: string
+      format: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+effects:
+  users.create:
+    schema:
+      type: object
+      properties:
+        id:
+          type: uuid
+        name:
+          type: string
+  posts.create:
+    schema:
+      type: object
+      properties:
+        id:
+          type: uuid
+        authorId:
+          type: reference
+          effect: users.create`}
+      </CodeBlock>
+
+      <P>
+        Note how each effect's <InlineCode>id</InlineCode> property is referencing the custom{" "}
+        <InlineCode>uuid</InlineCode> schema type
+      </P>
+
+      <P>
+        A custom schema type must specify a <InlineCode>schema</InlineCode> field, which should have
+        a literal schema spec.
       </P>
     </DocsLayout>
   );
