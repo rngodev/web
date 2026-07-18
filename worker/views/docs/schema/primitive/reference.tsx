@@ -1,4 +1,4 @@
-import { CodeBlock, DocsLayout, H1, H2, P, RequiredAttributeHeader } from "../layout";
+import { CodeBlock, DocsLayout, H1, H2, P, RequiredAttributeHeader } from "../../layout";
 
 export default function Reference() {
   return (

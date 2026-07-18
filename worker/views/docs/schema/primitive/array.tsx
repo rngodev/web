@@ -7,7 +7,7 @@ import {
   OptionalAttributeHeader,
   P,
   RequiredAttributeHeader,
-} from "../layout";
+} from "../../layout";
 
 export default function Array() {
   return (

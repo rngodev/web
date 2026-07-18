@@ -1,4 +1,12 @@
-import { CodeBlock, DocsLayout, H1, H2, InlineCode, P, RequiredAttributeHeader } from "../layout";
+import {
+  CodeBlock,
+  DocsLayout,
+  H1,
+  H2,
+  InlineCode,
+  P,
+  RequiredAttributeHeader,
+} from "../../layout";
 
 export default function Select() {
   return (

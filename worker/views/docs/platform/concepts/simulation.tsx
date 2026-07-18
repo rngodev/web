@@ -33,13 +33,17 @@ effects:
       type: object
       properties:
         id:
-          type: number
-          min: 1
-          scale: 0
-          step: 1
+          type: myId
         name:
           type: string
-          maxLength: 36`}
+          maxLength: 36
+schemas:
+  myId:
+    schema:
+      type: number
+      min: 1
+      scale: 0
+      step: 1`}
       </CodeBlock>
 
       <P>
@@ -82,6 +86,17 @@ effects:
 
       <P>
         See <A href="/docs/concepts/effect">Effect</A> for syntax details.
+      </P>
+
+      <H2>Schemas</H2>
+
+      <P>
+        <InlineCode>schemas</InlineCode> is a map of named custom schemas that can be reused across
+        effects to produce similar data.
+      </P>
+
+      <P>
+        See <A href="/docs/concepts/schema">Schema</A> for syntax details.
       </P>
     </DocsLayout>
   );

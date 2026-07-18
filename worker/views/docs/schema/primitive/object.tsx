@@ -7,7 +7,7 @@ import {
   InlineCode,
   P,
   RequiredAttributeHeader,
-} from "../layout";
+} from "../../layout";
 
 export default function Object() {
   return (
