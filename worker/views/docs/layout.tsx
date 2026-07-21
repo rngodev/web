@@ -110,13 +110,19 @@ export function Blockquote({ children }: { children: any }) {
   );
 }
 
+export function Badge({ kind }: { kind: "required" | "optional" }) {
+  const classes =
+    kind === "required"
+      ? "text-xs bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 px-1.5 py-0.5 rounded-sm"
+      : "text-xs bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-400 px-1.5 py-0.5 rounded-sm";
+  return <span class={classes}>{kind}</span>;
+}
+
 export function RequiredAttributeHeader({ children }: { children: string }) {
   return (
     <div class="mt-8 mb-2 flex items-center gap-2">
       <InlineCode>{children}</InlineCode>
-      <span class="text-xs bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 px-1.5 py-0.5 rounded-sm">
-        required
-      </span>
+      <Badge kind="required" />
     </div>
   );
 }
@@ -125,9 +131,7 @@ export function OptionalAttributeHeader({ children }: { children: string }) {
   return (
     <div class="mt-8 mb-2 flex items-center gap-2">
       <InlineCode>{children}</InlineCode>
-      <span class="text-xs bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-400 px-1.5 py-0.5 rounded-sm">
-        optional
-      </span>
+      <Badge kind="optional" />
     </div>
   );
 }
