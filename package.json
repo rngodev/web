@@ -9,8 +9,7 @@
     "preview": "vp preview",
     "prepare": "vp config",
     "cf-typegen": "wrangler types",
-    "deploy": "vp build && wrangler deploy",
-    "skill:schema": "node scripts/build-skill-schema.mjs"
+    "deploy": "vp build && wrangler deploy"
   },
   "dependencies": {
     "@tailwindplus/elements": "^1.0.22",
