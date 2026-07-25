@@ -1,12 +1,31 @@
 # `rngo init`
 
-Initializes a simulation for a project by adding `.rngo/config.yml` and updating `.gitignore`, if it exists.
+Initializes a project for rngo.
 
-It will set `key` in `.rngo/config.yml` to the name of the current directory, e.g.:
+The first step is to set up `.rngo/spec.yml` with a key and a default seed, e.g.:
 
 ```yaml
 key: my-project
 seed: 1
 ```
 
-See the [simulation reference](/docs/concepts/simulation) for details on how to further customize.
+Then it ensures the `.gitignore` includes the `.rngo/runs` directory, which is where data from simulation runs will live.
+
+Finally it asks if and where it should install agent skills:
+
+```bash
+✔ Would you like to install agent skills? · yes
+✔ Where should skills be installed? · Standard Local (./.agents/skills)
+./.agents/skills:
+  rngo-custom-schema-type: installed 0.2.0
+  rngo-effect-inference: installed 0.2.0
+  rngo-system-inference: installed 0.2.0
+```
+
+A coding agent is the easiest way to infer systems and effects. With the above skills installed, you can prompt your agent like so:
+
+```
+infer rngo systems and effects!
+```
+
+If you are not using a coding agent, see the [system](/docs/concepts/system) and [effect](/docs/concepts/effect) references for details on how to define them manually.

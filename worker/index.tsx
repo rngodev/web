@@ -2,10 +2,11 @@ import { Hono, type Context } from "hono";
 import Layout from "./layout";
 import Home from "./views/home";
 import Blog from "./views/blog";
-import RngoInit from "./views/blog/posts/release-friday/rngo-init";
 import { DocPage } from "./views/docs/page";
 import { primitiveMarkdown, PrimitivePage } from "./views/docs/schema/primitive/page";
+import RngoInit from "./views/blog/posts/release-friday/rngo-init";
 import CustomSchemaTypes from "./views/blog/posts/release-friday/custom-schema-types";
+import AgentSkills from "./views/blog/posts/release-friday/agent-skills";
 
 import platformOverview from "./views/docs/platform/overview.md?raw";
 import schemaOverview from "./views/docs/schema/overview.md?raw";
@@ -18,6 +19,7 @@ import effect from "./views/docs/platform/concepts/effect.md?raw";
 import schema from "./views/docs/platform/concepts/schema.md?raw";
 import cliRun from "./views/docs/cli/run.md?raw";
 import cliInit from "./views/docs/cli/init.md?raw";
+import cliSkillsInstall from "./views/docs/cli/skills/install.md?raw";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -27,6 +29,7 @@ app.get("/", (c) => c.render(<Home />));
 app.get("/blog", (c) => c.render(<Blog />));
 app.get("/blog/release-friday/rngo-init", (c) => c.render(<RngoInit />));
 app.get("/blog/release-friday/custom-schema-types", (c) => c.render(<CustomSchemaTypes />));
+app.get("/blog/release-friday/agent-skills", (c) => c.render(<AgentSkills />));
 
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new docs page only means adding one call here.
@@ -47,6 +50,7 @@ docsPage("/docs/schema", "Schema", "Overview", schemaOverview);
 docsPage("/docs/cli", "CLI", "Overview", cliOverview);
 docsPage("/docs/cli/init", "CLI", "init", cliInit);
 docsPage("/docs/cli/run", "CLI", "run", cliRun);
+docsPage("/docs/cli/skills/install", "CLI", "skills install", cliSkillsInstall);
 
 // Primitives are auto-discovered from worker/views/docs/schema/primitive/*.md,
 // so a new primitive file needs no changes here.
