@@ -10,6 +10,13 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "agent-skills",
+    title: "Agent Skills",
+    excerpt: "Teach your coding agent how to use rngo.",
+    date: "2026-07-24",
+    type: "release-friday",
+  },
+  {
     slug: "custom-schema-types",
     title: "Custom Schema Types",
     excerpt: "An initial step towards user-defined schema types.",
