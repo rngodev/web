@@ -10,6 +10,13 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "invariants",
+    title: "Invariants",
+    excerpt: "Set expectations of simulation state.",
+    date: "2026-07-31",
+    type: "release-friday",
+  },
+  {
     slug: "agent-skills",
     title: "Agent Skills",
     excerpt: "Teach your coding agent how to use rngo.",

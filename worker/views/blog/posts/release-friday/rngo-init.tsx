@@ -13,8 +13,7 @@ export default function RngoInit() {
       </P>
 
       <P>
-        We've also made many smaller changes to the CLI that improve consistency and
-        quality-of-life.
+        I've also made many smaller changes to the CLI that improve consistency and quality-of-life.
       </P>
 
       <P>
@@ -53,12 +52,12 @@ seed: 1
       <H2>Looking Forward</H2>
 
       <P>
-        Next week, we plan on releasing <b>custom schemas</b>, which will let you define your own
+        Next week, I plan on releasing <b>custom schemas</b>, which will let you define your own
         named schemas for use by your effects.
       </P>
 
       <P>
-        And we'll also try to add agent skills to <InlineCode>rngo init</InlineCode>
+        And I'll also try to add agent skills to <InlineCode>rngo init</InlineCode>
       </P>
     </PostLayout>
   );

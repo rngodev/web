@@ -7,6 +7,7 @@ import { primitiveMarkdown, PrimitivePage } from "./views/docs/schema/primitive/
 import RngoInit from "./views/blog/posts/release-friday/rngo-init";
 import CustomSchemaTypes from "./views/blog/posts/release-friday/custom-schema-types";
 import AgentSkills from "./views/blog/posts/release-friday/agent-skills";
+import Invariants from "./views/blog/posts/release-friday/invariants";
 
 import platformOverview from "./views/docs/platform/overview.md?raw";
 import schemaOverview from "./views/docs/schema/overview.md?raw";
@@ -16,7 +17,9 @@ import initialize from "./views/docs/platform/guides/initialize.md?raw";
 import simulation from "./views/docs/platform/concepts/simulation.md?raw";
 import system from "./views/docs/platform/concepts/system.md?raw";
 import effect from "./views/docs/platform/concepts/effect.md?raw";
+import signal from "./views/docs/platform/concepts/signal.md?raw";
 import schema from "./views/docs/platform/concepts/schema.md?raw";
+import invariant from "./views/docs/platform/concepts/invariant.md?raw";
 import cliRun from "./views/docs/cli/run.md?raw";
 import cliInit from "./views/docs/cli/init.md?raw";
 import cliSkillsInstall from "./views/docs/cli/skills/install.md?raw";
@@ -30,6 +33,7 @@ app.get("/blog", (c) => c.render(<Blog />));
 app.get("/blog/release-friday/rngo-init", (c) => c.render(<RngoInit />));
 app.get("/blog/release-friday/custom-schema-types", (c) => c.render(<CustomSchemaTypes />));
 app.get("/blog/release-friday/agent-skills", (c) => c.render(<AgentSkills />));
+app.get("/blog/release-friday/invariants", (c) => c.render(<Invariants />));
 
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new docs page only means adding one call here.
@@ -45,7 +49,9 @@ docsPage("/docs/guides/initialize", "Platform", "Initialize", initialize);
 docsPage("/docs/concepts/simulation", "Platform", "Simulation", simulation);
 docsPage("/docs/concepts/system", "Platform", "System", system);
 docsPage("/docs/concepts/effect", "Platform", "Effect", effect);
+docsPage("/docs/concepts/signal", "Platform", "Signal", signal);
 docsPage("/docs/concepts/schema", "Platform", "Schema", schema);
+docsPage("/docs/concepts/invariant", "Platform", "Invariant", invariant);
 docsPage("/docs/schema", "Schema", "Overview", schemaOverview);
 docsPage("/docs/cli", "CLI", "Overview", cliOverview);
 docsPage("/docs/cli/init", "CLI", "init", cliInit);
