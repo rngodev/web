@@ -8,7 +8,7 @@ export default function CustomSchemaTypes() {
   return (
     <PostLayout meta={meta}>
       <P>
-        This week we added support for custom schema types in{" "}
+        This week I added support for custom schema types in{" "}
         <A href="https://github.com/rngodev/rngo/releases/tag/0.30.0">rngo 0.30.0</A>.
       </P>
 
@@ -73,13 +73,13 @@ effects:
       <H2>Looking Forward</H2>
 
       <P>
-        In later weeks, we'll add support for parameterized custom schema types along with a
-        strategy for <A href="/docs/cli">rngo CLI</A> to resolve schema references outside of the
-        current project (e.g. on the internet).
+        In later weeks, I'll add support for parameterized custom schema types along with a strategy
+        for <A href="/docs/cli">rngo CLI</A> to resolve schema references outside of the current
+        project (e.g. on the internet).
       </P>
 
       <P>
-        For next week, though, we plan on making it easy for coding agents to bootstrap a project by
+        For next week, though, I plan on making it easy for coding agents to bootstrap a project by
         writing system, effect and custom schema type specs.
       </P>
     </PostLayout>

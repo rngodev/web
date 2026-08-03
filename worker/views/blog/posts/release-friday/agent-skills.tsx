@@ -8,7 +8,7 @@ export default function AgentSkills() {
   return (
     <PostLayout meta={meta}>
       <P>
-        This week we updated <InlineCode>rngo init</InlineCode> in{" "}
+        This week I updated <InlineCode>rngo init</InlineCode> in{" "}
         <A href="https://github.com/rngodev/rngo/releases/tag/0.31.0">rngo 0.31.0</A> to offer to
         install rngo agent skills. For example:
       </P>
@@ -54,7 +54,7 @@ export default function AgentSkills() {
       <H2>Looking Forward</H2>
 
       <P>
-        Next week, we plan on adding support for storing simulation events locally in SQLite and
+        Next week, I plan on adding support for storing simulation events locally in SQLite and
         defining after-the-fact expectations in terms of SQL queries.
       </P>
     </PostLayout>
