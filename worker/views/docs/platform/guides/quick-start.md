@@ -99,4 +99,4 @@ This will output data that looks something like this:
 
 ## Next Step
 
-Learn more about [simulations](/docs/concepts/simulation) and how to model your application's interfaces.
+Learn how to [initialize a project for rngo](/docs/guides/initialize).

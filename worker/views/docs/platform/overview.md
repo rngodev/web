@@ -1,24 +1,24 @@
 # Welcome!
 
-rngo is a CLI that helps you understand what your code does by simulating usage and recording everything.
+rngo is a CLI that helps you learn what your code does by simulating usage and recording everything.
 
-A rngo [simulation](/docs/concepts/simulation) models your code's interfaces in terms of [systems](/docs/concepts/system) and [effects](/docs/concepts/effect), using an intuitive specification language that your coding agent can write. For example:
+A rngo [simulation](/docs/concepts/simulation) models your system in terms of [channels](/docs/concepts/channel) and [effects](/docs/concepts/effect), using an intuitive specification language that your coding agent can write. For example:
 
 ```yaml
 seed: 1
 start: now - years(2)
-systems:
+channels:
   db:
     format:
       type: sql
-    import:
+    target:
       command: sqlite3 db.sqlite
 effects:
   users.create:
-    system: db
-    format:
-      table: USERS
     trigger: hz(100, day)
+    channel: db
+    metadata:
+      table: USERS
     schema:
       type: object
       properties:
@@ -40,10 +40,10 @@ effects:
               maximum: 99999
               scale: 0
   posts.create:
-    system: db
-    format:
-      table: POSTS
     trigger: hz(120, hour)
+    channel: db
+    metadata:
+      table: POSTS
     schema:
       type: object
       properties:

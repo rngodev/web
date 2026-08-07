@@ -1,6 +1,6 @@
 # CLI
 
-The rngo CLI manages project configurations, runs simulations and routes effect to systems.
+The rngo CLI manages project configurations, runs simulations and routes effect to channels.
 
 The source code can be found [in the `rngo` repository](https://github.com/rngodev/rngo/tree/main/crates/cli).
 
@@ -54,4 +54,4 @@ Systems and effects each get their own configuration files under `.rngo/systems/
 .rngo/schemas/email.yml
 ```
 
-See the [system](/docs/concepts/system), [effect](/docs/concepts/effect), and [schema](/docs/concepts/schema) references to see how to customize.
+See the [channel](/docs/concepts/channel), [effect](/docs/concepts/effect), and [schema](/docs/concepts/schema) references to see how to customize.

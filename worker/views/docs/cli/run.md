@@ -4,8 +4,8 @@ Runs a simulation. By default, it:
 
 1. builds a simulation spec based upon the `.rngo` directory
 2. runs the simulation locally
-3. routes the effects to the appropriate [systems](/docs/concepts/system)
-4. stores all [effects](/docs/concepts/effect) and signals in the local run directory
+3. routes the effects to the appropriate [channels](/docs/concepts/channel)
+4. stores all [effects](/docs/concepts/effect) and [signals](/docs/concepts/signal) in the local run directory
 
 ## Building a Simulation
 
@@ -52,20 +52,20 @@ If the path already exists in `.rngo/config.yml`, the `.rngo/effects` file will 
 
 ## Applying Effects
 
-`rngo run` will run the simulation and routes the stream of events to the appropriate [system](/docs/concepts/system).
+`rngo run` will run the simulation and routes the stream of events to the appropriate [channels](/docs/concepts/chennel).
 
 Consider the following excerpt from a simulation:
 
 ```yaml
-systems:
+channels:
   db1:
     format:
       type: sql
-    import:
+    target:
       command: sqlite3 db1.sqlite
 effects:
   invoice.create:
-    system: db1
+    channel: db1
     schema:
       type: object
       # ...
@@ -78,17 +78,15 @@ You can specify a raw output for an effect, like this:
 ```yaml
 effects:
   orders.create:
-    format:
-      type: json
     schema:
       type: object
       # ...
 ```
 
-`rngo run` will route to a default system — in this case, it is effectively something like:
+`rngo run` will route to a default channel — in this case, it is effectively something like:
 
 ```yaml
-output:
+format:
   type: json
 import:
   command: cat > .rngo/runs/019f3fd6-8d2e-7101-9b68-b4b63cb2bb19/orders.jsonl
@@ -100,4 +98,4 @@ You can set the `--stdout` boolean flag, e.g.:
 rngo run --stdout
 ```
 
-This will skip system routing and write all event values to stdout.
+This will skip channel routing and write all event values to stdout.

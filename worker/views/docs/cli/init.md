@@ -19,7 +19,7 @@ Finally it asks if and where it should install agent skills:
 ./.agents/skills:
   rngo-custom-schema-type: installed 0.2.0
   rngo-effect-inference: installed 0.2.0
-  rngo-system-inference: installed 0.2.0
+  rngo-channel-inference: installed 0.2.0
 ```
 
 A coding agent is the easiest way to infer systems and effects. With the above skills installed, you can prompt your agent like so:
@@ -28,4 +28,4 @@ A coding agent is the easiest way to infer systems and effects. With the above s
 infer rngo systems and effects!
 ```
 
-If you are not using a coding agent, see the [system](/docs/concepts/system) and [effect](/docs/concepts/effect) references for details on how to define them manually.
+If you are not using a coding agent, see the [channel](/docs/concepts/channel) and [effect](/docs/concepts/effect) references for details on how to define them manually.

@@ -4,8 +4,8 @@ An **effect** models interactions with a system. For example, the following effe
 
 ```yaml
 trigger: hz(1, hour)
-system: db
-format:
+channel: db
+metadata:
   table: USERS
 schema:
   type: object
@@ -47,49 +47,37 @@ The expression is sampled periodically over the course of the simulation, so the
 
 Trigger frequency will always be adjusted to be greater than or equal to zero and less than 1000 Hz.
 
-## System
+## Channel
 
-All effects are bound to a **system**:
+All effects are bound to a **channel**:
 
 ```yaml
-systems:
+channels:
   mydb:
     format:
       type: sql
-    import:
+    target:
       command: sqlite3 db.sqlite
 effects:
   users.create:
-    system: mydb
+    channel: mydb
     schema: ...
 ```
 
-If a `system` is not explicitly configured, the events will be written to the file system.
+If a `channel` is not explicitly configured, the events will be written to the file system.
 
-## Format
+## Metadata
 
-An effect's **format** extends the format of its system. For example, it's often used to set the table name in a SQL system:
+An effect may specify **metadata**, which is an arbitrary map:
 
 ```yaml
 effects:
   create.article:
-    system: mysql
-    format:
+    channel: mysql
+    metadata:
       table: Article
     schema: ...
 ```
 
-If the effect has an explicit `system`, its `format` will not override anything in the system format.
-
-If no `system` is set, the full effect `format` will be used:
-
-```yaml
-effects:
-  create.comment:
-    format:
-      type: sql
-      table: user_comments
-    schema: ...
-```
-
-If neither `system` nor `format` is configured, JSON will be used as the default format.
+In this case, the effect's metadata is meaningful to it's "mysql" channel. Assuming the channel uses the
+"sql" format, it will use the `table` metadata field as the table name when formatting SQL statements.
