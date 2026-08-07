@@ -8,6 +8,7 @@ import RngoInit from "./views/blog/posts/release-friday/rngo-init";
 import CustomSchemaTypes from "./views/blog/posts/release-friday/custom-schema-types";
 import AgentSkills from "./views/blog/posts/release-friday/agent-skills";
 import Invariants from "./views/blog/posts/release-friday/invariants";
+import GoodbyeSystemsHelloChannels from "./views/blog/posts/release-friday/goodbye-systems-hello-channels";
 
 import platformOverview from "./views/docs/platform/overview.md?raw";
 import schemaOverview from "./views/docs/schema/overview.md?raw";
@@ -34,6 +35,9 @@ app.get("/blog/release-friday/rngo-init", (c) => c.render(<RngoInit />));
 app.get("/blog/release-friday/custom-schema-types", (c) => c.render(<CustomSchemaTypes />));
 app.get("/blog/release-friday/agent-skills", (c) => c.render(<AgentSkills />));
 app.get("/blog/release-friday/invariants", (c) => c.render(<Invariants />));
+app.get("/blog/release-friday/goodbye-systems-hello-channels", (c) =>
+  c.render(<GoodbyeSystemsHelloChannels />),
+);
 
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new docs page only means adding one call here.
