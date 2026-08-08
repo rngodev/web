@@ -1,62 +1,95 @@
 # Channel
 
-A **channel** models any interface to your system and can be either of the following:
-
-- a **subject**: code that you own, that you'd like to test, e.g. your web app, API or CLI
-- a **fixture**: a runtime dependency of your code, e.g. a database, cache or SaaS
-
-## CLI
-
-The CLI uses channels to apply effects against the correct interfaces. For example, consider the following simulation:
+**Channels** are proxies through which a simulation sends [effects](docs/concepts/effect) to and receives [signals](docs/concepts/signal)
+from the system-under-test. For example:
 
 ```yaml
 channels:
-  sqlite:
+  db:
     format:
       type: sql
     target:
       type: stream
-      command: sqlite3 db1.sqlite
-effects:
-  user.create:
-    channel: sqlite
-    metadata:
-      table: users
-    schema:
-      type: object
-      properties:
-        id:
-          type: number
-          minimum: 1
-          scale: 0
-          step: 1
-        name:
-          type: string
-          pattern: .{0,36}
+      command: psql -q $DATABASE_URL
+  api:
+    target:
+      type: exec
+      command: curl -sS -X {{method}} $API_BASE_URL{{path}}
+  log:
+    target:
+      type: stream
+      command: tail -F logs/app.log
 ```
 
-Things to note:
+## Private Channels
 
-1. We've defined a channel called `sqlite`, and we've assigned it to the `users` entity.
-2. Our `sqlite` definition includes a `format` which means that effect data will be formatted as SQL before being sent to the `target`.
-3. We've specified a `target` of type "stream", which expects a `command`. When you run the simulation via `rngo run`, the CLI will execute the command locally and pipe `users` data to stdin.
+All simulations will include channels that proxy to public interfaces - e.g., APIs, web apps, CLIs. But most will also include channels
+for private interfaces for a few different reasons.
 
-## Subject
+### DBs
 
-A subject channel is code that you own that you'd like to test. It could be any of:
+When a simulation starts in the past, it will produce backdated effects, and usually public interfaces do not support backdating.
+So, you'll need to route these effects directly to a database.
 
-- web app
-- mobile app
-- API
-- CLI
-- MCP Server
+### SaaS
 
-## Fixture
+Many systems keep state in SaaS, which means that the simulation will either need to set up or query that state in
+order to [reference](/docs/schema/primitive/reference) it in other effects.
 
-A fixture channel is a runtime dependency of your code, and is probably owned by someone else. It could be any of:
+### Observability
 
-- database
-- file system
-- object storage
-- cache
-- SaaS
+Simulations often incorporate logs, metrics, traces, etc. as _read-only channels_ so that their signals can be the subject
+of [invariants](docs/concepts/invariant).
+
+## Target
+
+A channel MUST specify a `target`, which defines how the channel sends data to and receives data from the system. Currently,
+there are two supported `type`s: `exec` and `stream`.
+
+### Exec
+
+An **exec** target runs the specified shell `command` whenever it receives an effect. The command may be a [Handlebars](https://handlebarsjs.com/guide/#language-features)
+template, to which the effect value is the input.
+
+Any output from the command will be emitted as an interactive signal, i.e. one that includes the ID of the effect that triggered it.
+
+### Stream
+
+The specified `command` for a **stream** target will be run by the CLI in a sub-shell prior to the start of simulation. Whenever the channel receives an effect,
+it pipes it into the stdin of the subshell.
+
+Any data received from stdout or stderr will be emitted as an ambient signal, i.e. one without any explcit effect cause.
+
+Relatedly, a stream target may be used to implement a read-only channel - i.e. one that no effect is routed to - since stdout and stderr will be proxied
+regardless of effect input.
+
+## Format
+
+A channel MAY specify a `format`, which defines how the channel will transform effect data prior
+to sending it to the target. Currently, there are two support `type`s: `sql` and `json`.
+
+### SQL
+
+The **sql** format will transform an effect body into a SQL insert statement. E.g., the following effect event value:
+
+```json
+{
+  "id": 1,
+  "name": "Alice",
+  "admin": true
+}
+```
+
+would become:
+
+```sql
+INSERT INTO `users` (id, name, admin) VALUES (1, 'Alice', true);
+```
+
+The table name is taken from the `table` field from the associated effect's [metadata](/docs/concepts/effect#metadata).
+If that's not specifed, it will fallback to the effect's name.
+
+### JSON
+
+The **json** format is effectively a no-op currently - the channel will pass each effect event's value
+directly to the target unchanged.
