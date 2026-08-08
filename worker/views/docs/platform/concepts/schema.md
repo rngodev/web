@@ -1,6 +1,6 @@
 # Schema
 
-A **schema** defines the structure and content of an [effect's](/docs/concepts/simulation#effects) events. Consider the following schema spec:
+A **schema** defines the structure and content of an [effect's](/docs/concepts/effect) events. Consider the following schema spec:
 
 ```yaml
 type: object

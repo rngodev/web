@@ -1,22 +1,22 @@
 # Simulation
 
-A **simulation** is a collection of [systems](/docs/concepts/system) and [effects](#effects). When run, a simulation emits an interleaved stream of events from each of its effects, over the configured period of time.
+A **simulation** is a collection of [channels](/docs/concepts/channel) and [effects](#effects). When run, a simulation emits an interleaved stream of events from each of its effects, over the configured period of time.
 
 A simulation is specified using a **spec** (usually in YAML). For example:
 
 ```yaml
 seed: 41
 start: now - years(5)
-systems:
+channels:
   sqlite:
     format:
       type: sql
-    import:
+    target:
       command: sqlite3 db.sqlite
 effects:
   user.create:
-    system: sqlite
-    format:
+    channel: sqlite
+    metadata:
       table: USER
     schema:
       type: object
@@ -33,6 +33,13 @@ schemas:
       minimum: 1
       scale: 0
       step: 1
+invariants:
+  no-errors:
+    type: sql
+    query: >
+      select count(*) from signals
+      where level = 'error';
+    expect: result == 0
 ```
 
 You can run a spec using the [`rngo run`](/docs/cli/run) CLI command.
@@ -43,11 +50,11 @@ You can run a spec using the [`rngo run`](/docs/cli/run) CLI command.
 
 Changing `seed` lets you get a fresh set of data for an otherwise identical simulation.
 
-## Systems
+## Channels
 
-`systems` is a map of named systems, or stateful interfaces. Any system referenced by an effect must be included in this map.
+`channel` is a map of named channels, or system interfaces. Any channel referenced by an effect must be included in this map.
 
-See [System](/docs/concepts/system) for syntax details.
+See [Channel](/docs/concepts/channel) for syntax details.
 
 ## Effects
 
@@ -60,3 +67,9 @@ See [Effect](/docs/concepts/effect) for syntax details.
 `schemas` is a map of named custom schemas that can be reused across effects to produce similar data.
 
 See [Schema](/docs/concepts/schema) for syntax details.
+
+## Invariants
+
+`invariants` is a map of named invariants that must hold in order for an audit to pass.
+
+See [Invariant](/docs/concepts/invariant) for syntax details.

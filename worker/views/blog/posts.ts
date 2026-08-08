@@ -10,6 +10,13 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "goodbye-systems-hello-channels",
+    title: "Goodbye Systems, Hello Channels!",
+    excerpt: "Use a better abstraction for routing effects and signals.",
+    date: "2026-08-07",
+    type: "release-friday",
+  },
+  {
     slug: "invariants",
     title: "Invariants",
     excerpt: "Set expectations of simulation state.",

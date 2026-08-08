@@ -8,6 +8,7 @@ import RngoInit from "./views/blog/posts/release-friday/rngo-init";
 import CustomSchemaTypes from "./views/blog/posts/release-friday/custom-schema-types";
 import AgentSkills from "./views/blog/posts/release-friday/agent-skills";
 import Invariants from "./views/blog/posts/release-friday/invariants";
+import GoodbyeSystemsHelloChannels from "./views/blog/posts/release-friday/goodbye-systems-hello-channels";
 
 import platformOverview from "./views/docs/platform/overview.md?raw";
 import schemaOverview from "./views/docs/schema/overview.md?raw";
@@ -15,7 +16,7 @@ import cliOverview from "./views/docs/cli/overview.md?raw";
 import quickStart from "./views/docs/platform/guides/quick-start.md?raw";
 import initialize from "./views/docs/platform/guides/initialize.md?raw";
 import simulation from "./views/docs/platform/concepts/simulation.md?raw";
-import system from "./views/docs/platform/concepts/system.md?raw";
+import channel from "./views/docs/platform/concepts/channel.md?raw";
 import effect from "./views/docs/platform/concepts/effect.md?raw";
 import signal from "./views/docs/platform/concepts/signal.md?raw";
 import schema from "./views/docs/platform/concepts/schema.md?raw";
@@ -34,6 +35,9 @@ app.get("/blog/release-friday/rngo-init", (c) => c.render(<RngoInit />));
 app.get("/blog/release-friday/custom-schema-types", (c) => c.render(<CustomSchemaTypes />));
 app.get("/blog/release-friday/agent-skills", (c) => c.render(<AgentSkills />));
 app.get("/blog/release-friday/invariants", (c) => c.render(<Invariants />));
+app.get("/blog/release-friday/goodbye-systems-hello-channels", (c) =>
+  c.render(<GoodbyeSystemsHelloChannels />),
+);
 
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new docs page only means adding one call here.
@@ -47,7 +51,7 @@ docsPage("/docs", "Platform", "Overview", platformOverview);
 docsPage("/docs/guides/quick-start", "Platform", "Quick Start", quickStart);
 docsPage("/docs/guides/initialize", "Platform", "Initialize", initialize);
 docsPage("/docs/concepts/simulation", "Platform", "Simulation", simulation);
-docsPage("/docs/concepts/system", "Platform", "System", system);
+docsPage("/docs/concepts/channel", "Platform", "Channel", channel);
 docsPage("/docs/concepts/effect", "Platform", "Effect", effect);
 docsPage("/docs/concepts/signal", "Platform", "Signal", signal);
 docsPage("/docs/concepts/schema", "Platform", "Schema", schema);
