@@ -28,7 +28,7 @@ properties:
     maximum: 120
 ```
 
-It will endlessly produce values that look like this:
+It will endlessly emit values that look like this:
 
 ```json
 { "email": "kjandfa@example.com", "age": 16 }
@@ -108,3 +108,42 @@ effects:
 ```
 
 The only thing you need to define a custom schema type is a `schema` field, which defines the literal schema spec.
+
+## Examples
+
+### Incrementing ID
+
+All natural numbers in order, starting with `1`.
+
+```yaml
+schema:
+  type: number
+  minimum: 1
+  scale: 0
+  step: 1
+```
+
+### Email
+
+Random email addresses from a enumerated set of domains.
+
+```yaml
+schema:
+  type: function
+  expression: "local + '@' + domain"
+  variables:
+    local:
+      type: string
+      pattern: "[a-z]{5,10}"
+    domain:
+      type: select
+      options:
+        - weight: 3
+          schema: { type: constant, value: "gmail.com" }
+        - weight: 2
+          schema: { type: constant, value: "yahoo.com" }
+        - weight: 2
+          schema: { type: constant, value: "outlook.com" }
+        - schema: { type: constant, value: "icloud.com" }
+        - schema: { type: constant, value: "protonmail.com" }
+```

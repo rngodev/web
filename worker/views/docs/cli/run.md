@@ -1,17 +1,17 @@
 # `rngo run`
 
-Runs a simulation. By default, it:
+Runs a [spec](/docs/concepts/spec). By default, it:
 
-1. builds a simulation spec based upon the `.rngo` directory
-2. runs the simulation locally
+1. builds the spec based upon the `.rngo` directory
+2. runs the spec locally
 3. routes the effects to the appropriate [channels](/docs/concepts/channel)
 4. stores all [effects](/docs/concepts/effect) and [signals](/docs/concepts/signal) in the local run directory
 
-## Building a Simulation
+## Building a Spec
 
-`rngo run` builds a simulation based upon the contents of the local `.rngo` directory.
+`rngo run` builds a spec based upon the contents of the local `.rngo` directory.
 
-The base of the simulation is the contents of `.rngo/config.yml`. If this file doesn't exist, the base will be an empty spec with a seed of 1.
+The base of the spec is the contents of `.rngo/spec.yml`. If this file doesn't exist, the base will be an empty spec with a seed of 1.
 
 From there, it will merge in each file under the `.rngo/effects` directory. For example, if there was a file at `.rngo/effects/user.create.yml` with the following value:
 
@@ -52,9 +52,9 @@ If the path already exists in `.rngo/config.yml`, the `.rngo/effects` file will 
 
 ## Applying Effects
 
-`rngo run` will run the simulation and routes the stream of events to the appropriate [channels](/docs/concepts/chennel).
+`rngo run` will run the spec and routes the stream of events to the appropriate [channels](/docs/concepts/channel).
 
-Consider the following excerpt from a simulation:
+Consider the following excerpt from a spec:
 
 ```yaml
 channels:

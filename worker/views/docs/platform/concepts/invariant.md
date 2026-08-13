@@ -61,3 +61,35 @@ Additionally, the CLI will write the results as json to `.rngo/runs/last/invaria
   }
 }
 ```
+
+## Examples
+
+### Expect No Signal Errors
+
+This example sets the expectation that we will never observe error-level signals.
+
+```yaml
+type: sql
+query: >
+  select count(*) 
+  from signals
+  where level = 'error';
+expect: result == 0
+```
+
+### Expect Errors for Invalid Inputs
+
+This example states that any attempt to create a user with an age less than 18
+should result in an API error.
+
+```yaml
+type: sql
+query: >
+  SELECT count(*) 
+  FROM signals s
+    JOIN effects e ON s.effect_id = e.id
+  WHERE e.key = 'user.post'
+  AND e.value ->> '$.age' < 18
+  AND s.data NOT LIKE '%422 Unprocessable Content%';
+expect: result == 0
+```
