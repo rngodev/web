@@ -192,11 +192,15 @@ function PlatformSidebar({ active }: { active: string }) {
     <>
       <SidebarGroup>
         <SidebarLink href="/docs" active={active} text="Overview" />
+        <SidebarLink href="/docs/quick-start" active={active} text="Quick Start" />
       </SidebarGroup>
       <SidebarGroup title="Guides">
-        <SidebarLink href="/docs/guides/quick-start" active={active} text="Quick Start" />
-        <SidebarLink href="/docs/guides/initialize" active={active} text="Initialize" />
-        <SidebarLink href="/docs/guides/write-the-spec" active={active} text="Write the Spec" />
+        <SidebarLink
+          href="/docs/guides/initialize-your-project"
+          active={active}
+          text="Initialize Your Project"
+        />
+        <SidebarLink href="/docs/guides/write-the-spec" active={active} text="Write The Spec" />
       </SidebarGroup>
       <SidebarGroup title="Concepts">
         <SidebarLink href="/docs/concepts/spec" active={active} text="Spec" />

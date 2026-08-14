@@ -17,8 +17,8 @@ import rngoSkill from "./views/blog/posts/release-friday/rngo-skill.md?raw";
 import platformOverview from "./views/docs/platform/overview.md?raw";
 import schemaOverview from "./views/docs/schema/overview.md?raw";
 import cliOverview from "./views/docs/cli/overview.md?raw";
-import quickStart from "./views/docs/platform/guides/quick-start.md?raw";
-import initialize from "./views/docs/platform/guides/initialize.md?raw";
+import quickStart from "./views/docs/platform/quick-start.md?raw";
+import initializeYourProject from "./views/docs/platform/guides/initialize-your-project.md?raw";
 import writeTheSpec from "./views/docs/platform/guides/write-the-spec.md?raw";
 import spec from "./views/docs/platform/concepts/spec.md?raw";
 import channel from "./views/docs/platform/concepts/channel.md?raw";
@@ -74,8 +74,13 @@ function docsPage(path: string, section: string, active: string, content: string
 }
 
 docsPage("/docs", "Platform", "Overview", platformOverview);
-docsPage("/docs/guides/quick-start", "Platform", "Quick Start", quickStart);
-docsPage("/docs/guides/initialize", "Platform", "Initialize", initialize);
+docsPage("/docs/quick-start", "Platform", "Quick Start", quickStart);
+docsPage(
+  "/docs/guides/initialize-your-project",
+  "Platform",
+  "Initialize Your Project",
+  initializeYourProject,
+);
 docsPage("/docs/guides/write-the-spec", "Platform", "Write the Spec", writeTheSpec);
 docsPage("/docs/concepts/spec", "Platform", "Spec", spec);
 docsPage("/docs/concepts/channel", "Platform", "Channel", channel);
