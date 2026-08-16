@@ -93,3 +93,40 @@ If that's not specifed, it will fallback to the effect's name.
 
 The **json** format is effectively a no-op currently - the channel will pass each effect event's value
 directly to the target unchanged.
+
+## Examples
+
+### cURL
+
+You can use cURL as an **exec** `target` for an API channel. This example uses a template
+that expects the effect data to include `method` and `path` fields.
+
+```yaml
+target:
+  type: exec
+  command: curl -sS -X {{method}} $API_BASE_URL{{path}}
+```
+
+### PostgreSQL
+
+Use a **stream** `target` and **sql** `format` to pipe SQL statements into `psql`'s stdin. In most cases,
+this will be an example of a _private_ channel.
+
+```yaml
+format:
+  type: sql
+target:
+  type: stream
+  command: psql -q $DATABASE_URL
+```
+
+### Log File
+
+Use a **stream** `target` to receive signals from a log file. This is an example of a read-only channel,
+meaning no effects will be sent to it. Also, in most cases this will be _private_.
+
+```yaml
+target:
+  type: stream
+  command: tail -F logs/app.log
+```
