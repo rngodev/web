@@ -4,11 +4,14 @@ import Home from "./views/home";
 import Blog from "./views/blog";
 import { DocPage } from "./views/docs/page";
 import { primitiveMarkdown, PrimitivePage } from "./views/docs/schema/primitive/page";
-import RngoInit from "./views/blog/posts/release-friday/rngo-init";
-import CustomSchemaTypes from "./views/blog/posts/release-friday/custom-schema-types";
-import AgentSkills from "./views/blog/posts/release-friday/agent-skills";
-import Invariants from "./views/blog/posts/release-friday/invariants";
-import GoodbyeSystemsHelloChannels from "./views/blog/posts/release-friday/goodbye-systems-hello-channels";
+import { PostPage } from "./views/blog/page";
+import { posts } from "./views/blog/posts";
+
+import rngoInitPost from "./views/blog/posts/release-friday/rngo-init.md?raw";
+import customSchemaTypesPost from "./views/blog/posts/release-friday/custom-schema-types.md?raw";
+import agentSkillsPost from "./views/blog/posts/release-friday/agent-skills.md?raw";
+import invariantsPost from "./views/blog/posts/release-friday/invariants.md?raw";
+import goodbyeSystemsHelloChannelsPost from "./views/blog/posts/release-friday/goodbye-systems-hello-channels.md?raw";
 
 import platformOverview from "./views/docs/platform/overview.md?raw";
 import schemaOverview from "./views/docs/schema/overview.md?raw";
@@ -32,13 +35,33 @@ app.use(Layout);
 
 app.get("/", (c) => c.render(<Home />));
 app.get("/blog", (c) => c.render(<Blog />));
-app.get("/blog/release-friday/rngo-init", (c) => c.render(<RngoInit />));
-app.get("/blog/release-friday/custom-schema-types", (c) => c.render(<CustomSchemaTypes />));
-app.get("/blog/release-friday/agent-skills", (c) => c.render(<AgentSkills />));
-app.get("/blog/release-friday/invariants", (c) => c.render(<Invariants />));
-app.get("/blog/release-friday/goodbye-systems-hello-channels", (c) =>
-  c.render(<GoodbyeSystemsHelloChannels />),
-);
+
+// Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
+// so adding a new blog post only means adding one entry here and to posts.ts.
+const blogMarkdown: Record<string, string> = {
+  "rngo-init": rngoInitPost,
+  "custom-schema-types": customSchemaTypesPost,
+  "agent-skills": agentSkillsPost,
+  invariants: invariantsPost,
+  "goodbye-systems-hello-channels": goodbyeSystemsHelloChannelsPost,
+};
+
+for (const post of posts) {
+  const content = blogMarkdown[post.slug];
+  app.get(`/blog/${post.type}/${post.slug}`, (c) =>
+    c.render(<PostPage meta={post} content={content} />),
+  );
+}
+
+function serveBlogMarkdown(c: Context) {
+  if (!c.req.path.endsWith(".md")) return c.notFound();
+  const path = c.req.path.slice(0, -".md".length);
+  const post = posts.find((p) => `/blog/${p.type}/${p.slug}` === path);
+  if (!post) return c.notFound();
+  return c.text(blogMarkdown[post.slug], 200, { "Content-Type": "text/markdown; charset=utf-8" });
+}
+
+app.get("/blog/*", serveBlogMarkdown);
 
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new docs page only means adding one call here.
