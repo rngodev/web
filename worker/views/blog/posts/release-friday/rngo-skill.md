@@ -4,6 +4,15 @@ Previously, the repo had more granular skills, but there was so much overlap tha
 
 An agent mostly adds value by creating the initial [spec](/docs/concepts/spec) and keeping it up-to-date, so the skill packages most of the [docs site](/docs) as [references](https://agentskills.io/specification#references).
 
+You can update your skills by running:
+
+```bash
+❯ rngo skills install
+✔ Where should skills be installed? · Claude Global (~/.claude/skills)
+/Users/khy/.claude/skills:
+  rngo: installed 0.3.0
+```
+
 ## Looking Forward
 
 [Takeoff](https://github.com/rngodev/takeoff) is an example application that uses rngo. My initial attempt to use the rngo skill to initialize the repo exposed many gaps that I plan on resolving this week.
