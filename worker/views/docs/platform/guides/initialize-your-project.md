@@ -1,4 +1,4 @@
-# Initialize
+# Initialize Your Project
 
 Initialize your project for rngo by running:
 

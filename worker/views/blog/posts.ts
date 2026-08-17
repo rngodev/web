@@ -10,6 +10,13 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "rngo-skill",
+    title: "rngo Skill",
+    excerpt: "Build a unified rngo skill to handle all rngo operations.",
+    date: "2026-08-14",
+    type: "release-friday",
+  },
+  {
     slug: "goodbye-systems-hello-channels",
     title: "Goodbye Systems, Hello Channels!",
     excerpt: "Use a better abstraction for routing effects and signals.",
