@@ -25,7 +25,6 @@ import channel from "./views/docs/platform/concepts/channel.md?raw";
 import effect from "./views/docs/platform/concepts/effect.md?raw";
 import signal from "./views/docs/platform/concepts/signal.md?raw";
 import schema from "./views/docs/platform/concepts/schema.md?raw";
-import invariant from "./views/docs/platform/concepts/invariant.md?raw";
 import cliRun from "./views/docs/cli/run.md?raw";
 import cliInit from "./views/docs/cli/init.md?raw";
 import cliSkillsInstall from "./views/docs/cli/skills/install.md?raw";
@@ -81,11 +80,10 @@ docsPage(
   "Initialize Your Project",
   initializeYourProject,
 );
-docsPage("/docs/guides/write-the-spec", "Platform", "Write the Spec", writeTheSpec);
+docsPage("/docs/guides/write-the-spec", "Platform", "Write The Spec", writeTheSpec);
 docsPage("/docs/concepts/spec", "Platform", "Spec", spec);
 docsPage("/docs/concepts/channel", "Platform", "Channel", channel);
 docsPage("/docs/concepts/effect", "Platform", "Effect", effect);
-docsPage("/docs/concepts/invariant", "Platform", "Invariant", invariant);
 docsPage("/docs/concepts/signal", "Platform", "Signal", signal);
 docsPage("/docs/concepts/schema", "Platform", "Schema", schema);
 docsPage("/docs/schema", "Schema", "Overview", schemaOverview);
