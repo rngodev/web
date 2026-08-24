@@ -10,6 +10,13 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "a-better-run-log",
+    title: "A Better Run Log",
+    excerpt: "Improve the naming and structure of the run log",
+    date: "2026-08-21",
+    type: "release-friday",
+  },
+  {
     slug: "rngo-skill",
     title: "rngo Skill",
     excerpt: "Build a unified rngo skill to handle all rngo operations.",

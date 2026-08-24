@@ -13,6 +13,7 @@ import agentSkillsPost from "./views/blog/posts/release-friday/agent-skills.md?r
 import invariantsPost from "./views/blog/posts/release-friday/invariants.md?raw";
 import goodbyeSystemsHelloChannelsPost from "./views/blog/posts/release-friday/goodbye-systems-hello-channels.md?raw";
 import rngoSkill from "./views/blog/posts/release-friday/rngo-skill.md?raw";
+import aBetterRunLog from "./views/blog/posts/release-friday/a-better-run-log.md?raw";
 
 import platformOverview from "./views/docs/platform/overview.md?raw";
 import schemaOverview from "./views/docs/schema/overview.md?raw";
@@ -45,6 +46,7 @@ const blogMarkdown: Record<string, string> = {
   invariants: invariantsPost,
   "goodbye-systems-hello-channels": goodbyeSystemsHelloChannelsPost,
   "rngo-skill": rngoSkill,
+  "a-better-run-log": aBetterRunLog,
 };
 
 for (const post of posts) {
