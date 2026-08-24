@@ -204,10 +204,9 @@ function PlatformSidebar({ active }: { active: string }) {
       </SidebarGroup>
       <SidebarGroup title="Concepts">
         <SidebarLink href="/docs/concepts/spec" active={active} text="Spec" />
-        <SidebarLink href="/docs/concepts/channel" active={active} text="Channel" />
         <SidebarLink href="/docs/concepts/effect" active={active} text="Effect" />
-        <SidebarLink href="/docs/concepts/invariant" active={active} text="Invariant" />
         <SidebarLink href="/docs/concepts/signal" active={active} text="Signal" />
+        <SidebarLink href="/docs/concepts/channel" active={active} text="Channel" />
         <SidebarLink href="/docs/concepts/schema" active={active} text="Schema" />
       </SidebarGroup>
     </>

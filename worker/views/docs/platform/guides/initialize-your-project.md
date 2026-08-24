@@ -6,23 +6,19 @@ Initialize your project for rngo by running:
 rngo init
 ```
 
-[`rngo init`](/docs/cli/init) will create a `.rngo` directory, with a `spec.yml` that's the beginning of the project's rngo specification. It will also offer to install agent skills, which you should do to make configuration easier.
+[`rngo init`](/docs/cli/init) will create a `.rngo` directory, with a `spec.yml` that's the beginning of the project's rngo specification. It will also offer to install an agent skill, which you should do to make writing the spec easier.
 
-## Configure
+## Specify
 
-A full spec includes [effects](/docs/concepts/effect), which model interactions with the system,
-
-A full spec includes [channels](/docs/concepts/channel), which model your system interface, and [effects](/docs/concepts/effect), which model interactions with the system.
-
-You could define these by hand, but a coding agent is good at inferring these from your source code:
+If you installed the skills, you should run something like:
 
 ```bash
-claude "infer rngo systems and effects"
+claude "write the rngo spec"
 ```
 
-Either way, the specs should live in `.rngo/channels` and `.rngo/effects` and be committed to source control.
+Otherwise, you should follow the directions in [Write The Spec](/docs/guides/write-the-spec).
 
-## Run It
+## Run
 
 Now run the simulation:
 
@@ -30,12 +26,12 @@ Now run the simulation:
 rngo run
 ```
 
-This will run a simulation based upon the contents of the `.rngo` directory and route effects to channels.
+This will build a spec based upon the contents of the `.rngo` directory, run it, route inputs to channels and audit the results.
 
-From here, you should iterate on the specs to make them more realistic and rerun the simulation.
+From here, you should iterate on the spec to make it more realistic and rerun it.
 
 ---
 
 ## Next Step
 
-Visit the [simulation reference](/docs/concepts/simulation) to improve your application's configuration.
+Visit the [spec reference](/docs/concepts/spec) to improve your application's spec.
