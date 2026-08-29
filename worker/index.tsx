@@ -7,6 +7,7 @@ import { primitiveMarkdown, PrimitivePage } from "./views/docs/schema/primitive/
 import { PostPage } from "./views/blog/page";
 import { posts } from "./views/blog/posts";
 
+import logJamPost from "./views/blog/posts/release-friday/log-jam.md?raw";
 import rngoInitPost from "./views/blog/posts/release-friday/rngo-init.md?raw";
 import customSchemaTypesPost from "./views/blog/posts/release-friday/custom-schema-types.md?raw";
 import agentSkillsPost from "./views/blog/posts/release-friday/agent-skills.md?raw";
@@ -40,6 +41,7 @@ app.get("/blog", (c) => c.render(<Blog />));
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new blog post only means adding one entry here and to posts.ts.
 const blogMarkdown: Record<string, string> = {
+  "log-jam": logJamPost,
   "rngo-init": rngoInitPost,
   "custom-schema-types": customSchemaTypesPost,
   "agent-skills": agentSkillsPost,

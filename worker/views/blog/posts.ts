@@ -10,6 +10,13 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "log-jam",
+    title: "Log Jam",
+    excerpt: "Move references and signals into the SQLite run log.",
+    date: "2026-08-28",
+    type: "release-friday",
+  },
+  {
     slug: "a-better-run-log",
     title: "A Better Run Log",
     excerpt: "Improve the naming and structure of the run log",
