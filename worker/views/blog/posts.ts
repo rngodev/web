@@ -10,6 +10,13 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "proxies-and-audits",
+    title: "Proxies and Audits",
+    excerpt: "Add Proxy and Audit concepts.",
+    date: "2026-09-18",
+    type: "release-friday",
+  },
+  {
     slug: "log-jam",
     title: "Log Jam",
     excerpt: "Move references and signals into the SQLite run log.",
