@@ -12,11 +12,11 @@ export function formatDate(iso: string) {
 }
 
 const postTypeLabels: Record<PostType, string> = {
-  "release-friday": "Release Friday",
+  "release-notes": "Release Notes",
 };
 
 const postTypeStyles: Record<PostType, string> = {
-  "release-friday": "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+  "release-notes": "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
 };
 
 export function PostTypeBadge({ type }: { type: PostType }) {

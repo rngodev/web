@@ -1,4 +1,4 @@
-Perhaps appropriately, the highlight of our inaugural Release Friday is the new `rngo init` command that sets a project up for rngo in one step.
+Perhaps appropriately, the highlight of our inaugural release notes is the new `rngo init` command that sets a project up for rngo in one step.
 
 I've also made many smaller changes to the CLI that improve consistency and quality-of-life.
 
