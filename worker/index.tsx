@@ -7,16 +7,16 @@ import { primitiveMarkdown, PrimitivePage } from "./views/docs/schema/primitive/
 import { PostPage } from "./views/blog/page";
 import { posts } from "./views/blog/posts";
 
-import lessSlowPost from "./views/blog/posts/release-friday/less-slow.md?raw";
-import proxyAndAudit from "./views/blog/posts/release-friday/proxies-and-audits.md?raw";
-import logJamPost from "./views/blog/posts/release-friday/log-jam.md?raw";
-import rngoInitPost from "./views/blog/posts/release-friday/rngo-init.md?raw";
-import customSchemaTypesPost from "./views/blog/posts/release-friday/custom-schema-types.md?raw";
-import agentSkillsPost from "./views/blog/posts/release-friday/agent-skills.md?raw";
-import invariantsPost from "./views/blog/posts/release-friday/invariants.md?raw";
-import goodbyeSystemsHelloChannelsPost from "./views/blog/posts/release-friday/goodbye-systems-hello-channels.md?raw";
-import rngoSkill from "./views/blog/posts/release-friday/rngo-skill.md?raw";
-import aBetterRunLog from "./views/blog/posts/release-friday/a-better-run-log.md?raw";
+import lessSlowPost from "./views/blog/posts/release-notes/less-slow.md?raw";
+import proxyAndAudit from "./views/blog/posts/release-notes/proxies-and-audits.md?raw";
+import logJamPost from "./views/blog/posts/release-notes/log-jam.md?raw";
+import rngoInitPost from "./views/blog/posts/release-notes/rngo-init.md?raw";
+import customSchemaTypesPost from "./views/blog/posts/release-notes/custom-schema-types.md?raw";
+import agentSkillsPost from "./views/blog/posts/release-notes/agent-skills.md?raw";
+import invariantsPost from "./views/blog/posts/release-notes/invariants.md?raw";
+import goodbyeSystemsHelloChannelsPost from "./views/blog/posts/release-notes/goodbye-systems-hello-channels.md?raw";
+import rngoSkill from "./views/blog/posts/release-notes/rngo-skill.md?raw";
+import aBetterRunLog from "./views/blog/posts/release-notes/a-better-run-log.md?raw";
 
 import platformOverview from "./views/docs/platform/overview.md?raw";
 import schemaOverview from "./views/docs/schema/overview.md?raw";
@@ -69,6 +69,11 @@ function serveBlogMarkdown(c: Context) {
   if (!post) return c.notFound();
   return c.text(blogMarkdown[post.slug], 200, { "Content-Type": "text/markdown; charset=utf-8" });
 }
+
+// Old "release-friday" URLs (including .md) permanently redirect to "release-notes".
+app.get("/blog/release-friday/*", (c) =>
+  c.redirect(c.req.path.replace("/blog/release-friday/", "/blog/release-notes/"), 301),
+);
 
 app.get("/blog/*", serveBlogMarkdown);
 

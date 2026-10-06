@@ -1,4 +1,4 @@
-import { BlogLayout, PostTypeBadge, formatDate } from "./layout";
+import { BlogLayout, PostTypeBadge, ReleaseTag, formatDate } from "./layout";
 import { posts } from "./posts";
 
 export default function Blog() {
@@ -17,8 +17,11 @@ export default function Blog() {
               href={`/blog/${post.type}/${post.slug}`}
               class="group block py-8 first:pt-0 last:pb-0"
             >
-              <div class="flex items-center gap-x-3 mb-3">
+              <div class="flex flex-wrap items-center gap-x-3 gap-y-2 mb-3">
                 <PostTypeBadge type={post.type} />
+                {post.releases.map((release) => (
+                  <ReleaseTag release={release} />
+                ))}
                 <time datetime={post.date} class="text-xs text-stone-900/40 dark:text-stone-200/40">
                   {formatDate(post.date)}
                 </time>
