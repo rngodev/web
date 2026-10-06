@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "hono/jsx";
 import { SiteHeader } from "../../components/site-header";
-import { posts, type PostMeta, type PostType } from "./posts";
+import { posts, type PostMeta, type PostType, type Release } from "./posts";
 
 export function formatDate(iso: string) {
   return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", {
@@ -24,6 +24,26 @@ export function PostTypeBadge({ type }: { type: PostType }) {
     <span class={`text-xs px-1.5 py-0.5 rounded-sm ${postTypeStyles[type]}`}>
       {postTypeLabels[type]}
     </span>
+  );
+}
+
+export function ReleaseTag({ release, link = false }: { release: Release; link?: boolean }) {
+  const tagClass =
+    "text-xs px-1.5 py-0.5 rounded-sm bg-stone-900/5 text-stone-900/60 dark:bg-stone-200/10 dark:text-stone-200/60";
+  if (!link) {
+    return (
+      <span class={tagClass}>
+        {release.repo} {release.version}
+      </span>
+    );
+  }
+  return (
+    <a
+      href={`https://github.com/rngodev/${release.repo}/releases/tag/${release.version}`}
+      class={`${tagClass} transition-colors hover:text-stone-900 dark:hover:text-stone-200`}
+    >
+      {release.repo} {release.version} ↗
+    </a>
   );
 }
 
@@ -109,7 +129,14 @@ export function PostLayout({ meta, children }: PropsWithChildren<{ meta: PostMet
               {formatDate(meta.date)}
             </time>
           </div>
-          <h1 class="text-3xl sm:text-4xl font-medium tracking-tight text-balance">{meta.title}</h1>
+          <h1 class="text-3xl sm:text-4xl font-medium tracking-tight text-balance mb-4">
+            {meta.title}
+          </h1>
+          <div class="flex flex-wrap items-center gap-2">
+            {meta.releases.map((release) => (
+              <ReleaseTag release={release} link />
+            ))}
+          </div>
         </div>
 
         {children}
