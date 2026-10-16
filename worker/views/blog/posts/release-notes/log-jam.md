@@ -1,4 +1,4 @@
-This week in [rngo 0.35.0](https://github.com/rngodev/rngo/releases/tag/0.35.0), I update the CLI to use the SQLite run log for [references](/docs/schema/primitive/reference) instead of keeping everything in memory.
+This week in [rngo 0.35.0](https://github.com/rngodev/rngo/releases/tag/0.35.0), I update the CLI to use the SQLite run log for [references](/docs/spec/schema/reference) instead of keeping everything in memory.
 
 This allows for very large runs albeit, at this point, slow ones.
 

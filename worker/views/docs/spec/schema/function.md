@@ -10,7 +10,7 @@ The [CEL](https://github.com/google/cel-spec) expression.
 
 ### `variables` — optional
 
-An object of named [schema](/docs/concepts/schema) definitions that may be referenced in `expression`.
+An object of named [schema](/docs/spec/schema) definitions that may be referenced in `expression`.
 
 ## Examples
 

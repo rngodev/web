@@ -54,4 +54,4 @@ Systems and effects each get their own configuration files under `.rngo/systems/
 .rngo/schemas/email.yml
 ```
 
-See the [channel](/docs/concepts/channel), [effect](/docs/concepts/effect), and [schema](/docs/concepts/schema) references to see how to customize.
+See the [channel](/docs/spec/channel), [effect](/docs/spec/effect), and [schema](/docs/spec/schema) references to see how to customize.

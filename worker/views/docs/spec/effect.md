@@ -23,7 +23,7 @@ schema:
 
 An effect must specify a **schema**, which defines the structure and content of its inputs.
 
-See the [Schema reference](/docs/schema) for more details.
+See the [Schema reference](/docs/spec) for more details.
 
 ## Trigger
 

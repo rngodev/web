@@ -6,7 +6,7 @@ Randomly generates an object based upon the provided `properties` keyword.
 
 ### `properties` — required
 
-An object that maps object property names to [schema](/docs/concepts/schema) definitions.
+An object that maps object property names to [schema](/docs/spec/schema) definitions.
 
 ## Examples
 

@@ -17,7 +17,7 @@ seed: 1
 .rngo/runs
 ```
 
-This is pretty minimal for now - you'd still need to define [systems](/docs/concepts/system) and [effects](/docs/concepts/effect), which is really the bulk of the setup. In upcoming releases, this command will offer the option to install agent skills to do that for you.
+This is pretty minimal for now - you'd still need to define [systems](/docs/concepts/system) and [effects](/docs/spec/effect), which is really the bulk of the setup. In upcoming releases, this command will offer the option to install agent skills to do that for you.
 
 See the [rngo init docs](/docs/cli/init) for details.
 

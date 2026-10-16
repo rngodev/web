@@ -1,10 +1,10 @@
 # `rngo run`
 
-Runs a [spec](/docs/concepts/spec). By default, it:
+Runs a [spec](/docs/spec). By default, it:
 
 1. builds the spec based upon the `.rngo` directory
 2. runs the spec locally
-3. routes the effects to the appropriate [channels](/docs/concepts/channel)
+3. routes the effects to the appropriate [channels](/docs/spec/channel)
 4. records all data in the local run directory
 
 ## Building a Spec
@@ -52,7 +52,7 @@ If the path already exists in `.rngo/config.yml`, the `.rngo/effects` file will 
 
 ## Applying Inputs
 
-`rngo run` will run the spec and routes the stream of inputs to the appropriate [channels](/docs/concepts/channel).
+`rngo run` will run the spec and routes the stream of inputs to the appropriate [channels](/docs/spec/channel).
 
 Consider the following excerpt from a spec:
 

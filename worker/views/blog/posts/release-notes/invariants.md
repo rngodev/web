@@ -34,4 +34,4 @@ See [the invariant docs](/docs/concepts/invariant) for more.
 
 Next week, I'd like to introduce the **channel** concept which is a generalization of [systems](/docs/concepts/system), and will replace them.
 
-A channel is an interface to the system under test through which rngo can push [effects](/docs/concepts/effect), pull [signals](/docs/concepts/signal) or both. It may also format effects and parse signals.
+A channel is an interface to the system under test through which rngo can push [effects](/docs/spec/effect), pull [signals](/docs/spec/signal) or both. It may also format effects and parse signals.

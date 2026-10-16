@@ -34,4 +34,4 @@ From here, you should iterate on the spec to make it more realistic and rerun it
 
 ## Next Step
 
-Visit the [spec reference](/docs/concepts/spec) to improve your application's spec.
+Visit the [spec reference](/docs/spec) to improve your application's spec.

@@ -30,7 +30,7 @@ You may notice that the input data is now accessed via the `data` field. This is
 
 Also, the `exec` target no longer accepts the `command` field.
 
-See the [channel reference](/docs/concepts/channel) for more details.
+See the [channel reference](/docs/spec/channel) for more details.
 
 ## Realtime
 

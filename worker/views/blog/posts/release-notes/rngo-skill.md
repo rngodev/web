@@ -2,7 +2,7 @@ This week I created a unified `rngo` skill in [rngo agent 0.3.0](https://github.
 
 Previously, the repo had more granular skills, but there was so much overlap that it made more sense to just have single skill that will be invoked for all rngo operations.
 
-An agent mostly adds value by creating the initial [spec](/docs/concepts/spec) and keeping it up-to-date, so the skill packages most of the [docs site](/docs) as [references](https://agentskills.io/specification#references).
+An agent mostly adds value by creating the initial [spec](/docs/spec) and keeping it up-to-date, so the skill packages most of the [docs site](/docs) as [references](https://agentskills.io/specification#references).
 
 You can update your skills by running:
 

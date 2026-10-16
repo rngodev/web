@@ -1,6 +1,6 @@
 # Schema
 
-A **schema** defines the structure and content of an [effect's](/docs/concepts/effect) events. Consider the following schema spec:
+A **schema** defines the structure and content of an [effect's](/docs/spec/effect) events. Consider the following schema spec:
 
 ```yaml
 type: object
@@ -48,11 +48,11 @@ Schemas compose in that some schema types expect other schemas as inputs.
 
 In the above example, we specify schemas in the `variables` field of the `function` schema spec which is itself specified as part of the `properties` field of the top-level `object` schema spec.
 
-See the [schema reference](/docs/schema) for all available schemas.
+See the [schema reference](/docs/spec) for all available schemas.
 
 ## Custom Schema Types
 
-Ultimately, an [effect's](/docs/concepts/effect) schema must be a composition of [primitive schema types](/docs/schema), but a spec may define custom schema types under the `schemas` field that can be shared _across_ effects.
+Ultimately, an [effect's](/docs/spec/effect) schema must be a composition of [primitive schema types](/docs/spec), but a spec may define custom schema types under the `schemas` field that can be shared _across_ effects.
 
 Here's how you'd define and use a custom `uuid` schema type:
 
