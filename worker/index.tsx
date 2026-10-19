@@ -36,7 +36,7 @@ import signal from "./views/docs/spec/signal.md?raw";
 import schema from "./views/docs/spec/schema.md?raw";
 import concepts from "./views/docs/platform/concepts.md?raw";
 import log from "./views/docs/platform/reference/log.md?raw";
-import expressions from "./views/docs/spec/expressions.md?raw";
+import expressions from "./views/docs/platform/reference/expressions.md?raw";
 import cliRun from "./views/docs/cli/run.md?raw";
 import cliInit from "./views/docs/cli/init.md?raw";
 import cliSkillsInstall from "./views/docs/cli/skills/install.md?raw";
@@ -105,7 +105,7 @@ docsPage(
 docsPage("/docs/guides/write-the-spec", "Platform", "Write The Spec", writeTheSpec);
 docsPage("/docs/concepts", "Platform", "Concepts", concepts);
 docsPage("/docs/reference/log", "Platform", "Log", log);
-docsPage("/docs/spec/expressions", "Spec", "Expressions", expressions);
+docsPage("/docs/reference/expressions", "Platform", "Expressions", expressions);
 docsPage("/docs/spec/channel", "Spec", "Channel", channel);
 docsPage("/docs/spec/effect", "Spec", "Effect", effect);
 docsPage("/docs/spec/signal", "Spec", "Signal", signal);
@@ -136,7 +136,8 @@ const movedDocs: Record<string, string> = {
   "/docs/concepts/channel": "/docs/spec/channel",
   "/docs/concepts/signal": "/docs/spec/signal",
   "/docs/concepts/schema": "/docs/spec/schema",
-  "/docs/concepts/expressions": "/docs/spec/expressions",
+  "/docs/concepts/expressions": "/docs/reference/expressions",
+  "/docs/spec/expressions": "/docs/reference/expressions",
   "/docs/concepts/spec": "/docs/spec",
   "/docs/concepts/log": "/docs/reference/log",
   "/docs/concepts/simulation": "/docs/concepts#simulation",

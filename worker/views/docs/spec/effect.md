@@ -19,13 +19,15 @@ schema:
       scale: 0
 ```
 
-## Schema
+## Parameters
 
-An effect must specify a **schema**, which defines the structure and content of its inputs.
+### `schema` — required
+
+Defines the structure and content of its inputs.
 
 See the [Schema reference](/docs/spec) for more details.
 
-## Trigger
+### `trigger` — optional
 
 An effect's **trigger** defines when it emits inputs. If not specified, an effect will emit roughly one input per day.
 
@@ -47,7 +49,7 @@ The expression is sampled periodically over the course of the simulation, so the
 
 Trigger frequency will always be adjusted to be greater than or equal to zero and less than 1000 Hz.
 
-## Channel
+### `channel` — required
 
 All effects are bound to a **channel**:
 
@@ -68,7 +70,7 @@ effects:
 
 If an effect does not specify a channel, the data will still be captured in the run log.
 
-## Metadata
+### `metadata` — optional
 
 An effect may specify **metadata**, which is an arbitrary map:
 

@@ -206,6 +206,7 @@ function PlatformSidebar({ active }: { active: string }) {
       <SidebarGroup title="Reference">
         <SidebarLink href="/docs/spec" active={active} text="Spec" />
         <SidebarLink href="/docs/cli" active={active} text="CLI" />
+        <SidebarLink href="/docs/reference/expressions" active={active} text="Expressions" />
         <SidebarLink href="/docs/reference/log" active={active} text="Log" />
       </SidebarGroup>
     </>
@@ -221,7 +222,6 @@ function SpecSidebar({ active }: { active: string }) {
         <SidebarLink href="/docs/spec/effect" active={active} text="Effect" />
         <SidebarLink href="/docs/spec/signal" active={active} text="Signal" />
         <SidebarLink href="/docs/spec/schema" active={active} text="Schema" />
-        <SidebarLink href="/docs/spec/expressions" active={active} text="Expressions" />
       </SidebarGroup>
       <SidebarGroup title="Schema">
         <SidebarLink href="/docs/spec/schema/array" active={active} text="array" />

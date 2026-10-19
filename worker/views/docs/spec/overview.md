@@ -69,7 +69,7 @@ When the simulation starts.
 
 May be any time past or future, but must come before `end`. Defaults to `now - days(30)`.
 
-May be expressed as either an [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) string, or a [time expression](/docs/spec/expressions#time).
+May be expressed as either an [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) string, or a [time expression](/docs/reference/expressions#time).
 
 ### `end` — optional
 
@@ -77,7 +77,7 @@ When the simulation ends.
 
 May be any time past or future, but must come after `start`. Defaults to `now`.
 
-May be expressed as either an [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) string, or a [time expression](/docs/spec/expressions#time).
+May be expressed as either an [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) string, or a [time expression](/docs/reference/expressions#time).
 
 ### `channels` — optional
 

@@ -51,3 +51,30 @@ query: >
   where level = 'error';
 expect: result == 0
 ```
+
+Any attempt to create a user with an age less than 18 must result in an API error.
+
+```yaml
+type: sql
+query: >
+  SELECT count(*) 
+  FROM signals s
+    JOIN effects e ON s.effect_id = e.id
+  WHERE e.key = 'user.post'
+  AND e.value ->> '$.age' < 18
+  AND s.data NOT LIKE '%422 Unprocessable Content%';
+expect: result == 0
+```
+
+### No Signal Errors
+
+Expect to never observe error-level signals.
+
+```yaml
+type: sql
+query: >
+  select count(*) 
+  from signals
+  where level = 'error';
+expect: result == 0
+```
