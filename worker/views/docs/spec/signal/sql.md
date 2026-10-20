@@ -42,6 +42,8 @@ A [CEL](https://cel.dev) expression which takes the `result` of the query and re
 
 ## Examples
 
+### No Error Outputs
+
 Expect that no error-level outputs are observed:
 
 ```yaml
@@ -51,6 +53,8 @@ query: >
   where level = 'error';
 expect: result == 0
 ```
+
+### Validation
 
 Any attempt to create a user with an age less than 18 must result in an API error.
 
@@ -63,18 +67,5 @@ query: >
   WHERE e.key = 'user.post'
   AND e.value ->> '$.age' < 18
   AND s.data NOT LIKE '%422 Unprocessable Content%';
-expect: result == 0
-```
-
-### No Signal Errors
-
-Expect to never observe error-level signals.
-
-```yaml
-type: sql
-query: >
-  select count(*) 
-  from signals
-  where level = 'error';
 expect: result == 0
 ```

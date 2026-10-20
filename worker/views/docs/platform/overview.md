@@ -4,8 +4,8 @@ rngo helps you learn what your code does by simulating usage, recording everythi
 
 In particular, rngo gives you
 
-- a specification language that describes a system's behavior
-- a CLI that verifies whether a specification holds for an instance of the system
+- a [specification language](/docs/spec) that describes a system's behavior
+- a [CLI](/docs/cli) that verifies whether a specification holds for an instance of the system
 
 The rngo specification language is declarative and intuitive - both you and your agent
 will find it easy to write. Here's an example spec:

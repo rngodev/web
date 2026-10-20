@@ -40,6 +40,10 @@ function renderInline(tokens: Token[]): any[] {
           </A>
         );
       }
+      case "image": {
+        const image = token as Tokens.Image;
+        return <img key={i} src={image.href} alt={image.text} class="max-w-full h-auto" />;
+      }
       default:
         return (token as any).raw ?? "";
     }
@@ -124,9 +128,22 @@ export function Markdown({ children }: { children: string }) {
         break;
       }
 
-      case "paragraph":
-        nodes.push(<P key={i}>{renderInline((token as Tokens.Paragraph).tokens)}</P>);
+      case "paragraph": {
+        const paragraph = token as Tokens.Paragraph;
+        const [only] = paragraph.tokens;
+        if (paragraph.tokens.length === 1 && only.type === "image") {
+          nodes.push(
+            <figure key={i} class="bg-white p-4 mb-6 rounded-sm xl:w-[56rem]">
+              <a href={(only as Tokens.Image).href} target="_blank" rel="noopener">
+                {renderInline(paragraph.tokens)}
+              </a>
+            </figure>,
+          );
+          break;
+        }
+        nodes.push(<P key={i}>{renderInline(paragraph.tokens)}</P>);
         break;
+      }
 
       case "code":
         nodes.push(<CodeBlock key={i}>{(token as Tokens.Code).text}</CodeBlock>);
