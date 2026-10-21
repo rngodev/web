@@ -96,11 +96,11 @@ signals:
     expect: result == 0
 ```
 
-You can use the [rngo run](/docs/cli/run) CLI command to verify that the spec holds for a running instance of `my-blog`, e.g.:
+You can use the [rngo eval](/docs/cli/eval) CLI command to verify that the spec holds for a running instance of `my-blog`, e.g.:
 
 ```bash
 export API_BASE_URL=https://localhost:5000
-rngo run --spec spec.yml
+rngo eval --spec spec.yml
 ```
 
 This will produce output similar to:

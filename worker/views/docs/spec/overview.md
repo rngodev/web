@@ -44,7 +44,7 @@ signals:
 
 The `signals` parameter configures the audit, while the other parameters configure the simulation.
 
-The [`rngo run`](/docs/cli/run) CLI command evaluates whether a spec hold for a given deployment of a system by running the simulation against the system, logging all data and then auditing the log.
+The [`rngo eval`](/docs/cli/eval) CLI command evaluates whether a spec hold for a given deployment of a system by running the simulation against the system, logging all data and then auditing the log.
 
 ## Parameters
 

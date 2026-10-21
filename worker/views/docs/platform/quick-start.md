@@ -84,7 +84,7 @@ effects:
 Now run the simulation like this:
 
 ```
-rngo run --spec rngo.yml --stdout
+rngo eval --spec rngo.yml --stdout
 ```
 
 This will output data that looks something like this:

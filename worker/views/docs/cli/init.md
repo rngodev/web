@@ -9,7 +9,7 @@ key: my-project
 seed: 1
 ```
 
-Then it ensures the `.gitignore` includes the `.rngo/runs` directory, which is where data from simulation runs will live.
+Then it ensures the `.gitignore` includes the `.rngo/evals` directory, which is where data from evals will live.
 
 Finally it asks if and where it should install agent skills:
 

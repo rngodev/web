@@ -1,6 +1,6 @@
 # Write The Spec
 
-A rngo [spec](/docs/spec) describes a system's behavior, and the [`rngo run`](/docs/cli/run) CLI command checks
+A rngo [spec](/docs/spec) describes a system's behavior, and the [`rngo eval`](/docs/cli/eval) CLI command checks
 if that descriptions holds for a running instance of that system.
 
 In particular, the spec describes behavior in terms of:

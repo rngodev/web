@@ -1,12 +1,12 @@
 # Log
 
-The **log** is the centralized state of a run - each component interacts with it:
+The **log** is the centralized state of an eval - each component interacts with it:
 
 - the [proxy](/docs/concepts#proxy) writes inputs, outputs and errors to it
 - the [simulation](/docs/concepts#simulation) reads from it to generate referential inputs and writes to it to manage stateful effects.
 - the [audit](/docs/concepts#audit) reads from it to surface signals, and the writes back to it to record them
 
-It is implemented as [SQLite](https://sqlite.org). The [`rngo run`](/docs/cli/run) CLI command will put the log's DB file in the [run's directory](/docs/cli/run#capturing-outputs).
+It is implemented as [SQLite](https://sqlite.org). The [`rngo eval`](/docs/cli/eval) CLI command will put the log's DB file in the [eval's directory](/docs/cli/eval#capturing-outputs).
 
 ## Schema
 

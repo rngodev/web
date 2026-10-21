@@ -1,15 +1,15 @@
-# `rngo run`
+# `rngo eval`
 
-Runs a [spec](/docs/spec). By default, it:
+Evaluates a [spec](/docs/spec). By default, it:
 
 1. builds the spec based upon the `.rngo` directory
-2. runs the spec locally
+2. runs the simulation locally
 3. routes the effects to the appropriate [channels](/docs/spec/channel)
-4. records all data in the local run directory
+4. records all data in the local eval directory
 
 ## Building a Spec
 
-`rngo run` builds a spec based upon the contents of the local `.rngo` directory.
+`rngo eval` builds a spec based upon the contents of the local `.rngo` directory.
 
 The base of the spec is the contents of `.rngo/spec.yml`. If this file doesn't exist, the base will be an empty spec with a seed of 1.
 
@@ -52,7 +52,7 @@ If the path already exists in `.rngo/config.yml`, the `.rngo/effects` file will 
 
 ## Applying Inputs
 
-`rngo run` will run the spec and routes the stream of inputs to the appropriate [channels](/docs/spec/channel).
+`rngo eval` will run the simulation and route the stream of inputs to the appropriate [channels](/docs/spec/channel).
 
 Consider the following excerpt from a spec:
 
@@ -75,21 +75,21 @@ In this case, all inputs from the `invoice.create` effect will be piped to the `
 
 ## Capturing Outputs
 
-Each run gets its own directory, e.g. at:
+Each eval gets its own directory, e.g. at:
 
 ```bash
-.rngo/runs/01a005e6-1e8f-72b2-abfc-2da7a7a8dbdf/
+.rngo/evals/01a005e6-1e8f-72b2-abfc-2da7a7a8dbdf/
 ```
 
 This will contain:
 
-- `spec.yml`, which has the full resolved spec used by the run
+- `spec.yml`, which has the full resolved spec used by the eval
 - `log.sqlite`, which is a SQLite database containing every input, output and metadata
 
-The last run will be symlinked at
+The last eval will be symlinked at
 
 ```bash
-.rngo/runs/last
+.rngo/evals/last
 ```
 
 ## Flags

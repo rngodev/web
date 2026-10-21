@@ -38,7 +38,7 @@ The `rngo run` CLI command now accepts a `--realtime` flag, which tells it to wa
 
 For backdated inputs, nothing will change since their logical timestamps have already passed.
 
-See the [`rngo run` reference](/docs/cli/run) for more details.
+See the [`rngo run` reference](/docs/cli/eval) for more details.
 
 ## Timestamps
 

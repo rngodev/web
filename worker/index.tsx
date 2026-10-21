@@ -37,7 +37,7 @@ import generator from "./views/docs/spec/generator.md?raw";
 import concepts from "./views/docs/platform/concepts.md?raw";
 import log from "./views/docs/platform/reference/log.md?raw";
 import expressions from "./views/docs/platform/reference/expressions.md?raw";
-import cliRun from "./views/docs/cli/run.md?raw";
+import cliEval from "./views/docs/cli/eval.md?raw";
 import cliInit from "./views/docs/cli/init.md?raw";
 import cliSkillsInstall from "./views/docs/cli/skills/install.md?raw";
 
@@ -118,7 +118,7 @@ docsPage("/docs/spec/target/stream", "Spec", "target/stream", targetStream);
 docsPage("/docs/spec/signal/sql", "Spec", "signal/sql", signalSql);
 docsPage("/docs/cli", "CLI", "Overview", cliOverview);
 docsPage("/docs/cli/init", "CLI", "init", cliInit);
-docsPage("/docs/cli/run", "CLI", "run", cliRun);
+docsPage("/docs/cli/eval", "CLI", "eval", cliEval);
 docsPage("/docs/cli/skills/install", "CLI", "skills install", cliSkillsInstall);
 
 // Generator types are auto-discovered from worker/views/docs/spec/generator/*.md,
@@ -130,6 +130,7 @@ for (const [name, content] of Object.entries(generatorTypeMarkdown)) {
 
 // Old URLs (including .md) permanently redirect to their pages under "/docs/spec".
 const movedDocs: Record<string, string> = {
+  "/docs/cli/run": "/docs/cli/eval",
   "/docs/schema": "/docs/spec",
   "/docs/spec/schema": "/docs/spec/generator",
   "/docs/components": "/docs/spec",
