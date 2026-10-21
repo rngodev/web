@@ -221,18 +221,18 @@ function SpecSidebar({ active }: { active: string }) {
         <SidebarLink href="/docs/spec/channel" active={active} text="Channel" />
         <SidebarLink href="/docs/spec/effect" active={active} text="Effect" />
         <SidebarLink href="/docs/spec/signal" active={active} text="Signal" />
-        <SidebarLink href="/docs/spec/schema" active={active} text="Schema" />
+        <SidebarLink href="/docs/spec/generator" active={active} text="Generator" />
       </SidebarGroup>
-      <SidebarGroup title="Schema">
-        <SidebarLink href="/docs/spec/schema/array" active={active} text="array" />
-        <SidebarLink href="/docs/spec/schema/constant" active={active} text="constant" />
-        <SidebarLink href="/docs/spec/schema/context" active={active} text="context" />
-        <SidebarLink href="/docs/spec/schema/function" active={active} text="function" />
-        <SidebarLink href="/docs/spec/schema/number" active={active} text="number" />
-        <SidebarLink href="/docs/spec/schema/object" active={active} text="object" />
-        <SidebarLink href="/docs/spec/schema/reference" active={active} text="reference" />
-        <SidebarLink href="/docs/spec/schema/select" active={active} text="select" />
-        <SidebarLink href="/docs/spec/schema/string" active={active} text="string" />
+      <SidebarGroup title="Generator">
+        <SidebarLink href="/docs/spec/generator/array" active={active} text="array" />
+        <SidebarLink href="/docs/spec/generator/constant" active={active} text="constant" />
+        <SidebarLink href="/docs/spec/generator/context" active={active} text="context" />
+        <SidebarLink href="/docs/spec/generator/function" active={active} text="function" />
+        <SidebarLink href="/docs/spec/generator/number" active={active} text="number" />
+        <SidebarLink href="/docs/spec/generator/object" active={active} text="object" />
+        <SidebarLink href="/docs/spec/generator/reference" active={active} text="reference" />
+        <SidebarLink href="/docs/spec/generator/select" active={active} text="select" />
+        <SidebarLink href="/docs/spec/generator/string" active={active} text="string" />
       </SidebarGroup>
       <SidebarGroup title="Format">
         <SidebarLink href="/docs/spec/format/sql" active={active} text="sql" id="format/sql" />

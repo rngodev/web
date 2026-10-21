@@ -22,15 +22,14 @@ effects:
     channel: sqlite
     metadata:
       table: USER
-    schema:
+    generator:
       type: object
       properties:
         id:
-          schema:
-            type: number
-            minimum: 1
-            scale: 0
-            step: 1
+          type: number
+          minimum: 1
+          scale: 0
+          step: 1
         name:
           type: string
           pattern: .{0,36}

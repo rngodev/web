@@ -1,6 +1,6 @@
 # function
 
-Evaluates a [Common Expression Language (CEL)](https://github.com/google/cel-spec) expression and emits the result. The expression may reference named sub-schemas specified in the `variables` property.
+Evaluates a [Common Expression Language (CEL)](https://github.com/google/cel-spec) expression and emits the result. The expression may reference named sub-generators specified in the `variables` property.
 
 ## Parameters
 
@@ -10,7 +10,7 @@ The [CEL](https://github.com/google/cel-spec) expression.
 
 ### `variables` — optional
 
-An object of named [schema](/docs/spec/schema) definitions that may be referenced in `expression`.
+An object of named [generator](/docs/spec/generator) definitions that may be referenced in `expression`.
 
 ## Examples
 
@@ -28,14 +28,14 @@ An object of named [schema](/docs/spec/schema) definitions that may be reference
       "options": [
         {
           "weight": 5,
-          "schema": {
+          "generator": {
             "type": "constant",
             "value": "example.com"
           }
         },
         {
           "weight": 2,
-          "schema": {
+          "generator": {
             "type": "constant",
             "value": "example.org"
           }

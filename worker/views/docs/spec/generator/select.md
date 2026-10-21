@@ -1,12 +1,12 @@
 # select
 
-Emits a value from exactly one of a set of sub-schemas, selected at random. By default, each sub-schema has an equal chance of being selected. However, weights can be assigned to each to adjust the probability of selection.
+Selects a value from exactly one of a set of sub-generators at random. By default, each sub-generator has an equal chance of being selected. However, weights can be assigned to each to adjust the probability of selection.
 
 ## Parameters
 
 ### `options` — required
 
-An array of objects that must include a `schema` field and an optional `weight` field.
+An array of objects that must include a `generator` field and an optional `weight` field.
 
 ## Examples
 
@@ -17,13 +17,13 @@ Alternates between the string "one" and the number 2.
   "type": "select",
   "options": [
     {
-      "schema": {
+      "generator": {
         "type": "constant",
         "value": "one"
       }
     },
     {
-      "schema": {
+      "generator": {
         "type": "constant",
         "value": 2
       }
@@ -40,7 +40,7 @@ Emits a positive integer 80% of the time, and `null` 20% of the time.
   "options": [
     {
       "weight": 4,
-      "schema": {
+      "generator": {
         "type": "number",
         "minimum": 0,
         "scale": 0
@@ -48,7 +48,7 @@ Emits a positive integer 80% of the time, and `null` 20% of the time.
     },
     {
       "weight": 1,
-      "schema": {
+      "generator": {
         "type": "constant",
         "value": null
       }

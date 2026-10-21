@@ -1,12 +1,12 @@
 # array
 
-Generates an array of values from the specified `items` sub-schema.
+Generates an array of values from the specified `items` sub-generator.
 
 ## Parameters
 
 ### `items` — required
 
-A sub-schema used to generate each array item.
+A sub-generator used to generate each array item.
 
 ### `minItems` — optional
 

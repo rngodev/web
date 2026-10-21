@@ -37,7 +37,7 @@ effects:
     channel: db
     metadata:
       table: USERS
-    schema:
+    generator:
       type: object
       properties:
         id:
@@ -61,7 +61,7 @@ effects:
     trigger: hz(120, hour)
     start: now
     channel: api
-    schema:
+    generator:
       type: object
       properties:
         path:

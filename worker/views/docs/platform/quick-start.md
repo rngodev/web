@@ -12,7 +12,7 @@ Make a file called `rngo.yml` with this configuration:
 seed: 1
 effects:
   users.create:
-    schema:
+    generator:
       type: object
       properties:
         id:
@@ -27,29 +27,29 @@ effects:
             givenName:
               type: select
               options:
-                - schema:
+                - generator:
                     type: constant
                     value: Alice
-                - schema:
+                - generator:
                     type: constant
                     value: Bob
-                - schema:
+                - generator:
                     type: constant
                     value: Carl
             familyName:
               type: select
               options:
-                - schema:
+                - generator:
                     type: constant
                     value: Agarwal
-                - schema:
+                - generator:
                     type: constant
                     value: Bates
-                - schema:
+                - generator:
                     type: constant
                     value: Chester
   posts.create:
-    schema:
+    generator:
       type: object
       properties:
         id:
@@ -61,15 +61,15 @@ effects:
           type: select
           options:
             - weight: 5
-              schema:
+              generator:
                 type: constant
                 value: Lorem Ipsum
             - weight: 3
-              schema:
+              generator:
                 type: constant
                 value: Dolor Sit Amet
             - weight: 2
-              schema:
+              generator:
                 type: constant
                 value: Sed Mattis Eu Erat
         authorId:

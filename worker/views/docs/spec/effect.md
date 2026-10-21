@@ -7,7 +7,7 @@ trigger: hz(1, hour)
 channel: db
 metadata:
   table: USERS
-schema:
+generator:
   type: object
   properties:
     name:
@@ -21,11 +21,11 @@ schema:
 
 ## Parameters
 
-### `schema` — required
+### `generator` — required
 
 Defines the structure and content of its inputs.
 
-See the [Schema reference](/docs/spec) for more details.
+See the [Generator reference](/docs/spec) for more details.
 
 ### `trigger` — optional
 
@@ -65,7 +65,7 @@ effects:
     channel: mydb
     metadata:
       table: USERS
-    schema: ...
+    generator: ...
 ```
 
 If an effect does not specify a channel, the data will still be captured in the run log.
@@ -80,7 +80,7 @@ effects:
     channel: mysql
     metadata:
       table: Article
-    schema: ...
+    generator: ...
 ```
 
 In this case, the effect's metadata is meaningful to it's "mysql" channel. Assuming the channel uses the
@@ -99,7 +99,7 @@ end: now
 channel: db
 metadata:
   table: USERS
-schema:
+generator:
   type: object
   properties:
     id:
@@ -128,7 +128,7 @@ trigger: "hz(15, minute)"
 start: now
 end: now + minutes(3)
 channel: api
-schema:
+generator:
   type: object
   properties:
     method:

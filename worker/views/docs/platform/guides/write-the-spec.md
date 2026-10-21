@@ -8,7 +8,7 @@ In particular, the spec describes behavior in terms of:
 - [effects](/docs/spec/effect), which model individual inputs to the system
 - [signals](/docs/spec/signal), which aggregate and classify inputs, outputs and metadata
 - [channels](/docs/spec/channel), which model system interfaces
-- [schemas](/docs/spec/schema), which allow for shared data among effects
+- [generators](/docs/spec/generator), which allow for shared data among effects
 
 So, our goal is to write a spec for your system that has realistic effects and comprehensive signals.
 
@@ -21,7 +21,7 @@ The entire spec could live in that file, but you can also break it out into sub-
 - `.rngo/effects/*.yml`
 - `.rngo/signals/*.yml`
 - `.rngo/channels/*.yml`
-- `.rngo/schemas/*.yml`
+- `.rngo/generators/*.yml`
 
 A spec can get large, so this approach makes it easier to manage. The [CLI](/docs/cli) expects this layout, and [`rngo init`](/docs/cli/init) will
 (partially) set it up for you.
@@ -80,7 +80,7 @@ trigger: hz(1, hour)
 channel: db
 metadata:
   table: USERS
-schema:
+generator:
   type: object
   properties:
     name:
@@ -130,15 +130,15 @@ expect: result == 0
 Ideally, you'll be able to derive signals from product and architectural documentation,
 although in many cases the signals themselves will be the source of truth.
 
-## Schemas
+## Generators
 
-You should avoid duplicating a [schema](/docs/spec/schema) across multiple effects. Instead, add a
-[custom schema type](/docs/spec/schema#custom-schema-types) and reference it by name.
+You should avoid duplicating a [generator](/docs/spec/generator) across multiple effects. Instead, add a
+[custom generator type](/docs/spec/generator#custom-generator-types) and reference it by name.
 
-For example, if you add the following at `.rngo/schemas/uuid.yml`:
+For example, if you add the following at `.rngo/generators/uuid.yml`:
 
 ```yaml
-schema:
+generator:
   type: string
   pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
 ```
@@ -148,7 +148,7 @@ You can reference it at, e.g., `.rngo/effects/user.create.yml`:
 ```yaml
 trigger: hz(1, hour)
 channel: db
-schema:
+generator:
   type: object
   properties:
     id:

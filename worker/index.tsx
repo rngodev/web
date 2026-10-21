@@ -3,7 +3,7 @@ import Layout from "./layout";
 import Home from "./views/home";
 import Blog from "./views/blog";
 import { DocPage } from "./views/docs/page";
-import { schemaTypeMarkdown, SchemaTypePage } from "./views/docs/spec/schema/page";
+import { generatorTypeMarkdown, GeneratorTypePage } from "./views/docs/spec/generator/page";
 import { PostPage } from "./views/blog/page";
 import { posts } from "./views/blog/posts";
 
@@ -33,7 +33,7 @@ import writeTheSpec from "./views/docs/platform/guides/write-the-spec.md?raw";
 import channel from "./views/docs/spec/channel.md?raw";
 import effect from "./views/docs/spec/effect.md?raw";
 import signal from "./views/docs/spec/signal.md?raw";
-import schema from "./views/docs/spec/schema.md?raw";
+import generator from "./views/docs/spec/generator.md?raw";
 import concepts from "./views/docs/platform/concepts.md?raw";
 import log from "./views/docs/platform/reference/log.md?raw";
 import expressions from "./views/docs/platform/reference/expressions.md?raw";
@@ -109,7 +109,7 @@ docsPage("/docs/reference/expressions", "Platform", "Expressions", expressions);
 docsPage("/docs/spec/channel", "Spec", "Channel", channel);
 docsPage("/docs/spec/effect", "Spec", "Effect", effect);
 docsPage("/docs/spec/signal", "Spec", "Signal", signal);
-docsPage("/docs/spec/schema", "Spec", "Schema", schema);
+docsPage("/docs/spec/generator", "Spec", "Generator", generator);
 docsPage("/docs/spec", "Spec", "Overview", schemaOverview);
 docsPage("/docs/spec/format/sql", "Spec", "format/sql", formatSql);
 docsPage("/docs/spec/format/template", "Spec", "format/template", formatTemplate);
@@ -121,21 +121,22 @@ docsPage("/docs/cli/init", "CLI", "init", cliInit);
 docsPage("/docs/cli/run", "CLI", "run", cliRun);
 docsPage("/docs/cli/skills/install", "CLI", "skills install", cliSkillsInstall);
 
-// Schema types are auto-discovered from worker/views/docs/spec/schema/*.md,
-// so a new schema type file needs no changes here.
-for (const [name, content] of Object.entries(schemaTypeMarkdown)) {
-  docsMarkdown[`/docs/spec/schema/${name}`] = content;
-  app.get(`/docs/spec/schema/${name}`, (c) => c.render(<SchemaTypePage name={name} />));
+// Generator types are auto-discovered from worker/views/docs/spec/generator/*.md,
+// so a new generator type file needs no changes here.
+for (const [name, content] of Object.entries(generatorTypeMarkdown)) {
+  docsMarkdown[`/docs/spec/generator/${name}`] = content;
+  app.get(`/docs/spec/generator/${name}`, (c) => c.render(<GeneratorTypePage name={name} />));
 }
 
 // Old URLs (including .md) permanently redirect to their pages under "/docs/spec".
 const movedDocs: Record<string, string> = {
   "/docs/schema": "/docs/spec",
+  "/docs/spec/schema": "/docs/spec/generator",
   "/docs/components": "/docs/spec",
   "/docs/concepts/effect": "/docs/spec/effect",
   "/docs/concepts/channel": "/docs/spec/channel",
   "/docs/concepts/signal": "/docs/spec/signal",
-  "/docs/concepts/schema": "/docs/spec/schema",
+  "/docs/concepts/schema": "/docs/spec/generator",
   "/docs/concepts/expressions": "/docs/reference/expressions",
   "/docs/spec/expressions": "/docs/reference/expressions",
   "/docs/concepts/spec": "/docs/spec",
@@ -150,13 +151,18 @@ for (const [from, to] of Object.entries(movedDocs)) {
 }
 
 // Old component URLs (including .md) permanently redirect under "/docs/spec", e.g.
-// "/docs/schema/primitive/array" and "/docs/schema/array" both go to "/docs/spec/schema/array".
-for (const section of ["schema", "format", "target", "signal"]) {
-  app.get(`/docs/${section}/*`, (c) =>
-    c.redirect(
-      c.req.path.replace(`/docs/${section}/`, `/docs/spec/${section}/`).replace("/primitive/", "/"),
-      301,
-    ),
+// "/docs/schema/primitive/array", "/docs/schema/array" and "/docs/spec/schema/array" all go to
+// "/docs/spec/generator/array".
+const movedSections: Record<string, string> = {
+  "/docs/schema/": "/docs/spec/generator/",
+  "/docs/spec/schema/": "/docs/spec/generator/",
+  "/docs/format/": "/docs/spec/format/",
+  "/docs/target/": "/docs/spec/target/",
+  "/docs/signal/": "/docs/spec/signal/",
+};
+for (const [from, to] of Object.entries(movedSections)) {
+  app.get(`${from}*`, (c) =>
+    c.redirect(c.req.path.replace(from, to).replace("/primitive/", "/"), 301),
   );
 }
 

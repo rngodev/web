@@ -16,7 +16,7 @@ The base of the spec is the contents of `.rngo/spec.yml`. If this file doesn't e
 From there, it will merge in each file under the `.rngo/effects` directory. For example, if there was a file at `.rngo/effects/user.create.yml` with the following value:
 
 ```yaml
-schema:
+generator:
   type: object
   properties:
     id:
@@ -35,7 +35,7 @@ It will be inserted into the simulation like this:
 seed: 1
 effects:
   user.create:
-    schema:
+    generator:
       type: object
       properties:
         id:
@@ -48,7 +48,7 @@ effects:
           pattern: .{2,64}
 ```
 
-If the path already exists in `.rngo/config.yml`, the `.rngo/effects` file will be ignored. An analogous process happens for the files in the `.rngo/systems` and `.rngo/schemas` directories.
+If the path already exists in `.rngo/config.yml`, the `.rngo/effects` file will be ignored. An analogous process happens for the files in the `.rngo/systems` and `.rngo/generators` directories.
 
 ## Applying Inputs
 
@@ -66,7 +66,7 @@ channels:
 effects:
   invoice.create:
     channel: db1
-    schema:
+    generator:
       type: object
       # ...
 ```

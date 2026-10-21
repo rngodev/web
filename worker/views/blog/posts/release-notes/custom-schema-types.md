@@ -45,7 +45,7 @@ effects:
               format: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
 ```
 
-So, in this initial iteration, you can basically define reusable aliases for common schema patterns. See the [custom schema type docs](/docs/spec/schema#custom-schema-types) for details.
+So, in this initial iteration, you can basically define reusable aliases for common schema patterns. See the [custom schema type docs](/docs/spec/generator#custom-generator-types) for details.
 
 ## Looking Forward
 
