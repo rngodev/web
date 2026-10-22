@@ -166,7 +166,9 @@ function SidebarGroup(props: PropsWithChildren<{ title?: string }>) {
   );
 }
 
-function SidebarLink(props: { href: string; active: string; text: string; id?: string }) {
+function SidebarLink(
+  props: PropsWithChildren<{ href: string; active: string; text: string; id?: string }>,
+) {
   const isActive = props.active === (props.id ?? props.text);
   return (
     <li>
@@ -181,6 +183,9 @@ function SidebarLink(props: { href: string; active: string; text: string; id?: s
       >
         {props.text}
       </a>
+      {props.children && (
+        <ul class="ml-3 mt-0.5 space-y-0.5 border-l border-amber-600/60 pl-1">{props.children}</ul>
+      )}
     </li>
   );
 }
@@ -215,16 +220,28 @@ function PlatformSidebar({ active }: { active: string }) {
 
 function SpecSidebar({ active }: { active: string }) {
   return (
-    <>
-      <SidebarGroup>
-        <SidebarLink href="/docs/spec" active={active} text="Overview" />
-        <SidebarLink href="/docs/spec/channel" active={active} text="Channel" />
-        <SidebarLink href="/docs/spec/effect" active={active} text="Effect" />
-        <SidebarLink href="/docs/spec/signal" active={active} text="Signal" />
-        <SidebarLink href="/docs/spec/format" active={active} text="Format" />
-        <SidebarLink href="/docs/spec/generator" active={active} text="Generator" />
-      </SidebarGroup>
-      <SidebarGroup title="Generator">
+    <SidebarGroup>
+      <SidebarLink href="/docs/spec" active={active} text="Overview" />
+      <SidebarLink href="/docs/spec/channel" active={active} text="Channel">
+        <SidebarLink href="/docs/spec/channel/exec" active={active} text="exec" id="channel/exec" />
+        <SidebarLink
+          href="/docs/spec/channel/stream"
+          active={active}
+          text="stream"
+          id="channel/stream"
+        />
+      </SidebarLink>
+      <SidebarLink href="/docs/spec/effect" active={active} text="Effect" />
+      <SidebarLink href="/docs/spec/format" active={active} text="Format">
+        <SidebarLink href="/docs/spec/format/sql" active={active} text="sql" id="format/sql" />
+        <SidebarLink
+          href="/docs/spec/format/template"
+          active={active}
+          text="template"
+          id="format/template"
+        />
+      </SidebarLink>
+      <SidebarLink href="/docs/spec/generator" active={active} text="Generator">
         <SidebarLink href="/docs/spec/generator/array" active={active} text="array" />
         <SidebarLink href="/docs/spec/generator/constant" active={active} text="constant" />
         <SidebarLink href="/docs/spec/generator/context" active={active} text="context" />
@@ -234,29 +251,11 @@ function SpecSidebar({ active }: { active: string }) {
         <SidebarLink href="/docs/spec/generator/reference" active={active} text="reference" />
         <SidebarLink href="/docs/spec/generator/select" active={active} text="select" />
         <SidebarLink href="/docs/spec/generator/string" active={active} text="string" />
-      </SidebarGroup>
-      <SidebarGroup title="Format">
-        <SidebarLink href="/docs/spec/format/sql" active={active} text="sql" id="format/sql" />
-        <SidebarLink
-          href="/docs/spec/format/template"
-          active={active}
-          text="template"
-          id="format/template"
-        />
-      </SidebarGroup>
-      <SidebarGroup title="Channel">
-        <SidebarLink href="/docs/spec/channel/exec" active={active} text="exec" id="channel/exec" />
-        <SidebarLink
-          href="/docs/spec/channel/stream"
-          active={active}
-          text="stream"
-          id="channel/stream"
-        />
-      </SidebarGroup>
-      <SidebarGroup title="Signal">
+      </SidebarLink>
+      <SidebarLink href="/docs/spec/signal" active={active} text="Signal">
         <SidebarLink href="/docs/spec/signal/sql" active={active} text="sql" id="signal/sql" />
-      </SidebarGroup>
-    </>
+      </SidebarLink>
+    </SidebarGroup>
   );
 }
 
