@@ -14,34 +14,26 @@ An object of named [generator](/docs/spec/generator) definitions that may be ref
 
 ## Examples
 
-```json
-{
-  "type": "function",
-  "expression": "username + '@' + domain",
-  "variables": {
-    "username": {
-      "type": "string",
-      "pattern": ".{2,64}"
-    },
-    "domain": {
-      "type": "select",
-      "options": [
-        {
-          "weight": 5,
-          "generator": {
-            "type": "constant",
-            "value": "example.com"
-          }
-        },
-        {
-          "weight": 2,
-          "generator": {
-            "type": "constant",
-            "value": "example.org"
-          }
-        }
-      ]
-    }
-  }
-}
+### Email
+
+Random email addresses from a enumerated set of domains.
+
+```yaml
+type: function
+expression: "local + '@' + domain"
+variables:
+  local:
+    type: string
+    pattern: "[a-z]{5,10}"
+  domain:
+    type: select
+    options:
+      - weight: 3
+        generator: { type: constant, value: "gmail.com" }
+      - weight: 2
+        generator: { type: constant, value: "yahoo.com" }
+      - weight: 2
+        generator: { type: constant, value: "outlook.com" }
+      - generator: { type: constant, value: "icloud.com" }
+      - generator: { type: constant, value: "protonmail.com" }
 ```

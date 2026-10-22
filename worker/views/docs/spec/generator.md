@@ -1,6 +1,6 @@
 # Generator
 
-A **generator** defines an [effect's](/docs/spec/effect) inputs. Consider the following example:
+A **generator** defines all inputs that an [effect](/docs/spec/effect) could possibly emit. Consider the following example:
 
 ```yaml
 type: object
@@ -36,23 +36,23 @@ It will endlessly generate values that look like this:
 { "email": "111//??@example.org", "age": 58 }
 ```
 
-## Discriminator
+## Primitive Types
 
-The `type` field of a generator spec acts as the discriminator - i.e. it determines the other fields that you may (or must) specify in the spec.
+A generator is represented as a [discriminated union](/docs/spec#discriminated-unions) of primitive types, and some are composites, i.e. they take other generators as parameters:
 
-In the above example, the top-level spec has type `object`, which requires a `properties` field, while its `age` property has type `number`, which accepts optional `minimum` and `maximum` fields.
+- [array](/docs/spec/generator/array) - generates an array of values from an `items` generator
+- [constant](/docs/spec/generator/constant) - emits a literal value
+- [context](/docs/spec/generator/context) - emits a value from the simulation's dynamic context
+- [function](/docs/spec/generator/function) - evaluates a CEL expression over named sub-generators
+- [number](/docs/spec/generator/number) - generates decimal or integer values
+- [object](/docs/spec/generator/object) - generates an object from named property generators
+- [reference](/docs/spec/generator/reference) - samples values emitted by another effect
+- [select](/docs/spec/generator/select) - selects one of several sub-generators at random
+- [string](/docs/spec/generator/string) - generates a string value
 
-## Composition
+## Custom Types
 
-Generators compose in that some generator types expect other generators as inputs.
-
-In the above example, we specify generators in the `variables` field of the `function` generator spec which is itself specified as part of the `properties` field of the top-level `object` generator spec.
-
-See the left navigation for all available generators.
-
-## Custom Generator Types
-
-Ultimately, an [effect's](/docs/spec/effect) generator must be a composition of [primitive generator types](/docs/spec), but a spec may define custom generator types under the `generators` field that can be shared _across_ effects.
+Ultimately, an [effect's](/docs/spec/effect) generator must be a composition of [primitive generator types](#primitive-types), but a spec may define custom generator types under the `generators` field that can be shared _across_ effects.
 
 Here's how you'd define and use a custom `uuid` generator type:
 
@@ -108,40 +108,3 @@ effects:
 ```
 
 The only thing you need to define a custom generator type is a `generator` field, which defines the literal generator spec.
-
-## Examples
-
-### Incrementing ID
-
-All natural numbers in order, starting with `1`.
-
-```yaml
-type: number
-minimum: 1
-scale: 0
-step: 1
-```
-
-### Email
-
-Random email addresses from a enumerated set of domains.
-
-```yaml
-type: function
-expression: "local + '@' + domain"
-variables:
-  local:
-    type: string
-    pattern: "[a-z]{5,10}"
-  domain:
-    type: select
-    options:
-      - weight: 3
-        generator: { type: constant, value: "gmail.com" }
-      - weight: 2
-        generator: { type: constant, value: "yahoo.com" }
-      - weight: 2
-        generator: { type: constant, value: "outlook.com" }
-      - generator: { type: constant, value: "icloud.com" }
-      - generator: { type: constant, value: "protonmail.com" }
-```

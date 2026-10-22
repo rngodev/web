@@ -221,6 +221,7 @@ function SpecSidebar({ active }: { active: string }) {
         <SidebarLink href="/docs/spec/channel" active={active} text="Channel" />
         <SidebarLink href="/docs/spec/effect" active={active} text="Effect" />
         <SidebarLink href="/docs/spec/signal" active={active} text="Signal" />
+        <SidebarLink href="/docs/spec/format" active={active} text="Format" />
         <SidebarLink href="/docs/spec/generator" active={active} text="Generator" />
       </SidebarGroup>
       <SidebarGroup title="Generator">

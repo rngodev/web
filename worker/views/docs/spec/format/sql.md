@@ -10,7 +10,9 @@ None.
 
 ## Examples
 
-An input with the following data, from an effect with the key `users`:
+### User Insert
+
+Given an input from the `users` effect with the following data:
 
 ```json
 {
@@ -20,17 +22,8 @@ An input with the following data, from an effect with the key `users`:
 }
 ```
 
-becomes:
+Produces the following SQL insert:
 
 ```sql
 INSERT INTO `users` (id, name, admin) VALUES (1, 'Alice', true);
-```
-
-Pipe SQL statements into `psql`'s stdin:
-
-```yaml
-type: stream
-command: psql -q $DATABASE_URL
-format:
-  type: sql
 ```

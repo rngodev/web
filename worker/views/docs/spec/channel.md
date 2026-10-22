@@ -1,7 +1,6 @@
 # Channel
 
-**Channels** are proxies through which a simulation sends inputs and receives outputs
-from the system-under-test. For example:
+**Channels** are how the [proxy](/docs/concepts#proxy) sends inputs to and receives outputs from interfaces in the [subject system](/docs/concepts#subject). For example:
 
 ```yaml
 channels:
@@ -33,57 +32,15 @@ Interactive outputs always include an `input_id` foreign key to the input that c
 
 Ambient outputs come from `stream` channels. They may come from channels that take inputs, or from read-only channels.
 
-## Parameters
+## Primitive Types
 
-### `type` — required
+A channel is represented as a [discriminated union](docs/spec#discriminated-unions) of primitive types:
 
-Defines how the channel sends input to and receives outputs from the system.
-
-There are two supported types:
-
-- [exec](/docs/spec/channel/exec)
-- [stream](/docs/spec/channel/stream)
+- [exec](/docs/spec/channel/exec) - runs each input as a command in a one-off sub-shell
+- [stream](/docs/spec/channel/stream) - sends each input to the stdin of a command in a sub-shell
 
 ### `format` — optional
 
 Defines how it will transform an input prior to sending it to the system. If no format is specified, the input's JSON-encoded data will be sent.
 
 There are two supported type:
-
-- [template](/docs/spec/format/template)
-- [sql](/docs/spec/format/sql)
-
-## Examples
-
-### cURL
-
-You can use cURL as an **exec** channel for an API channel. This example uses a template
-that expects the effect data to include `method` and `path` fields.
-
-```yaml
-type: exec
-format:
-  type: template
-  template: curl -sS -X {{data.method}} ${API_BASE_URL:-http://localhost:5173}{{data.path}}
-```
-
-### PostgreSQL
-
-Use a **stream** channel with a **sql** `format` to pipe SQL statements into `psql`'s stdin.
-
-```yaml
-type: stream
-command: psql -q $DATABASE_URL
-format:
-  type: sql
-```
-
-### Log File
-
-Use a **stream** channel to receive signals from a log file. This is an example of a read-only channel,
-meaning no effects will be sent to it.
-
-```yaml
-type: stream
-command: tail -F logs/app.log
-```

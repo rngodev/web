@@ -22,7 +22,7 @@ The size of the step between successive emitted values. If positive, the first v
 
 ## Examples
 
-Unbounded:
+### Unbounded
 
 ```json
 {
@@ -30,7 +30,7 @@ Unbounded:
 }
 ```
 
-Bounded:
+### Bounded
 
 ```json
 {
@@ -40,7 +40,7 @@ Bounded:
 }
 ```
 
-Integer:
+### Integer
 
 ```json
 {
@@ -51,7 +51,9 @@ Integer:
 }
 ```
 
-Incrementing ID:
+### Incrementing ID
+
+All natural numbers in order, starting with `1`.
 
 ```json
 {

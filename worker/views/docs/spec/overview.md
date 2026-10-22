@@ -1,10 +1,13 @@
 # Spec
 
-A **spec** is a JSON object that describes the behavior of a system by defining a _simulation_ and an _audit_.
+A **spec** describes the behavior of a system via a [simulation](/docs/concepts#simulation) and an [audit](/docs/concepts#audit). The simulation models realistic usage of the system while the audit sets expectations for observed behavior.
 
-The simulation models realistic usage of the system while the audit sets expectations for observed behavior.
+There are two ways of representing a spec:
 
-Here's a contrived example:
+1. via a [Rust DSL](https://crates.io/crates/rngo)
+2. as a JSON (or YAML) object
+
+This reference will focus on the JSON / YAML representation. Here's an example:
 
 ```yaml
 key: my-service
@@ -45,6 +48,19 @@ signals:
 The `signals` parameter configures the audit, while the other parameters configure the simulation.
 
 The [`rngo eval`](/docs/cli/eval) CLI command evaluates whether a spec hold for a given deployment of a system by running the simulation against the system, logging all data and then auditing the log.
+
+## Discriminated Unions
+
+Several component types within a spec are represented as [discriminated unions](https://en.wikipedia.org/wiki/Tagged_union). This means that the component takes a `type` parameter, whose value is an enum that determines the schema of the other parameters..
+
+The spec component types that are represented as discriminated unions are:
+
+- [generator](/docs/spec/generator)
+- [format](/docs/spec)
+- [channel](/docs/spec/channel)
+- [signal](/docs/spec/signal)
+
+You can see in the example above that each of these component types have a `type` parameter. In fact, the effect has a generator of type `object`, which has nested generators of types `number` and `string` - each has a different parameter schema.
 
 ## Parameters
 
@@ -95,3 +111,9 @@ Must be an object of named effects. See the [effect reference](/docs/spec/effect
 What patterns to look for in the log during the audit.
 
 Must be an object of named signals. See the [signal reference](/docs/spec/signal) for how to define one.
+
+### `generators` — optional
+
+Custom generator types that may be used within an effect.
+
+Must be an object of named custom generator type. See the [custom generator types reference](/docs/spec/generator#custom-generator-types) for how to define one.

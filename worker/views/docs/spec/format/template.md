@@ -14,13 +14,13 @@ The Handlebars template string. It can reference the following fields:
 
 ## Examples
 
-A simple channel that sends inputs over HTTP with cURL:
+### cURL
 
 ```yaml
+type: exec
 format:
   type: template
   template: >-
     curl -sS --fail-with-body -X {{data.method}} "${API_BASE_URL:-http://localhost:5173}{{{data.path}}}"
     {{#if data.body}}-H 'Content-Type: application/json' --data '{{json data.body}}'{{/if}}
-type: exec
 ```

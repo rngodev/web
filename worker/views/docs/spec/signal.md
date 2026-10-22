@@ -12,8 +12,8 @@ query: >
 expect: result == 0
 ```
 
-## Parameters
+## Primitive Types
 
-### `type` — required
+A signal is represented as a [discriminated union](docs/spec#discriminated-unions) of primitive types (although there is currently only one such type):
 
-A discriminator. The only supported type is [sql](/docs/spec/signal/sql).
+- [sql](/docs/spec/signal/sql) - calculates the signal with a SQLite query

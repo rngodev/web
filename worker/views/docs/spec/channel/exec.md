@@ -8,21 +8,15 @@ The stdout of each command's sub-shell is recorded as an interactive [output](/d
 
 ## Parameters
 
-None.
+### `format` — optional
+
+How to format the input prior to running as a command. See the [format reference](/docs/spec/format).
 
 ## Examples
 
-If `API_URL` and `API_TOKEN` were defined in `.env`, you could send this command to `exec`:
+### cURL
 
-```sh
-curl -s -H "Authorization: Bearer $API_TOKEN" \
-    "${API_URL:-http://localhost:3000}/users" \
-        | jq -r '.[].email'
-```
-
-Each line `jq` prints to stdout is recorded as an interactive output.
-
-Use cURL as an `exec` channel for an API, with a [`template`](/docs/spec/format/template) format:
+Sends inputs to an API using curl.
 
 ```yaml
 type: exec
@@ -30,3 +24,5 @@ format:
   type: template
   template: curl -sS -X {{data.method}} ${API_BASE_URL:-http://localhost:5173}{{data.path}}
 ```
+
+This uses a [`template`](/docs/spec/format/template) format that expects the effect data to include `method` and `path` fields. The `API_URL` can be picked up either from the environment, or a local `.env`.

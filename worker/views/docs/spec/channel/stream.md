@@ -14,9 +14,15 @@ A `stream` channel may also be used to implement a read-only channel - i.e. one 
 
 The command to run in a sub-shell.
 
+### `format` — optional
+
+How to format the input prior to piping to stdin. See the [format reference](/docs/spec/format).
+
 ## Examples
 
-Send SQL inputs to PostgreSQL:
+### PostgreSQL
+
+Use the **sql** `format` to pipe SQL statements into `psql`'s stdin.
 
 ```yaml
 type: stream
@@ -25,7 +31,9 @@ format:
   type: sql
 ```
 
-Receive outputs from a log file, as a read-only channel:
+### Log File
+
+Receive signals from a log file. This is an example of a read-only channel, meaning no effects will be sent to it.
 
 ```yaml
 type: stream

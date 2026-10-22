@@ -20,6 +20,7 @@ import rngoSkill from "./views/blog/posts/release-notes/rngo-skill.md?raw";
 import aBetterRunLog from "./views/blog/posts/release-notes/a-better-run-log.md?raw";
 
 import platformOverview from "./views/docs/platform/overview.md?raw";
+import format from "./views/docs/spec/format.md?raw";
 import formatSql from "./views/docs/spec/format/sql.md?raw";
 import formatTemplate from "./views/docs/spec/format/template.md?raw";
 import channelExec from "./views/docs/spec/channel/exec.md?raw";
@@ -111,6 +112,7 @@ docsPage("/docs/spec/effect", "Spec", "Effect", effect);
 docsPage("/docs/spec/signal", "Spec", "Signal", signal);
 docsPage("/docs/spec/generator", "Spec", "Generator", generator);
 docsPage("/docs/spec", "Spec", "Overview", schemaOverview);
+docsPage("/docs/spec/format", "Spec", "Format", format);
 docsPage("/docs/spec/format/sql", "Spec", "format/sql", formatSql);
 docsPage("/docs/spec/format/template", "Spec", "format/template", formatTemplate);
 docsPage("/docs/spec/channel/exec", "Spec", "channel/exec", channelExec);
