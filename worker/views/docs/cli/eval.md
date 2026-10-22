@@ -59,10 +59,10 @@ Consider the following excerpt from a spec:
 ```yaml
 channels:
   db1:
+    type: stream
+    command: sqlite3 db1.sqlite
     format:
       type: sql
-    target:
-      command: sqlite3 db1.sqlite
 effects:
   invoice.create:
     channel: db1

@@ -22,8 +22,8 @@ import aBetterRunLog from "./views/blog/posts/release-notes/a-better-run-log.md?
 import platformOverview from "./views/docs/platform/overview.md?raw";
 import formatSql from "./views/docs/spec/format/sql.md?raw";
 import formatTemplate from "./views/docs/spec/format/template.md?raw";
-import targetExec from "./views/docs/spec/target/exec.md?raw";
-import targetStream from "./views/docs/spec/target/stream.md?raw";
+import channelExec from "./views/docs/spec/channel/exec.md?raw";
+import channelStream from "./views/docs/spec/channel/stream.md?raw";
 import signalSql from "./views/docs/spec/signal/sql.md?raw";
 import schemaOverview from "./views/docs/spec/overview.md?raw";
 import cliOverview from "./views/docs/cli/overview.md?raw";
@@ -113,8 +113,8 @@ docsPage("/docs/spec/generator", "Spec", "Generator", generator);
 docsPage("/docs/spec", "Spec", "Overview", schemaOverview);
 docsPage("/docs/spec/format/sql", "Spec", "format/sql", formatSql);
 docsPage("/docs/spec/format/template", "Spec", "format/template", formatTemplate);
-docsPage("/docs/spec/target/exec", "Spec", "target/exec", targetExec);
-docsPage("/docs/spec/target/stream", "Spec", "target/stream", targetStream);
+docsPage("/docs/spec/channel/exec", "Spec", "channel/exec", channelExec);
+docsPage("/docs/spec/channel/stream", "Spec", "channel/stream", channelStream);
 docsPage("/docs/spec/signal/sql", "Spec", "signal/sql", signalSql);
 docsPage("/docs/cli", "CLI", "Overview", cliOverview);
 docsPage("/docs/cli/init", "CLI", "init", cliInit);
@@ -158,7 +158,8 @@ const movedSections: Record<string, string> = {
   "/docs/schema/": "/docs/spec/generator/",
   "/docs/spec/schema/": "/docs/spec/generator/",
   "/docs/format/": "/docs/spec/format/",
-  "/docs/target/": "/docs/spec/target/",
+  "/docs/target/": "/docs/spec/channel/",
+  "/docs/spec/target/": "/docs/spec/channel/",
   "/docs/signal/": "/docs/spec/signal/",
 };
 for (const [from, to] of Object.entries(movedSections)) {

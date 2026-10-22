@@ -22,12 +22,11 @@ curl -s -H "Authorization: Bearer $API_TOKEN" \
 
 Each line `jq` prints to stdout is recorded as an interactive output.
 
-Use cURL as the `exec` target for an API channel, with a [`template`](/docs/spec/format/template) format:
+Use cURL as an `exec` channel for an API, with a [`template`](/docs/spec/format/template) format:
 
 ```yaml
+type: exec
 format:
   type: template
   template: curl -sS -X {{data.method}} ${API_BASE_URL:-http://localhost:5173}{{data.path}}
-target:
-  type: exec
 ```

@@ -13,10 +13,10 @@ start: now - years(5)
 end: now + minutes(3)
 channels:
   sqlite:
+    type: stream
+    command: sqlite3 db.sqlite
     format:
       type: sql
-    target:
-      command: sqlite3 db.sqlite
 effects:
   user.create:
     channel: sqlite

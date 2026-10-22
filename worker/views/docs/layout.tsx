@@ -243,13 +243,13 @@ function SpecSidebar({ active }: { active: string }) {
           id="format/template"
         />
       </SidebarGroup>
-      <SidebarGroup title="Target">
-        <SidebarLink href="/docs/spec/target/exec" active={active} text="exec" id="target/exec" />
+      <SidebarGroup title="Channel">
+        <SidebarLink href="/docs/spec/channel/exec" active={active} text="exec" id="channel/exec" />
         <SidebarLink
-          href="/docs/spec/target/stream"
+          href="/docs/spec/channel/stream"
           active={active}
           text="stream"
-          id="target/stream"
+          id="channel/stream"
         />
       </SidebarGroup>
       <SidebarGroup title="Signal">

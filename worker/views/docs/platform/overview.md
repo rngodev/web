@@ -17,19 +17,17 @@ start: now - years(2)
 end: now + minutes(5)
 channels:
   db:
+    type: stream
+    command: sqlite3 db.sqlite
     format:
       type: sql
-    target:
-      type: stream
-      command: sqlite3 db.sqlite
   api:
     format:
       type: template
       template: >-
         curl -sS -X {{data.method}} "${API_BASE_URL:-http://localhost:5173}{{{data.path}}}"
         {{#if data.body}}-H 'Content-Type: application/json' --data '{{json data.body}}'{{/if}}
-    target:
-      type: exec
+    type: exec
 effects:
   users.create:
     trigger: hz(100, day)

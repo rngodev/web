@@ -39,11 +39,10 @@ You should define a [channel](/docs/spec/channel) for any system interface that 
 For example, here's a channel for a Postgres DB that might live at `.rngo/channels/db.yml`:
 
 ```yaml
+type: stream
+command: psql -q $DATABASE_URL
 format:
   type: sql
-target:
-  type: stream
-  command: psql -q $DATABASE_URL
 ```
 
 Every spec will include at least one _public_ channel, which may correspond to:

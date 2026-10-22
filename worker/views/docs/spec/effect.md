@@ -56,10 +56,10 @@ All effects are bound to a **channel**:
 ```yaml
 channels:
   mydb:
+    type: stream
+    command: sqlite3 db.sqlite
     format:
       type: sql
-    target:
-      command: sqlite3 db.sqlite
 effects:
   users.create:
     channel: mydb

@@ -1,6 +1,6 @@
 # template
 
-Builds a string by running the input through a [Handlebars](https://handlebarsjs.com/guide/#language-features) template. Typically paired with an [`exec`](/docs/spec/target/exec) target.
+Builds a string by running the input through a [Handlebars](https://handlebarsjs.com/guide/#language-features) template. Typically paired with an [`exec`](/docs/spec/channel/exec) channel.
 
 ## Parameters
 
@@ -22,6 +22,5 @@ format:
   template: >-
     curl -sS --fail-with-body -X {{data.method}} "${API_BASE_URL:-http://localhost:5173}{{{data.path}}}"
     {{#if data.body}}-H 'Content-Type: application/json' --data '{{json data.body}}'{{/if}}
-target:
-  type: exec
+type: exec
 ```
