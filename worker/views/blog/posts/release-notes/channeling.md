@@ -30,7 +30,7 @@ You may notice that the input data is now accessed via the `data` field. This is
 
 Also, the `exec` target no longer accepts the `command` field.
 
-See the [channel reference](/docs/concepts/channel) for more details.
+See the [channel reference](/docs/spec/channel) for more details.
 
 ## Realtime
 
@@ -38,7 +38,7 @@ The `rngo run` CLI command now accepts a `--realtime` flag, which tells it to wa
 
 For backdated inputs, nothing will change since their logical timestamps have already passed.
 
-See the [`rngo run` reference](/docs/cli/run) for more details.
+See the [`rngo run` reference](/docs/cli/eval) for more details.
 
 ## Timestamps
 

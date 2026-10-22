@@ -23,10 +23,10 @@ Otherwise, you should follow the directions in [Write The Spec](/docs/guides/wri
 Now run the simulation:
 
 ```
-rngo run
+rngo eval
 ```
 
-This will build a spec based upon the contents of the `.rngo` directory, run it, route inputs to channels and audit the results.
+This will build a spec based upon the contents of the `.rngo` directory, run the simulation, route inputs to channels and audit the results.
 
 From here, you should iterate on the spec to make it more realistic and rerun it.
 
@@ -34,4 +34,4 @@ From here, you should iterate on the spec to make it more realistic and rerun it
 
 ## Next Step
 
-Visit the [spec reference](/docs/concepts/spec) to improve your application's spec.
+Visit the [spec reference](/docs/spec) to improve your application's spec.

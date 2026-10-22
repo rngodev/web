@@ -1,6 +1,6 @@
 This week I added support for custom schema types in [rngo 0.30.0](https://github.com/rngodev/rngo/releases/tag/0.30.0).
 
-This means that you can define a new schema type in terms of rngo's [primitive schema types](/docs/schema) - or any of your other custom schema types.
+This means that you can define a new schema type in terms of rngo's [primitive schema types](/docs/spec) - or any of your other custom schema types.
 
 Here's an example:
 
@@ -45,7 +45,7 @@ effects:
               format: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
 ```
 
-So, in this initial iteration, you can basically define reusable aliases for common schema patterns. See the [custom schema type docs](/docs/concepts/schema#custom-schema-types) for details.
+So, in this initial iteration, you can basically define reusable aliases for common schema patterns. See the [custom schema type docs](/docs/spec/generator#custom-generator-types) for details.
 
 ## Looking Forward
 

@@ -3,7 +3,7 @@ import Layout from "./layout";
 import Home from "./views/home";
 import Blog from "./views/blog";
 import { DocPage } from "./views/docs/page";
-import { primitiveMarkdown, PrimitivePage } from "./views/docs/schema/primitive/page";
+import { generatorTypeMarkdown, GeneratorTypePage } from "./views/docs/spec/generator/page";
 import { PostPage } from "./views/blog/page";
 import { posts } from "./views/blog/posts";
 
@@ -20,17 +20,25 @@ import rngoSkill from "./views/blog/posts/release-notes/rngo-skill.md?raw";
 import aBetterRunLog from "./views/blog/posts/release-notes/a-better-run-log.md?raw";
 
 import platformOverview from "./views/docs/platform/overview.md?raw";
-import schemaOverview from "./views/docs/schema/overview.md?raw";
+import format from "./views/docs/spec/format.md?raw";
+import formatSql from "./views/docs/spec/format/sql.md?raw";
+import formatTemplate from "./views/docs/spec/format/template.md?raw";
+import channelExec from "./views/docs/spec/channel/exec.md?raw";
+import channelStream from "./views/docs/spec/channel/stream.md?raw";
+import signalSql from "./views/docs/spec/signal/sql.md?raw";
+import schemaOverview from "./views/docs/spec/overview.md?raw";
 import cliOverview from "./views/docs/cli/overview.md?raw";
 import quickStart from "./views/docs/platform/quick-start.md?raw";
 import initializeYourProject from "./views/docs/platform/guides/initialize-your-project.md?raw";
 import writeTheSpec from "./views/docs/platform/guides/write-the-spec.md?raw";
-import spec from "./views/docs/platform/concepts/spec.md?raw";
-import channel from "./views/docs/platform/concepts/channel.md?raw";
-import effect from "./views/docs/platform/concepts/effect.md?raw";
-import signal from "./views/docs/platform/concepts/signal.md?raw";
-import schema from "./views/docs/platform/concepts/schema.md?raw";
-import cliRun from "./views/docs/cli/run.md?raw";
+import channel from "./views/docs/spec/channel.md?raw";
+import effect from "./views/docs/spec/effect.md?raw";
+import signal from "./views/docs/spec/signal.md?raw";
+import generator from "./views/docs/spec/generator.md?raw";
+import concepts from "./views/docs/platform/concepts.md?raw";
+import log from "./views/docs/platform/reference/log.md?raw";
+import expressions from "./views/docs/platform/reference/expressions.md?raw";
+import cliEval from "./views/docs/cli/eval.md?raw";
 import cliInit from "./views/docs/cli/init.md?raw";
 import cliSkillsInstall from "./views/docs/cli/skills/install.md?raw";
 
@@ -96,22 +104,70 @@ docsPage(
   initializeYourProject,
 );
 docsPage("/docs/guides/write-the-spec", "Platform", "Write The Spec", writeTheSpec);
-docsPage("/docs/concepts/spec", "Platform", "Spec", spec);
-docsPage("/docs/concepts/channel", "Platform", "Channel", channel);
-docsPage("/docs/concepts/effect", "Platform", "Effect", effect);
-docsPage("/docs/concepts/signal", "Platform", "Signal", signal);
-docsPage("/docs/concepts/schema", "Platform", "Schema", schema);
-docsPage("/docs/schema", "Schema", "Overview", schemaOverview);
+docsPage("/docs/concepts", "Platform", "Concepts", concepts);
+docsPage("/docs/reference/log", "Platform", "Log", log);
+docsPage("/docs/reference/expressions", "Platform", "Expressions", expressions);
+docsPage("/docs/spec/channel", "Spec", "Channel", channel);
+docsPage("/docs/spec/effect", "Spec", "Effect", effect);
+docsPage("/docs/spec/signal", "Spec", "Signal", signal);
+docsPage("/docs/spec/generator", "Spec", "Generator", generator);
+docsPage("/docs/spec", "Spec", "Overview", schemaOverview);
+docsPage("/docs/spec/format", "Spec", "Format", format);
+docsPage("/docs/spec/format/sql", "Spec", "format/sql", formatSql);
+docsPage("/docs/spec/format/template", "Spec", "format/template", formatTemplate);
+docsPage("/docs/spec/channel/exec", "Spec", "channel/exec", channelExec);
+docsPage("/docs/spec/channel/stream", "Spec", "channel/stream", channelStream);
+docsPage("/docs/spec/signal/sql", "Spec", "signal/sql", signalSql);
 docsPage("/docs/cli", "CLI", "Overview", cliOverview);
 docsPage("/docs/cli/init", "CLI", "init", cliInit);
-docsPage("/docs/cli/run", "CLI", "run", cliRun);
+docsPage("/docs/cli/eval", "CLI", "eval", cliEval);
 docsPage("/docs/cli/skills/install", "CLI", "skills install", cliSkillsInstall);
 
-// Primitives are auto-discovered from worker/views/docs/schema/primitive/*.md,
-// so a new primitive file needs no changes here.
-for (const [name, content] of Object.entries(primitiveMarkdown)) {
-  docsMarkdown[`/docs/schema/primitive/${name}`] = content;
-  app.get(`/docs/schema/primitive/${name}`, (c) => c.render(<PrimitivePage name={name} />));
+// Generator types are auto-discovered from worker/views/docs/spec/generator/*.md,
+// so a new generator type file needs no changes here.
+for (const [name, content] of Object.entries(generatorTypeMarkdown)) {
+  docsMarkdown[`/docs/spec/generator/${name}`] = content;
+  app.get(`/docs/spec/generator/${name}`, (c) => c.render(<GeneratorTypePage name={name} />));
+}
+
+// Old URLs (including .md) permanently redirect to their pages under "/docs/spec".
+const movedDocs: Record<string, string> = {
+  "/docs/cli/run": "/docs/cli/eval",
+  "/docs/schema": "/docs/spec",
+  "/docs/spec/schema": "/docs/spec/generator",
+  "/docs/components": "/docs/spec",
+  "/docs/concepts/effect": "/docs/spec/effect",
+  "/docs/concepts/channel": "/docs/spec/channel",
+  "/docs/concepts/signal": "/docs/spec/signal",
+  "/docs/concepts/schema": "/docs/spec/generator",
+  "/docs/concepts/expressions": "/docs/reference/expressions",
+  "/docs/spec/expressions": "/docs/reference/expressions",
+  "/docs/concepts/spec": "/docs/spec",
+  "/docs/concepts/log": "/docs/reference/log",
+  "/docs/concepts/simulation": "/docs/concepts#simulation",
+  "/docs/concepts/proxy": "/docs/concepts#proxy",
+  "/docs/concepts/audit": "/docs/concepts#audit",
+};
+for (const [from, to] of Object.entries(movedDocs)) {
+  app.get(from, (c) => c.redirect(to, 301));
+  app.get(`${from}.md`, (c) => c.redirect(`${to.split("#")[0]}.md`, 301));
+}
+
+// Old component URLs (including .md) permanently redirect under "/docs/spec", e.g.
+// "/docs/schema/primitive/array", "/docs/schema/array" and "/docs/spec/schema/array" all go to
+// "/docs/spec/generator/array".
+const movedSections: Record<string, string> = {
+  "/docs/schema/": "/docs/spec/generator/",
+  "/docs/spec/schema/": "/docs/spec/generator/",
+  "/docs/format/": "/docs/spec/format/",
+  "/docs/target/": "/docs/spec/channel/",
+  "/docs/spec/target/": "/docs/spec/channel/",
+  "/docs/signal/": "/docs/spec/signal/",
+};
+for (const [from, to] of Object.entries(movedSections)) {
+  app.get(`${from}*`, (c) =>
+    c.redirect(c.req.path.replace(from, to).replace("/primitive/", "/"), 301),
+  );
 }
 
 function serveDocsMarkdown(c: Context) {

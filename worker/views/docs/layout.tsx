@@ -166,8 +166,10 @@ function SidebarGroup(props: PropsWithChildren<{ title?: string }>) {
   );
 }
 
-function SidebarLink(props: { href: string; active: string; text: string }) {
-  const isActive = props.active === props.text;
+function SidebarLink(
+  props: PropsWithChildren<{ href: string; active: string; text: string; id?: string }>,
+) {
+  const isActive = props.active === (props.id ?? props.text);
   return (
     <li>
       <a
@@ -181,6 +183,9 @@ function SidebarLink(props: { href: string; active: string; text: string }) {
       >
         {props.text}
       </a>
+      {props.children && (
+        <ul class="ml-3 mt-0.5 space-y-0.5 border-l border-amber-600/60 pl-1">{props.children}</ul>
+      )}
     </li>
   );
 }
@@ -193,6 +198,7 @@ function PlatformSidebar({ active }: { active: string }) {
       <SidebarGroup>
         <SidebarLink href="/docs" active={active} text="Overview" />
         <SidebarLink href="/docs/quick-start" active={active} text="Quick Start" />
+        <SidebarLink href="/docs/concepts" active={active} text="Concepts" />
       </SidebarGroup>
       <SidebarGroup title="Guides">
         <SidebarLink
@@ -202,35 +208,54 @@ function PlatformSidebar({ active }: { active: string }) {
         />
         <SidebarLink href="/docs/guides/write-the-spec" active={active} text="Write The Spec" />
       </SidebarGroup>
-      <SidebarGroup title="Concepts">
-        <SidebarLink href="/docs/concepts/spec" active={active} text="Spec" />
-        <SidebarLink href="/docs/concepts/effect" active={active} text="Effect" />
-        <SidebarLink href="/docs/concepts/signal" active={active} text="Signal" />
-        <SidebarLink href="/docs/concepts/channel" active={active} text="Channel" />
-        <SidebarLink href="/docs/concepts/schema" active={active} text="Schema" />
+      <SidebarGroup title="Reference">
+        <SidebarLink href="/docs/spec" active={active} text="Spec" />
+        <SidebarLink href="/docs/cli" active={active} text="CLI" />
+        <SidebarLink href="/docs/reference/expressions" active={active} text="Expressions" />
+        <SidebarLink href="/docs/reference/log" active={active} text="Log" />
       </SidebarGroup>
     </>
   );
 }
 
-function SchemaSidebar({ active }: { active: string }) {
+function SpecSidebar({ active }: { active: string }) {
   return (
-    <>
-      <SidebarGroup>
-        <SidebarLink href="/docs/schema" active={active} text="Overview" />
-      </SidebarGroup>
-      <SidebarGroup title="primitive">
-        <SidebarLink href="/docs/schema/primitive/array" active={active} text="array" />
-        <SidebarLink href="/docs/schema/primitive/constant" active={active} text="constant" />
-        <SidebarLink href="/docs/schema/primitive/context" active={active} text="context" />
-        <SidebarLink href="/docs/schema/primitive/function" active={active} text="function" />
-        <SidebarLink href="/docs/schema/primitive/number" active={active} text="number" />
-        <SidebarLink href="/docs/schema/primitive/object" active={active} text="object" />
-        <SidebarLink href="/docs/schema/primitive/reference" active={active} text="reference" />
-        <SidebarLink href="/docs/schema/primitive/select" active={active} text="select" />
-        <SidebarLink href="/docs/schema/primitive/string" active={active} text="string" />
-      </SidebarGroup>
-    </>
+    <SidebarGroup>
+      <SidebarLink href="/docs/spec" active={active} text="Overview" />
+      <SidebarLink href="/docs/spec/effect" active={active} text="Effect" />
+      <SidebarLink href="/docs/spec/generator" active={active} text="Generator">
+        <SidebarLink href="/docs/spec/generator/array" active={active} text="array" />
+        <SidebarLink href="/docs/spec/generator/constant" active={active} text="constant" />
+        <SidebarLink href="/docs/spec/generator/context" active={active} text="context" />
+        <SidebarLink href="/docs/spec/generator/function" active={active} text="function" />
+        <SidebarLink href="/docs/spec/generator/number" active={active} text="number" />
+        <SidebarLink href="/docs/spec/generator/object" active={active} text="object" />
+        <SidebarLink href="/docs/spec/generator/reference" active={active} text="reference" />
+        <SidebarLink href="/docs/spec/generator/select" active={active} text="select" />
+        <SidebarLink href="/docs/spec/generator/string" active={active} text="string" />
+      </SidebarLink>
+      <SidebarLink href="/docs/spec/channel" active={active} text="Channel">
+        <SidebarLink href="/docs/spec/channel/exec" active={active} text="exec" id="channel/exec" />
+        <SidebarLink
+          href="/docs/spec/channel/stream"
+          active={active}
+          text="stream"
+          id="channel/stream"
+        />
+      </SidebarLink>
+      <SidebarLink href="/docs/spec/format" active={active} text="Format">
+        <SidebarLink href="/docs/spec/format/sql" active={active} text="sql" id="format/sql" />
+        <SidebarLink
+          href="/docs/spec/format/template"
+          active={active}
+          text="template"
+          id="format/template"
+        />
+      </SidebarLink>
+      <SidebarLink href="/docs/spec/signal" active={active} text="Signal">
+        <SidebarLink href="/docs/spec/signal/sql" active={active} text="sql" id="signal/sql" />
+      </SidebarLink>
+    </SidebarGroup>
   );
 }
 
@@ -242,7 +267,7 @@ function CliSidebar({ active }: { active: string }) {
       </SidebarGroup>
       <SidebarGroup title="Commands">
         <SidebarLink href="/docs/cli/init" active={active} text="init" />
-        <SidebarLink href="/docs/cli/run" active={active} text="run" />
+        <SidebarLink href="/docs/cli/eval" active={active} text="eval" />
         <SidebarLink href="/docs/cli/skills/install" active={active} text="skills install" />
       </SidebarGroup>
     </>
@@ -250,7 +275,7 @@ function CliSidebar({ active }: { active: string }) {
 }
 
 function SidebarContent({ section, active }: { section: string; active: string }) {
-  if (section === "Schema") return <SchemaSidebar active={active} />;
+  if (section === "Spec") return <SpecSidebar active={active} />;
   if (section === "CLI") return <CliSidebar active={active} />;
   return <PlatformSidebar active={active} />;
 }
@@ -278,7 +303,7 @@ export function DocsLayout(props: DocsLayoutProps) {
             aria-label="Docs sections"
           >
             <SectionLink href="/docs" active={props.section} text="Platform" />
-            <SectionLink href="/docs/schema" active={props.section} text="Schema" />
+            <SectionLink href="/docs/spec" active={props.section} text="Spec" />
             <SectionLink href="/docs/cli" active={props.section} text="CLI" />
           </nav>
         </div>

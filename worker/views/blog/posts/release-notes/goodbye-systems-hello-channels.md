@@ -1,6 +1,6 @@
-This week I replaced the original _systems_ concept in rngo with [channels](/docs/concepts/channel) in [rngo 0.33.0](https://github.com/rngodev/rngo/releases/tag/0.32.0).
+This week I replaced the original _systems_ concept in rngo with [channels](/docs/spec/channel) in [rngo 0.33.0](https://github.com/rngodev/rngo/releases/tag/0.32.0).
 
-A channel is an interface to the system-under-test through which rngo can push [effects](/docs/concepts/effect), pull [signals](/docs/concepts/signal) or do both.
+A channel is an interface to the system-under-test through which rngo can push [effects](/docs/spec/effect), pull [signals](/docs/spec/signal) or do both.
 
 For example, you might have the following in a project at `.rngo/channels/db.yml`:
 
@@ -22,7 +22,7 @@ If `format` is not specified, the JSON representation of the effect value will b
 
 ## Effect
 
-[Effects](/docs/concepts/effect) now reference a `channel`, naturally, and no longer have a `format` field, which has been replaced by `metadata`:
+[Effects](/docs/spec/effect) now reference a `channel`, naturally, and no longer have a `format` field, which has been replaced by `metadata`:
 
 ```yaml
 widgets.update:

@@ -19,10 +19,10 @@ CREATE TABLE metadata (
 
 The end result is a better defined simulation structure:
 
-- an [effect](/docs/concepts/effect) produces **inputs** to a channel
-- a [channel](/docs/concepts/channel) _may_ return **outputs**
-- an [effect](/docs/concepts/effect) may also produce **metadata**
-- a [signal](/docs/concepts/signal) describes patterns across **inputs**, **outputs**, and **metadata**
+- an [effect](/docs/spec/effect) produces **inputs** to a channel
+- a [channel](/docs/spec/channel) _may_ return **outputs**
+- an [effect](/docs/spec/effect) may also produce **metadata**
+- a [signal](/docs/spec/signal) describes patterns across **inputs**, **outputs**, and **metadata**
 
 So now when you run rngo, you'll see something like this in the audit phase:
 
