@@ -10,49 +10,35 @@ An array of objects that must include a `generator` field and an optional `weigh
 
 ## Examples
 
-Alternates between the string "one" and the number 2.
+### Coin Flip
 
-```json
-{
-  "type": "select",
-  "options": [
-    {
-      "generator": {
-        "type": "constant",
-        "value": "one"
-      }
-    },
-    {
-      "generator": {
-        "type": "constant",
-        "value": 2
-      }
-    }
-  ]
-}
+Selects between the string "one" and the number 2.
+
+```yaml
+type: select
+options:
+  - generator:
+      type: constant
+      value: one
+  - generator:
+      type: constant
+      value: 2
 ```
+
+### Weighted Options
 
 Emits a positive integer 80% of the time, and `null` 20% of the time.
 
-```json
-{
-  "type": "select",
-  "options": [
-    {
-      "weight": 4,
-      "generator": {
-        "type": "number",
-        "minimum": 0,
-        "scale": 0
-      }
-    },
-    {
-      "weight": 1,
-      "generator": {
-        "type": "constant",
-        "value": null
-      }
-    }
-  ]
-}
+```yaml
+type: select
+options:
+  - weight: 4
+    generator:
+      type: number
+      minimum: 0
+      scale: 0
+  - weight: 1
+    generator:
+      type: constant
+      value: null
 ```

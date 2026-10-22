@@ -10,23 +10,18 @@ The JSON value to be emitted.
 
 ## Examples
 
-String:
+### String
 
-```json
-{
-  "type": "constant",
-  "value": "Avagadro"
-}
+```yaml
+type: constant
+value: Avagadro
 ```
 
-Object:
+### Object
 
-```json
-{
-  "type": "constant",
-  "value": {
-    "name": "Évariste Galois",
-    "age": 20
-  }
-}
+```yaml
+type: constant
+value:
+  name: "\u00c9variste Galois"
+  age: 20
 ```

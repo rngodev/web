@@ -10,16 +10,13 @@ An object that maps object property names to [generator](/docs/spec/generator) d
 
 ## Examples
 
-```json
-{
-  "type": "object",
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "age": {
-      "type": "number"
-    }
-  }
-}
+### Person
+
+```yaml
+type: object
+properties:
+  name:
+    type: string
+  age:
+    type: number
 ```

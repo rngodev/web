@@ -18,34 +18,25 @@ The maximum size of each generated array. Defaults to `minItems` plus 16.
 
 ## Examples
 
-Default size bounds:
+### Default Size Bounds
 
-```json
-{
-  "type": "array",
-  "items": {
-    "type": "object",
-    "properties": {
-      "name": {
-        "type": "string"
-      },
-      "age": {
-        "type": "number"
-      }
-    }
-  }
-}
+```yaml
+type: array
+items:
+  type: object
+  properties:
+    name:
+      type: string
+    age:
+      type: number
 ```
 
-Custom size bounds:
+### Custom Size Bounds
 
-```json
-{
-  "type": "array",
-  "items": {
-    "type": "number"
-  },
-  "minItems": 10,
-  "maxItems": 90
-}
+```yaml
+type: array
+items:
+  type: number
+minItems: 10
+maxItems: 90
 ```

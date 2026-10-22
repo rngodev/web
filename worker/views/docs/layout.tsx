@@ -222,25 +222,7 @@ function SpecSidebar({ active }: { active: string }) {
   return (
     <SidebarGroup>
       <SidebarLink href="/docs/spec" active={active} text="Overview" />
-      <SidebarLink href="/docs/spec/channel" active={active} text="Channel">
-        <SidebarLink href="/docs/spec/channel/exec" active={active} text="exec" id="channel/exec" />
-        <SidebarLink
-          href="/docs/spec/channel/stream"
-          active={active}
-          text="stream"
-          id="channel/stream"
-        />
-      </SidebarLink>
       <SidebarLink href="/docs/spec/effect" active={active} text="Effect" />
-      <SidebarLink href="/docs/spec/format" active={active} text="Format">
-        <SidebarLink href="/docs/spec/format/sql" active={active} text="sql" id="format/sql" />
-        <SidebarLink
-          href="/docs/spec/format/template"
-          active={active}
-          text="template"
-          id="format/template"
-        />
-      </SidebarLink>
       <SidebarLink href="/docs/spec/generator" active={active} text="Generator">
         <SidebarLink href="/docs/spec/generator/array" active={active} text="array" />
         <SidebarLink href="/docs/spec/generator/constant" active={active} text="constant" />
@@ -251,6 +233,24 @@ function SpecSidebar({ active }: { active: string }) {
         <SidebarLink href="/docs/spec/generator/reference" active={active} text="reference" />
         <SidebarLink href="/docs/spec/generator/select" active={active} text="select" />
         <SidebarLink href="/docs/spec/generator/string" active={active} text="string" />
+      </SidebarLink>
+      <SidebarLink href="/docs/spec/channel" active={active} text="Channel">
+        <SidebarLink href="/docs/spec/channel/exec" active={active} text="exec" id="channel/exec" />
+        <SidebarLink
+          href="/docs/spec/channel/stream"
+          active={active}
+          text="stream"
+          id="channel/stream"
+        />
+      </SidebarLink>
+      <SidebarLink href="/docs/spec/format" active={active} text="Format">
+        <SidebarLink href="/docs/spec/format/sql" active={active} text="sql" id="format/sql" />
+        <SidebarLink
+          href="/docs/spec/format/template"
+          active={active}
+          text="template"
+          id="format/template"
+        />
       </SidebarLink>
       <SidebarLink href="/docs/spec/signal" active={active} text="Signal">
         <SidebarLink href="/docs/spec/signal/sql" active={active} text="sql" id="signal/sql" />
