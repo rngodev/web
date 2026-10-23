@@ -16,6 +16,17 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "break-stuff",
+    title: "Break Stuff",
+    excerpt: "Rename run to eval, schemas to generators, and flatten channels.",
+    date: "2026-10-23",
+    type: "release-notes",
+    releases: [
+      { repo: "rngo", version: "0.39.0" },
+      { repo: "agent", version: "0.5.0" },
+    ],
+  },
+  {
     slug: "channeling",
     title: "Channeling",
     excerpt: "Template format, realtime simulations and a millisecond clock.",
