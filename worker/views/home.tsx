@@ -38,52 +38,91 @@ const sections = [
   {
     title: "Channels",
     href: "/docs/spec/channel",
-    body: "A channel formats each input and delivers it to your system, whether that is a database over a stream or an API over a command.",
-    file: "rngo.yml",
-    code: "channels:\n  db:\n    type: stream\n    command: sqlite3 db.sqlite\n    format:\n      type: sql\n  api:\n    format:\n      type: template\n      template: >-\n        curl -sS -X {{data.method}} \"${API_BASE_URL:-http://localhost:5173}{{{data.path}}}\"\n        {{#if data.body}}-H 'Content-Type: application/json' --data '{{json data.body}}'{{/if}}\n    type: exec",
+    body: "A channel specifies how to send formatted inputs to and receive outputs from an interface in your system.",
+    file: "spec.yml",
+    code: "channels:\n  db:\n    type: stream\n    command: sqlite3 db.sqlite\n    format:\n      type: sql\n  api:\n    type: exec\n    format:\n      type: template\n      template: >-\n        curl -sS -X {{data.method}}\n        \"${API_BASE_URL:-http://localhost:5173}{{{data.path}}}\"\n        {{#if data.body}}\n        -H 'Content-Type: application/json'\n        --data '{{json data.body}}'\n        {{/if}}",
   },
   {
     title: "Effects",
     href: "/docs/spec/effect",
-    body: "Effects describe what happens to your system and when. Generators produce realistic values, and references tie effects together.",
-    file: "rngo.yml",
-    code: "effects:\n  users.create:\n    trigger: hz(100, day)\n    end: now\n    channel: db\n    metadata:\n      table: USERS\n    generator:\n      type: object\n      properties:\n        id:\n          type: number\n          minimum: 1\n          scale: 0\n          step: 1\n        name:\n          type: string\n          pattern: .{2,64}\n        email:\n          type: function\n          expression: \"'user' + number + '@example.com'\"\n          variables:\n            number:\n              type: number\n              minimum: 10000\n              maximum: 99999\n              scale: 0\n  articles.post:\n    # \u2026",
+    body: "An effect defines a stream of inputs, which are randomly-generated JSON values with logical (possibly backdated) timestamps.",
+    file: "spec.yml",
+    code: "effects:\n  users.create:\n    trigger: hz(100, day)\n    start: now - years(2)\n    channel: db\n    metadata:\n      table: USERS\n    generator:\n      type: object\n      properties:\n        id:\n          type: number\n          minimum: 1\n          scale: 0\n          step: 1\n        name:\n          type: string\n          pattern: .{2,64}\n        email:\n          type: function\n          expression: \"'user' + number + '@example.com'\"\n          variables:\n            number:\n              type: number\n              minimum: 10000\n              maximum: 99999\n              scale: 0\n  articles.post:\n    # \u2026",
   },
   {
     title: "Signals",
     href: "/docs/spec/signal",
-    body: "Signals are SQL queries over everything the simulation recorded. Give one an expectation and a failing result fails the eval.",
-    file: "rngo.yml",
-    code: "signals:\n  api-minimum-title-length:\n    type: sql\n    query: >\n      SELECT count(*) \n      FROM signals s\n        JOIN effects e ON s.effect_id = e.id\n      WHERE e.key = 'articles.post'\n      AND length(e.value ->> '$.title') < 10\n      AND s.data NOT LIKE '%422 Unprocessable Content%';\n    expect: result == 0\n  api-no-server-errors:\n    type: sql\n    query: >\n      SELECT count(*) FROM outputs\n      WHERE channel = 'api' AND data LIKE '%500%';\n    expect: result == 0\n  log-minimal-errors:\n    type: sql\n    query: >\n      SELECT count(*) FROM outputs\n      WHERE channel = 'log' AND data LIKE 'ERROR%';\n    expect: result < 20",
+    body: "A signal is a SQL query over every channel's inputs and outputs, along with an expected result.",
+    file: "spec.yml",
+    code: "signals:\n  api-minimum-title-length:\n    type: sql\n    query: >\n      SELECT count(*)\n      FROM outputs o\n        JOIN inputs i ON o.input_id = i.id\n      WHERE i.effect = 'articles.post'\n      AND length(i.data ->> '$.title') < 10\n      AND o.data NOT LIKE '%422 Unprocessable Content%';\n    expect: result == 0\n  api-no-server-errors:\n    type: sql\n    query: >\n      SELECT count(*) FROM outputs\n      WHERE channel = 'api' AND data LIKE '%500%';\n    expect: result == 0\n  log-minimal-errors:\n    type: sql\n    query: >\n      SELECT count(*) FROM outputs\n      WHERE channel = 'log' AND data LIKE 'ERROR%';\n    expect: result < 20",
   },
 ];
 
+// Illustrative eval run: three services, each with an api and its own database, plus logs.
+const evalChannels = [
+  { name: "auth-api", inputs: 18342, outputs: 18342 },
+  { name: "auth-postgres", inputs: 9120, outputs: 0 },
+  { name: "inventory-api", inputs: 25610, outputs: 25610 },
+  { name: "inventory-mysql", inputs: 14288, outputs: 0 },
+  { name: "order-api", inputs: 12907, outputs: 12907 },
+  { name: "order-dynamo", inputs: 12907, outputs: 0 },
+  { name: "logs", inputs: 0, outputs: 412880 },
+];
+
+const evalSignals = [
+  { name: "auth-unique-emails", result: 0, passed: true },
+  { name: "auth-no-server-errors", result: 0, passed: true },
+  { name: "auth-session-expiry-enforced", result: 0, passed: true },
+  { name: "inventory-no-negative-stock", result: 0, passed: true },
+  { name: "inventory-sku-unique", result: 0, passed: true },
+  { name: "inventory-no-server-errors", result: 0, passed: true },
+  { name: "order-total-matches-items", result: 0, passed: true },
+  { name: "order-no-duplicate-charges", result: 2, passed: false },
+  { name: "order-no-server-errors", result: 0, passed: true },
+  { name: "order-reserves-inventory", result: 0, passed: true },
+  { name: "logs-minimal-errors", result: 31, passed: false },
+];
+
 function Terminal() {
+  const time = new Date().toISOString().slice(0, 19).replace("T", " ");
+  const nameWidth = Math.max(...evalChannels.map((c) => c.name.length)) + 2;
+  const passed = evalSignals.filter((signal) => signal.passed).length;
+  const failed = evalSignals.length - passed;
+
   return (
     <div class="border border-stone-200/10 bg-stone-950 text-stone-200 text-sm">
       <div class="px-4 h-10 flex items-center gap-x-2 border-b border-stone-200/10">
         <span class="size-2.5 rounded-full bg-stone-200/15" />
         <span class="size-2.5 rounded-full bg-stone-200/15" />
         <span class="size-2.5 rounded-full bg-stone-200/15" />
-        <span class="ml-3 text-xs text-stone-200/35">my-blog</span>
+        <span class="ml-3 text-xs text-stone-200/35">shop</span>
       </div>
       <pre class="p-4 leading-6 overflow-x-auto">
-        <span class="text-amber-400">$</span> rngo eval --spec rngo.yml{"\n\n"}
+        <span class="text-amber-400">$</span> rngo eval{"\n\n"}
         <span class="text-stone-200/55">Simulation</span>
-        {
-          "\ntime: 2026-08-13 13:14:12\ndb: 73104 effects, 0 signals\napi: 1187 effects, 11 signals\nlog: 4210 effects, 3 signals\n\n"
-        }
+        {`\ntime: ${time}\n`}
+        {evalChannels.map(
+          (c) => `${`${c.name}:`.padEnd(nameWidth)}${c.inputs} inputs, ${c.outputs} outputs\n`,
+        )}
+        {"\n"}
         <span class="text-stone-200/55">Audit</span>
-        {"\napi-minimum-title-length: 0 "}
-        <span class="text-emerald-400">(passed)</span>
-        {"\napi-no-server-errors: 0 "}
-        <span class="text-emerald-400">(passed)</span>
-        {"\ndb-unique-emails: 0 "}
-        <span class="text-emerald-400">(passed)</span>
-        {"\nlog-minimal-errors: 31 "}
-        <span class="text-rose-400">(failed)</span>
-        {"\n\n"}
-        <span class="text-emerald-400">3 passed</span>, <span class="text-rose-400">1 failed</span>
+        {"\n"}
+        {evalSignals.map((signal) => (
+          <>
+            {`${signal.name}: ${signal.result} `}
+            <span class={signal.passed ? "text-emerald-400" : "text-rose-400"}>
+              {signal.passed ? "(passed)" : "(failed)"}
+            </span>
+            {"\n"}
+          </>
+        ))}
+        {"\n"}
+        <span class="text-emerald-400">{passed} passed</span>
+        {failed > 0 && (
+          <>
+            , <span class="text-rose-400">{failed} failed</span>
+          </>
+        )}
       </pre>
     </div>
   );
@@ -94,14 +133,14 @@ export default function Home() {
     <div class="min-h-dvh font-mono bg-stone-50 text-stone-900 dark:bg-stone-900 dark:text-stone-100">
       <SiteHeader />
 
-      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-20 grid lg:grid-cols-2 gap-x-16 gap-y-16 items-start">
+      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-20 grid lg:grid-cols-2 gap-x-16 gap-y-16 items-start lg:items-center">
         <div>
           <h1 class="text-4xl sm:text-6xl lg:text-7xl font-medium leading-[1.05] tracking-tight">
             Learn what your code does.
           </h1>
           <p class="mt-10 text-xl max-w-xl text-stone-900/65 dark:text-stone-100/65">
-            rngo simulates realistic usage, records the metrics, and surfaces the patterns hiding in
-            between.
+            rngo is a dynamic code analyzer that simulates usage, records everything and surfaces
+            patterns
           </p>
           <div class="mt-10 flex items-center gap-x-6">
             <a
@@ -120,9 +159,9 @@ export default function Home() {
           Meet the rngo spec
         </h2>
         <p class="mt-6 text-xl max-w-2xl text-stone-900/65 dark:text-stone-100/65">
-          One YAML file describes your system: how inputs reach it, what happens to it over time,
-          and what you expect to hold. rngo simulates it, records everything, and audits the
-          results.
+          A declarative description of a system's behavior, in terms of a <b>channels</b>,{" "}
+          <b>effects</b> and <b>signals</b>. The channels and effects model realistic usage while
+          the signals set expectations for observed behavior.
         </p>
       </section>
 
