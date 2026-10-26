@@ -30,7 +30,8 @@ function Footer() {
   );
 }
 
-const panel = "border border-stone-900/10 dark:border-stone-100/10 bg-white dark:bg-stone-800/40";
+const panel =
+  "min-w-0 border border-stone-900/10 dark:border-stone-100/10 bg-white dark:bg-stone-800/40";
 const panelHeader =
   "px-4 h-10 flex items-center justify-between border-b border-stone-900/10 dark:border-stone-100/10 text-xs text-stone-900/45 dark:text-stone-100/45";
 
@@ -90,7 +91,7 @@ function Terminal() {
   const failed = evalSignals.length - passed;
 
   return (
-    <div class="border border-stone-200/10 bg-stone-950 text-stone-200 text-sm">
+    <div class="min-w-0 border border-stone-200/10 bg-stone-950 text-stone-200 text-sm">
       <div class="px-4 h-10 flex items-center gap-x-2 border-b border-stone-200/10">
         <span class="size-2.5 rounded-full bg-stone-200/15" />
         <span class="size-2.5 rounded-full bg-stone-200/15" />
@@ -133,7 +134,7 @@ export default function Home() {
     <div class="min-h-dvh font-mono bg-stone-50 text-stone-900 dark:bg-stone-900 dark:text-stone-100">
       <SiteHeader />
 
-      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-20 grid lg:grid-cols-2 gap-x-16 gap-y-16 items-start lg:items-center">
+      <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-20 grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-16 items-start lg:items-center">
         <div>
           <h1 class="text-4xl sm:text-6xl lg:text-7xl font-medium leading-[1.05] tracking-tight">
             Learn what your code does.
@@ -155,7 +156,7 @@ export default function Home() {
       </section>
 
       <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 border-t border-stone-900/15 dark:border-stone-100/15">
-        <h2 class="text-3xl sm:text-5xl font-medium leading-[1.05] tracking-tight">
+        <h2 class="text-4xl sm:text-5xl font-medium leading-[1.05] tracking-tight">
           Meet the rngo spec
         </h2>
         <p class="mt-6 text-xl max-w-2xl text-stone-900/65 dark:text-stone-100/65">
@@ -167,12 +168,12 @@ export default function Home() {
 
       <ol class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {sections.map((section, i) => (
-          <li class="py-16 grid lg:grid-cols-2 gap-x-16 gap-y-10 items-start">
+          <li class="py-16 grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-10 items-start">
             <div>
               <span class="text-xs text-amber-700 dark:text-amber-400">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h2 class="mt-3 text-4xl font-medium">{section.title}</h2>
+              <h2 class="mt-3 text-3xl sm:text-4xl font-medium">{section.title}</h2>
               <p class="mt-4 text-lg max-w-md text-stone-900/60 dark:text-stone-100/60">
                 {section.body}
               </p>
