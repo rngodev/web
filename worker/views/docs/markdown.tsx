@@ -77,7 +77,7 @@ function Table({ token }: { token: Tokens.Table }) {
           {token.header.map((cell, i) => (
             <th
               key={i}
-              class="text-left text-xs uppercase tracking-widest text-stone-900/40 dark:text-stone-200/40 pb-3 pr-8 font-medium"
+              class="text-left text-xs uppercase tracking-widest text-stone-900/65 dark:text-stone-200/65 pb-3 pr-8 font-medium"
             >
               {renderInline(cell.tokens)}
             </th>

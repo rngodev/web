@@ -147,7 +147,7 @@ function SectionLink(props: { href: string; active: string; text: string }) {
       class={`px-3 py-2.5 text-sm border-b-2 transition-colors ${
         isActive
           ? "border-stone-900 text-stone-900 dark:border-stone-200 dark:text-stone-200"
-          : "border-transparent text-stone-900/50 dark:text-stone-200/50 hover:text-stone-900 dark:hover:text-stone-200"
+          : "border-transparent text-stone-900/65 dark:text-stone-200/65 hover:text-stone-900 dark:hover:text-stone-200"
       }`}
     >
       {props.text}
@@ -178,7 +178,7 @@ function SidebarLink(
         class={`block px-2 py-1.5 text-sm rounded-sm transition-colors ${
           isActive
             ? "text-stone-900 dark:text-stone-200 bg-stone-900/5 dark:bg-stone-200/10"
-            : "text-stone-900/55 dark:text-stone-200/55 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-900/5 dark:hover:bg-stone-200/5"
+            : "text-stone-900/65 dark:text-stone-200/65 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-900/5 dark:hover:bg-stone-200/5"
         }`}
       >
         {props.text}
@@ -320,7 +320,9 @@ export function DocsLayout(props: DocsLayoutProps) {
         </aside>
 
         {/* Main content */}
-        <main class="flex-1 min-w-0 max-w-2xl">{props.children}</main>
+        <main id="main" class="flex-1 min-w-0 max-w-2xl">
+          {props.children}
+        </main>
       </div>
     </div>
   );

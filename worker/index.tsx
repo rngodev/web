@@ -1,5 +1,6 @@
 import { Hono, type Context } from "hono";
 import Layout from "./layout";
+import { describeMarkdown } from "./components/seo";
 import Home from "./views/home";
 import Blog from "./views/blog";
 import { DocPage } from "./views/docs/page";
@@ -49,8 +50,24 @@ const app = new Hono<{ Bindings: Env }>();
 
 app.use(Layout);
 
-app.get("/", (c) => c.render(<Home />));
-app.get("/blog", (c) => c.render(<Blog />));
+app.get("/robots.txt", (c) =>
+  c.text(`User-agent: *\nAllow: /\n\nSitemap: ${new URL(c.req.url).origin}/sitemap.xml\n`),
+);
+
+app.get("/", (c) =>
+  c.render(<Home />, {
+    seo: {
+      title: "rngo · Learn what your code does",
+      description:
+        "rngo is a dynamic code analyzer that simulates usage, records everything and surfaces patterns.",
+    },
+  }),
+);
+app.get("/blog", (c) =>
+  c.render(<Blog />, {
+    seo: { title: "Blog · rngo", description: "Release notes and news from the rngo team." },
+  }),
+);
 
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new blog post only means adding one entry here and to posts.ts.
@@ -73,7 +90,9 @@ const blogMarkdown: Record<string, string> = {
 for (const post of posts) {
   const content = blogMarkdown[post.slug];
   app.get(`/blog/${post.type}/${post.slug}`, (c) =>
-    c.render(<PostPage meta={post} content={content} />),
+    c.render(<PostPage meta={post} content={content} />, {
+      seo: { title: `${post.title} · rngo blog`, description: post.excerpt, type: "article" },
+    }),
   );
 }
 
@@ -95,9 +114,19 @@ app.get("/blog/*", serveBlogMarkdown);
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new docs page only means adding one call here.
 const docsMarkdown: Record<string, string> = {};
+function docsSeo(section: string, active: string, content: string) {
+  return {
+    title: `${active} · ${section} · rngo docs`,
+    description: describeMarkdown(content) || "rngo documentation",
+  };
+}
 function docsPage(path: string, section: string, active: string, content: string) {
   docsMarkdown[path] = content;
-  app.get(path, (c) => c.render(<DocPage section={section} active={active} content={content} />));
+  app.get(path, (c) =>
+    c.render(<DocPage section={section} active={active} content={content} />, {
+      seo: docsSeo(section, active, content),
+    }),
+  );
 }
 
 docsPage("/docs", "Platform", "Overview", platformOverview);
@@ -133,7 +162,9 @@ docsPage("/docs/cli/skills/install", "CLI", "skills install", cliSkillsInstall);
 // so a new generator type file needs no changes here.
 for (const [name, content] of Object.entries(generatorTypeMarkdown)) {
   docsMarkdown[`/docs/spec/generator/${name}`] = content;
-  app.get(`/docs/spec/generator/${name}`, (c) => c.render(<GeneratorTypePage name={name} />));
+  app.get(`/docs/spec/generator/${name}`, (c) =>
+    c.render(<GeneratorTypePage name={name} />, { seo: docsSeo("Spec", name, content) }),
+  );
 }
 
 // Old URLs (including .md) permanently redirect to their pages under "/docs/spec".
@@ -182,6 +213,27 @@ function serveDocsMarkdown(c: Context) {
   if (content === undefined) return c.notFound();
   return c.text(content, 200, { "Content-Type": "text/markdown; charset=utf-8" });
 }
+
+app.get("/sitemap.xml", (c) => {
+  const origin = new URL(c.req.url).origin;
+  const urls: { path: string; lastmod?: string }[] = [
+    { path: "/" },
+    { path: "/blog" },
+    ...posts.map((p) => ({ path: `/blog/${p.type}/${p.slug}`, lastmod: p.date })),
+    ...Object.keys(docsMarkdown).map((path) => ({ path })),
+  ];
+  const body = urls
+    .map(
+      ({ path, lastmod }) =>
+        `  <url><loc>${origin}${path}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`,
+    )
+    .join("\n");
+  return c.body(
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`,
+    200,
+    { "Content-Type": "application/xml; charset=utf-8" },
+  );
+});
 
 app.get("/docs.md", serveDocsMarkdown);
 app.get("/docs/*", serveDocsMarkdown);

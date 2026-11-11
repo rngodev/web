@@ -60,7 +60,7 @@ function RecentPosts({ current }: { current?: string }) {
               class={`block px-2 py-1.5 text-sm rounded-sm transition-colors ${
                 current === post.slug
                   ? "text-stone-900 dark:text-stone-200 bg-stone-900/5 dark:bg-stone-200/10"
-                  : "text-stone-900/55 dark:text-stone-200/55 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-900/5 dark:hover:bg-stone-200/5"
+                  : "text-stone-900/65 dark:text-stone-200/65 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-900/5 dark:hover:bg-stone-200/5"
               }`}
             >
               {post.title}
@@ -79,28 +79,28 @@ export function BlogLayout({ children, currentSlug }: PropsWithChildren<{ curren
         <RecentPosts current={currentSlug} />
       </SiteHeader>
 
-      <main>{children}</main>
+      <main id="main">{children}</main>
 
       {/* Footer */}
       <footer class="border-t border-stone-900/10 dark:border-stone-200/10 mt-10">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 flex items-center justify-between">
-          <p class="text-xs text-stone-900/30 dark:text-stone-200/30">© 2026 rngo</p>
-          <nav class="flex items-center gap-x-6 text-xs text-stone-900/30 dark:text-stone-200/30">
+          <p class="text-xs text-stone-900/65 dark:text-stone-200/65">© 2026 rngo</p>
+          <nav class="flex items-center gap-x-6 text-xs text-stone-900/65 dark:text-stone-200/65">
             <a
               href="/docs"
-              class="transition-colors hover:text-stone-900/60 dark:hover:text-stone-200/60"
+              class="transition-colors hover:text-stone-900/90 dark:hover:text-stone-200/90"
             >
               docs
             </a>
             <a
               href="/blog"
-              class="transition-colors hover:text-stone-900/60 dark:hover:text-stone-200/60"
+              class="transition-colors hover:text-stone-900/90 dark:hover:text-stone-200/90"
             >
               blog
             </a>
             <a
               href="https://github.com/rngodev"
-              class="transition-colors hover:text-stone-900/60 dark:hover:text-stone-200/60"
+              class="transition-colors hover:text-stone-900/90 dark:hover:text-stone-200/90"
             >
               github
             </a>
@@ -117,7 +117,7 @@ export function PostLayout({ meta, children }: PropsWithChildren<{ meta: PostMet
       <article class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-10">
         <a
           href="/blog"
-          class="inline-block text-sm text-stone-900/50 transition-colors hover:text-stone-900 dark:text-stone-200/50 dark:hover:text-stone-200 mb-8"
+          class="inline-block text-sm text-stone-900/65 transition-colors hover:text-stone-900 dark:text-stone-200/65 dark:hover:text-stone-200 mb-8"
         >
           ← Blog
         </a>
@@ -125,7 +125,7 @@ export function PostLayout({ meta, children }: PropsWithChildren<{ meta: PostMet
         <div class="mb-10">
           <div class="flex items-center gap-x-3 mb-4">
             <PostTypeBadge type={meta.type} />
-            <time datetime={meta.date} class="text-xs text-stone-900/40 dark:text-stone-200/40">
+            <time datetime={meta.date} class="text-xs text-stone-900/65 dark:text-stone-200/65">
               {formatDate(meta.date)}
             </time>
           </div>
