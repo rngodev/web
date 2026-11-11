@@ -60,9 +60,11 @@ app.use(async (c, next) => {
   c.header("X-Frame-Options", "DENY");
   c.header("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   if (import.meta.env.PROD) {
+    // static.cloudflareinsights.com / cloudflareinsights.com: Cloudflare Web Analytics beacon,
+    // which Cloudflare injects into HTML responses automatically.
     c.header(
       "Content-Security-Policy",
-      "default-src 'self'; img-src 'self' data:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+      "default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com; img-src 'self' data:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
     );
   }
 });
