@@ -16,6 +16,17 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "prototypes-and-scenarios",
+    title: "Prototypes & Scenarios",
+    excerpt: "Share parameters among effects and eval spec variants.",
+    date: "2026-11-10",
+    type: "release-notes",
+    releases: [
+      { repo: "rngo", version: "0.40.0" },
+      { repo: "agent", version: "0.6.0" },
+    ],
+  },
+  {
     slug: "break-stuff",
     title: "Break Stuff",
     excerpt: "Rename run to eval, schemas to generators, and flatten channels.",
@@ -47,7 +58,7 @@ export const posts: PostMeta[] = [
   },
   {
     slug: "proxies-and-audits",
-    title: "Proxies and Audits",
+    title: "Proxies & Audits",
     excerpt: "Add Proxy and Audit concepts.",
     date: "2026-09-18",
     type: "release-notes",

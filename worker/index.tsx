@@ -7,6 +7,7 @@ import { generatorTypeMarkdown, GeneratorTypePage } from "./views/docs/spec/gene
 import { PostPage } from "./views/blog/page";
 import { posts } from "./views/blog/posts";
 
+import prototypesAndScenariosPost from "./views/blog/posts/release-notes/prototypes-and-scenarios.md?raw";
 import breakStuffPost from "./views/blog/posts/release-notes/break-stuff.md?raw";
 import channelingPost from "./views/blog/posts/release-notes/channeling.md?raw";
 import lessSlowPost from "./views/blog/posts/release-notes/less-slow.md?raw";
@@ -35,6 +36,7 @@ import writeTheSpec from "./views/docs/platform/guides/write-the-spec.md?raw";
 import channel from "./views/docs/spec/channel.md?raw";
 import effect from "./views/docs/spec/effect.md?raw";
 import signal from "./views/docs/spec/signal.md?raw";
+import prototype from "./views/docs/spec/prototype.md?raw";
 import generator from "./views/docs/spec/generator.md?raw";
 import concepts from "./views/docs/platform/concepts.md?raw";
 import log from "./views/docs/platform/reference/log.md?raw";
@@ -53,6 +55,7 @@ app.get("/blog", (c) => c.render(<Blog />));
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new blog post only means adding one entry here and to posts.ts.
 const blogMarkdown: Record<string, string> = {
+  "prototypes-and-scenarios": prototypesAndScenariosPost,
   "break-stuff": breakStuffPost,
   channeling: channelingPost,
   "less-slow": lessSlowPost,
@@ -111,6 +114,7 @@ docsPage("/docs/reference/log", "Platform", "Log", log);
 docsPage("/docs/reference/expressions", "Platform", "Expressions", expressions);
 docsPage("/docs/spec/channel", "Spec", "Channel", channel);
 docsPage("/docs/spec/effect", "Spec", "Effect", effect);
+docsPage("/docs/spec/prototype", "Spec", "Prototype", prototype);
 docsPage("/docs/spec/signal", "Spec", "Signal", signal);
 docsPage("/docs/spec/generator", "Spec", "Generator", generator);
 docsPage("/docs/spec", "Spec", "Overview", schemaOverview);
