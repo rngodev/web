@@ -223,6 +223,7 @@ function SpecSidebar({ active }: { active: string }) {
     <SidebarGroup>
       <SidebarLink href="/docs/spec" active={active} text="Overview" />
       <SidebarLink href="/docs/spec/effect" active={active} text="Effect" />
+      <SidebarLink href="/docs/spec/prototype" active={active} text="Prototype" />
       <SidebarLink href="/docs/spec/generator" active={active} text="Generator">
         <SidebarLink href="/docs/spec/generator/array" active={active} text="array" />
         <SidebarLink href="/docs/spec/generator/constant" active={active} text="constant" />
