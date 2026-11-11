@@ -16,8 +16,8 @@ function NavLink({
       aria-current={current ? "page" : undefined}
       class={`text-sm transition-colors ${
         current
-          ? "text-amber-600 dark:text-amber-400"
-          : "text-stone-900/50 hover:text-stone-900 dark:text-stone-200/50 dark:hover:text-stone-200"
+          ? "text-amber-700 dark:text-amber-400"
+          : "text-stone-900/65 hover:text-stone-900 dark:text-stone-200/65 dark:hover:text-stone-200"
       }`}
     >
       {children}
@@ -38,7 +38,7 @@ function DrawerLink({
         class={`block px-2 py-1.5 text-sm rounded-sm transition-colors ${
           current
             ? "text-stone-900 dark:text-stone-200 bg-stone-900/5 dark:bg-stone-200/10"
-            : "text-stone-900/55 dark:text-stone-200/55 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-900/5 dark:hover:bg-stone-200/5"
+            : "text-stone-900/65 dark:text-stone-200/65 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-900/5 dark:hover:bg-stone-200/5"
         }`}
       >
         {children}
@@ -64,7 +64,7 @@ export function SiteHeader({ active, children }: SiteHeaderProps) {
             type="button"
             command="show-modal"
             commandfor="site-mobile-menu"
-            class="lg:hidden flex items-center gap-x-2 py-2 pr-3 pl-2 -ml-2 text-stone-900/50 hover:text-stone-900 dark:text-stone-200/50 dark:hover:text-stone-200"
+            class="lg:hidden flex items-center gap-x-2 py-2 pr-3 pl-2 -ml-2 text-stone-900/65 hover:text-stone-900 dark:text-stone-200/65 dark:hover:text-stone-200"
             aria-label="Open navigation"
           >
             <svg
@@ -82,7 +82,7 @@ export function SiteHeader({ active, children }: SiteHeaderProps) {
               />
             </svg>
             {active && (
-              <span class="text-sm text-amber-600 dark:text-amber-400">
+              <span class="text-sm text-amber-700 dark:text-amber-400">
                 {active === "docs" ? "Docs" : "Blog"}
               </span>
             )}
@@ -115,7 +115,7 @@ export function SiteHeader({ active, children }: SiteHeaderProps) {
                     type="button"
                     command="close"
                     commandfor="site-mobile-menu"
-                    class="p-1 text-stone-900/40 hover:text-stone-900 dark:text-stone-200/40 dark:hover:text-stone-200"
+                    class="p-1 text-stone-900/65 hover:text-stone-900 dark:text-stone-200/65 dark:hover:text-stone-200"
                     aria-label="Close navigation"
                   >
                     <svg

@@ -42,7 +42,16 @@ function renderInline(tokens: Token[]): any[] {
       }
       case "image": {
         const image = token as Tokens.Image;
-        return <img key={i} src={image.href} alt={image.text} class="max-w-full h-auto" />;
+        return (
+          <img
+            key={i}
+            src={image.href}
+            alt={image.text}
+            loading="lazy"
+            decoding="async"
+            class="max-w-full h-auto"
+          />
+        );
       }
       default:
         return (token as any).raw ?? "";
@@ -77,7 +86,7 @@ function Table({ token }: { token: Tokens.Table }) {
           {token.header.map((cell, i) => (
             <th
               key={i}
-              class="text-left text-xs uppercase tracking-widest text-stone-900/40 dark:text-stone-200/40 pb-3 pr-8 font-medium"
+              class="text-left text-xs uppercase tracking-widest text-stone-900/65 dark:text-stone-200/65 pb-3 pr-8 font-medium"
             >
               {renderInline(cell.tokens)}
             </th>

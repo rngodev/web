@@ -1,6 +1,8 @@
 import { Hono, type Context } from "hono";
 import Layout from "./layout";
+import { describeMarkdown } from "./components/seo";
 import Home from "./views/home";
+import NotFound from "./views/not-found";
 import Blog from "./views/blog";
 import { DocPage } from "./views/docs/page";
 import { generatorTypeMarkdown, GeneratorTypePage } from "./views/docs/spec/generator/page";
@@ -49,8 +51,85 @@ const app = new Hono<{ Bindings: Env }>();
 
 app.use(Layout);
 
-app.get("/", (c) => c.render(<Home />));
-app.get("/blog", (c) => c.render(<Blog />));
+// Security headers. The CSP is production-only because the Vite dev server injects inline
+// scripts and a websocket for HMR.
+app.use(async (c, next) => {
+  await next();
+  c.header("X-Content-Type-Options", "nosniff");
+  c.header("Referrer-Policy", "strict-origin-when-cross-origin");
+  c.header("X-Frame-Options", "DENY");
+  c.header("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  if (import.meta.env.PROD) {
+    c.header(
+      "Content-Security-Policy",
+      "default-src 'self'; img-src 'self' data:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    );
+  }
+});
+
+app.notFound((c) => {
+  c.status(404);
+  return c.render(<NotFound />, {
+    seo: {
+      title: "Page not found · rngo",
+      description: "That page doesn't exist or has moved.",
+      noindex: true,
+    },
+  });
+});
+
+const escapeXml = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+app.get("/feed.xml", (c) => {
+  const origin = new URL(c.req.url).origin;
+  const entries = posts
+    .map((post) => {
+      const url = `${origin}/blog/${post.type}/${post.slug}`;
+      return `  <entry>
+    <title>${escapeXml(post.title)}</title>
+    <link href="${url}"/>
+    <id>${url}</id>
+    <updated>${post.date}T00:00:00Z</updated>
+    <summary>${escapeXml(post.excerpt)}</summary>
+  </entry>`;
+    })
+    .join("\n");
+  return c.body(
+    `<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>rngo blog</title>
+  <link href="${origin}/feed.xml" rel="self"/>
+  <link href="${origin}/blog"/>
+  <id>${origin}/blog</id>
+  <updated>${posts[0].date}T00:00:00Z</updated>
+${entries}
+</feed>
+`,
+    200,
+    { "Content-Type": "application/atom+xml; charset=utf-8" },
+  );
+});
+
+app.get("/robots.txt", (c) =>
+  c.text(`User-agent: *\nAllow: /\n\nSitemap: ${new URL(c.req.url).origin}/sitemap.xml\n`),
+);
+
+app.get("/", (c) =>
+  c.render(<Home />, {
+    seo: {
+      jsonLd: { "@type": "WebSite", name: "rngo", url: new URL(c.req.url).origin },
+      title: "rngo · Learn what your code does",
+      description:
+        "rngo is a dynamic code analyzer that simulates usage, records everything and surfaces patterns.",
+    },
+  }),
+);
+app.get("/blog", (c) =>
+  c.render(<Blog />, {
+    seo: { title: "Blog · rngo", description: "Release notes and news from the rngo team." },
+  }),
+);
 
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new blog post only means adding one entry here and to posts.ts.
@@ -73,7 +152,21 @@ const blogMarkdown: Record<string, string> = {
 for (const post of posts) {
   const content = blogMarkdown[post.slug];
   app.get(`/blog/${post.type}/${post.slug}`, (c) =>
-    c.render(<PostPage meta={post} content={content} />),
+    c.render(<PostPage meta={post} content={content} />, {
+      seo: {
+        title: `${post.title} · rngo blog`,
+        description: post.excerpt,
+        type: "article",
+        jsonLd: {
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt,
+          datePublished: post.date,
+          url: new URL(c.req.url).href,
+          publisher: { "@type": "Organization", name: "rngo" },
+        },
+      },
+    }),
   );
 }
 
@@ -95,9 +188,27 @@ app.get("/blog/*", serveBlogMarkdown);
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new docs page only means adding one call here.
 const docsMarkdown: Record<string, string> = {};
+function docsSeo(url: URL, section: string, active: string, content: string) {
+  return {
+    jsonLd: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Docs", item: `${url.origin}/docs` },
+        { "@type": "ListItem", position: 2, name: section },
+        { "@type": "ListItem", position: 3, name: active, item: url.href },
+      ],
+    },
+    title: `${active} · ${section} · rngo docs`,
+    description: describeMarkdown(content) || "rngo documentation",
+  };
+}
 function docsPage(path: string, section: string, active: string, content: string) {
   docsMarkdown[path] = content;
-  app.get(path, (c) => c.render(<DocPage section={section} active={active} content={content} />));
+  app.get(path, (c) =>
+    c.render(<DocPage section={section} active={active} content={content} />, {
+      seo: docsSeo(new URL(c.req.url), section, active, content),
+    }),
+  );
 }
 
 docsPage("/docs", "Platform", "Overview", platformOverview);
@@ -133,7 +244,11 @@ docsPage("/docs/cli/skills/install", "CLI", "skills install", cliSkillsInstall);
 // so a new generator type file needs no changes here.
 for (const [name, content] of Object.entries(generatorTypeMarkdown)) {
   docsMarkdown[`/docs/spec/generator/${name}`] = content;
-  app.get(`/docs/spec/generator/${name}`, (c) => c.render(<GeneratorTypePage name={name} />));
+  app.get(`/docs/spec/generator/${name}`, (c) =>
+    c.render(<GeneratorTypePage name={name} />, {
+      seo: docsSeo(new URL(c.req.url), "Spec", name, content),
+    }),
+  );
 }
 
 // Old URLs (including .md) permanently redirect to their pages under "/docs/spec".
@@ -182,6 +297,27 @@ function serveDocsMarkdown(c: Context) {
   if (content === undefined) return c.notFound();
   return c.text(content, 200, { "Content-Type": "text/markdown; charset=utf-8" });
 }
+
+app.get("/sitemap.xml", (c) => {
+  const origin = new URL(c.req.url).origin;
+  const urls: { path: string; lastmod?: string }[] = [
+    { path: "/" },
+    { path: "/blog" },
+    ...posts.map((p) => ({ path: `/blog/${p.type}/${p.slug}`, lastmod: p.date })),
+    ...Object.keys(docsMarkdown).map((path) => ({ path })),
+  ];
+  const body = urls
+    .map(
+      ({ path, lastmod }) =>
+        `  <url><loc>${origin}${path}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`,
+    )
+    .join("\n");
+  return c.body(
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`,
+    200,
+    { "Content-Type": "application/xml; charset=utf-8" },
+  );
+});
 
 app.get("/docs.md", serveDocsMarkdown);
 app.get("/docs/*", serveDocsMarkdown);

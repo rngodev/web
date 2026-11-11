@@ -21,7 +21,7 @@ export function H2({ children }: { children: string }) {
     <h2 id={id} class="group relative scroll-mt-20 text-xl font-medium tracking-tight mt-10 mb-3">
       <a
         href={`#${id}`}
-        class="absolute -left-4 opacity-0 text-amber-600 dark:text-amber-400 transition-opacity group-hover:opacity-100"
+        class="absolute -left-4 opacity-0 text-amber-700 dark:text-amber-400 transition-opacity group-hover:opacity-100"
         aria-hidden="true"
         tabindex={-1}
       >
@@ -44,7 +44,7 @@ export function P({ children }: { children: any }) {
 
 export function A({ href, children }: { href: string; children: any }) {
   return (
-    <a href={href} class="text-amber-600 dark:text-amber-400 transition-opacity hover:opacity-80">
+    <a href={href} class="text-amber-700 dark:text-amber-400 transition-opacity hover:opacity-80">
       {children}
     </a>
   );
@@ -60,7 +60,7 @@ export function CodeBlock({ children }: { children: string }) {
 
 export function InlineCode({ children }: { children: any }) {
   return (
-    <code class="text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-stone-800 px-1.5 py-0.5 text-xs rounded-sm">
+    <code class="text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-stone-800 px-1.5 py-0.5 text-xs rounded-sm">
       {children}
     </code>
   );
@@ -147,7 +147,7 @@ function SectionLink(props: { href: string; active: string; text: string }) {
       class={`px-3 py-2.5 text-sm border-b-2 transition-colors ${
         isActive
           ? "border-stone-900 text-stone-900 dark:border-stone-200 dark:text-stone-200"
-          : "border-transparent text-stone-900/50 dark:text-stone-200/50 hover:text-stone-900 dark:hover:text-stone-200"
+          : "border-transparent text-stone-900/65 dark:text-stone-200/65 hover:text-stone-900 dark:hover:text-stone-200"
       }`}
     >
       {props.text}
@@ -159,7 +159,9 @@ function SidebarGroup(props: PropsWithChildren<{ title?: string }>) {
   return (
     <div class="mb-6">
       {props.title && (
-        <p class="text-xs uppercase tracking-widest mb-2 text-amber-600">{props.title}</p>
+        <p class="text-xs uppercase tracking-widest mb-2 text-amber-700 dark:text-amber-500">
+          {props.title}
+        </p>
       )}
       <ul class="space-y-0.5">{props.children}</ul>
     </div>
@@ -178,7 +180,7 @@ function SidebarLink(
         class={`block px-2 py-1.5 text-sm rounded-sm transition-colors ${
           isActive
             ? "text-stone-900 dark:text-stone-200 bg-stone-900/5 dark:bg-stone-200/10"
-            : "text-stone-900/55 dark:text-stone-200/55 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-900/5 dark:hover:bg-stone-200/5"
+            : "text-stone-900/65 dark:text-stone-200/65 hover:text-stone-900 dark:hover:text-stone-200 hover:bg-stone-900/5 dark:hover:bg-stone-200/5"
         }`}
       >
         {props.text}
@@ -320,7 +322,9 @@ export function DocsLayout(props: DocsLayoutProps) {
         </aside>
 
         {/* Main content */}
-        <main class="flex-1 min-w-0 max-w-2xl">{props.children}</main>
+        <main id="main" class="flex-1 min-w-0 max-w-2xl">
+          {props.children}
+        </main>
       </div>
     </div>
   );
