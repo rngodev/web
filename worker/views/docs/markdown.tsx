@@ -42,7 +42,16 @@ function renderInline(tokens: Token[]): any[] {
       }
       case "image": {
         const image = token as Tokens.Image;
-        return <img key={i} src={image.href} alt={image.text} class="max-w-full h-auto" />;
+        return (
+          <img
+            key={i}
+            src={image.href}
+            alt={image.text}
+            loading="lazy"
+            decoding="async"
+            class="max-w-full h-auto"
+          />
+        );
       }
       default:
         return (token as any).raw ?? "";
