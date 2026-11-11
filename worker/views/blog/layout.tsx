@@ -50,7 +50,9 @@ export function ReleaseTag({ release, link = false }: { release: Release; link?:
 function RecentPosts({ current }: { current?: string }) {
   return (
     <div class="mb-6">
-      <p class="text-xs uppercase tracking-widest mb-2 text-amber-600">Recent Posts</p>
+      <p class="text-xs uppercase tracking-widest mb-2 text-amber-700 dark:text-amber-500">
+        Recent Posts
+      </p>
       <ul class="space-y-0.5">
         {posts.slice(0, 5).map((post) => (
           <li>

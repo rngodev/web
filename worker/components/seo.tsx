@@ -6,6 +6,8 @@ export interface SeoProps {
   title: string;
   description: string;
   type?: "website" | "article";
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>;
 }
 
 declare module "hono" {
@@ -15,23 +17,50 @@ declare module "hono" {
 }
 
 /** Renders the title, description, canonical URL and social tags inside `<head>`. */
-export function Seo({ title, description, type = "website" }: SeoProps) {
+export function Seo({ title, description, type = "website", noindex, jsonLd }: SeoProps) {
   const url = new URL(useRequestContext().req.url);
   const canonical = `${url.origin}${url.pathname}`;
+  const image = `${url.origin}/og.png`;
 
   return (
     <>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={canonical} />
+      {noindex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <link rel="canonical" href={canonical} />
+      )}
+      <link
+        rel="alternate"
+        type="application/atom+xml"
+        title="rngo blog"
+        href={`${url.origin}/feed.xml`}
+      />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:type" content={type} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonical} />
-      <meta name="twitter:card" content="summary" />
+      <meta property="og:image" content={image} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content="rngo: learn what your code does" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={image} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({ "@context": "https://schema.org", ...jsonLd }).replace(
+              /</g,
+              "\\u003c",
+            ),
+          }}
+        />
+      )}
     </>
   );
 }

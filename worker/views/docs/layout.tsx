@@ -21,7 +21,7 @@ export function H2({ children }: { children: string }) {
     <h2 id={id} class="group relative scroll-mt-20 text-xl font-medium tracking-tight mt-10 mb-3">
       <a
         href={`#${id}`}
-        class="absolute -left-4 opacity-0 text-amber-600 dark:text-amber-400 transition-opacity group-hover:opacity-100"
+        class="absolute -left-4 opacity-0 text-amber-700 dark:text-amber-400 transition-opacity group-hover:opacity-100"
         aria-hidden="true"
         tabindex={-1}
       >
@@ -44,7 +44,7 @@ export function P({ children }: { children: any }) {
 
 export function A({ href, children }: { href: string; children: any }) {
   return (
-    <a href={href} class="text-amber-600 dark:text-amber-400 transition-opacity hover:opacity-80">
+    <a href={href} class="text-amber-700 dark:text-amber-400 transition-opacity hover:opacity-80">
       {children}
     </a>
   );
@@ -60,7 +60,7 @@ export function CodeBlock({ children }: { children: string }) {
 
 export function InlineCode({ children }: { children: any }) {
   return (
-    <code class="text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-stone-800 px-1.5 py-0.5 text-xs rounded-sm">
+    <code class="text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-stone-800 px-1.5 py-0.5 text-xs rounded-sm">
       {children}
     </code>
   );
@@ -159,7 +159,9 @@ function SidebarGroup(props: PropsWithChildren<{ title?: string }>) {
   return (
     <div class="mb-6">
       {props.title && (
-        <p class="text-xs uppercase tracking-widest mb-2 text-amber-600">{props.title}</p>
+        <p class="text-xs uppercase tracking-widest mb-2 text-amber-700 dark:text-amber-500">
+          {props.title}
+        </p>
       )}
       <ul class="space-y-0.5">{props.children}</ul>
     </div>

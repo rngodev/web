@@ -26,7 +26,7 @@ export default function Blog() {
                   {formatDate(post.date)}
                 </time>
               </div>
-              <h2 class="text-xl font-medium tracking-tight mb-2 transition-colors group-hover:text-amber-600 dark:group-hover:text-amber-400">
+              <h2 class="text-xl font-medium tracking-tight mb-2 transition-colors group-hover:text-amber-700 dark:group-hover:text-amber-400">
                 {post.title}
               </h2>
               <p class="text-sm leading-relaxed text-pretty text-stone-900/70 dark:text-stone-200/70">

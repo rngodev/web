@@ -16,7 +16,7 @@ function NavLink({
       aria-current={current ? "page" : undefined}
       class={`text-sm transition-colors ${
         current
-          ? "text-amber-600 dark:text-amber-400"
+          ? "text-amber-700 dark:text-amber-400"
           : "text-stone-900/65 hover:text-stone-900 dark:text-stone-200/65 dark:hover:text-stone-200"
       }`}
     >
@@ -82,7 +82,7 @@ export function SiteHeader({ active, children }: SiteHeaderProps) {
               />
             </svg>
             {active && (
-              <span class="text-sm text-amber-600 dark:text-amber-400">
+              <span class="text-sm text-amber-700 dark:text-amber-400">
                 {active === "docs" ? "Docs" : "Blog"}
               </span>
             )}
