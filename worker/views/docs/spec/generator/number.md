@@ -12,7 +12,7 @@ The minimum value (inclusive) to be generated. If omitted, may generate values m
 
 ### `maximum` — optional
 
-The maximum value (inclusive) to be generated. If omitted, may generate values may be as high as 1.7976931348623157×10³⁰⁸.
+The maximum value to be generated. Exclusive when `minimum` is also set, before rounding to `scale`. If omitted, may generate values may be as high as 1.7976931348623157×10³⁰⁸.
 
 ### `scale` — optional
 
