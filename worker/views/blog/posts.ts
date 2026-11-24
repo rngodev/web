@@ -21,7 +21,10 @@ export const posts: PostMeta[] = [
     excerpt: "Version the spec format, tighten the Rust API and fail loudly on invalid specs.",
     date: "2026-11-23",
     type: "release-notes",
-    releases: [{ repo: "rngo", version: "0.41.0" }],
+    releases: [
+      { repo: "rngo", version: "0.41.0" },
+      { repo: "agent", version: "0.7.0" },
+    ],
   },
   {
     slug: "prototypes-and-scenarios",
