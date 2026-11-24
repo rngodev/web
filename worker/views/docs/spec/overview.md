@@ -10,6 +10,7 @@ There are two ways of representing a spec:
 This reference will focus on the JSON / YAML representation. Here's an example:
 
 ```yaml
+version: 1
 key: my-service
 seed: 41
 start: now - years(5)
@@ -63,6 +64,12 @@ The spec component types that are represented as discriminated unions are:
 You can see in the example above that each of these component types have a `type` parameter. In fact, the effect has a generator of type `object`, which has nested generators of types `number` and `string` - each has a different parameter schema.
 
 ## Parameters
+
+### `version` — optional
+
+The spec format version. Currently the only version is `1`, which is also the default.
+
+`rngo` reports an error when a spec declares a format version that it doesn't support.
 
 ### `key` — required
 
