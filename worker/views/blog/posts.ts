@@ -16,6 +16,17 @@ export interface PostMeta {
 
 export const posts: PostMeta[] = [
   {
+    slug: "stabilizing",
+    title: "Stabilizing",
+    excerpt: "Version the spec format, tighten the Rust API and fail loudly on invalid specs.",
+    date: "2026-11-23",
+    type: "release-notes",
+    releases: [
+      { repo: "rngo", version: "0.41.0" },
+      { repo: "agent", version: "0.7.0" },
+    ],
+  },
+  {
     slug: "prototypes-and-scenarios",
     title: "Prototypes & Scenarios",
     excerpt: "Share parameters among effects and eval spec variants.",

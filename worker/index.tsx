@@ -9,6 +9,7 @@ import { generatorTypeMarkdown, GeneratorTypePage } from "./views/docs/spec/gene
 import { PostPage } from "./views/blog/page";
 import { posts } from "./views/blog/posts";
 
+import stabilizingPost from "./views/blog/posts/release-notes/stabilizing.md?raw";
 import prototypesAndScenariosPost from "./views/blog/posts/release-notes/prototypes-and-scenarios.md?raw";
 import breakStuffPost from "./views/blog/posts/release-notes/break-stuff.md?raw";
 import channelingPost from "./views/blog/posts/release-notes/channeling.md?raw";
@@ -136,6 +137,7 @@ app.get("/blog", (c) =>
 // Registers both the rendered HTML route and its raw-markdown ({path}.md) counterpart,
 // so adding a new blog post only means adding one entry here and to posts.ts.
 const blogMarkdown: Record<string, string> = {
+  stabilizing: stabilizingPost,
   "prototypes-and-scenarios": prototypesAndScenariosPost,
   "break-stuff": breakStuffPost,
   channeling: channelingPost,
